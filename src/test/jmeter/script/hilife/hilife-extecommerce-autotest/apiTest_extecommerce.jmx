@@ -114,7 +114,7 @@ vars.put(&quot;companyId&quot;,&quot;269931278217394676665406&quot;);       //�
 vars.put(&quot;communityID&quot;,&quot;269931278217394676665406&quot;);    //社区ID
 vars.put(&quot;clientID&quot;,&quot;id_3155583436507529782&quot;);     //固定登陆验证clientID
 vars.put(&quot;client_secret&quot;,&quot;781216684&quot;);              //固定登陆client_secret
-vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客ID</stringProp>
+vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //用户ID</stringProp>
             <stringProp name="BeanShellSampler.filename"></stringProp>
             <stringProp name="BeanShellSampler.parameters"></stringProp>
             <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
@@ -245,7 +245,7 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
             <stringProp name="LoopController.loops">1</stringProp>
           </LoopController>
           <hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="下单/退款" enabled="true"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_下单/支付/取消订单" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="下单接口" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -259,28 +259,28 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
             &quot;goods&quot;: [&#xd;
                 {&#xd;
                     &quot;goodName&quot;: &quot;苹果&quot;,&#xd;
-                    &quot;goodImg&quot;: &quot;url&quot;,&#xd;
-                    &quot;price&quot;: &quot;1&quot;,&#xd;
+                    &quot;goodImg&quot;: &quot;http://testimgs.woliwu.com/goods/images/9000000175_default.jpeg&quot;,&#xd;
+                    &quot;price&quot;: &quot;100&quot;,&#xd;
                     &quot;sku_name&quot;: &quot;红富士&quot;,&#xd;
-                    &quot;num&quot;: &quot;60&quot;&#xd;
+                    &quot;num&quot;: &quot;6&quot;&#xd;
                 },&#xd;
                 {&#xd;
                     &quot;goodName&quot;: &quot;香蕉&quot;,&#xd;
-                    &quot;goodImg&quot;: &quot;url&quot;,&#xd;
-                    &quot;price&quot;: &quot;1&quot;,&#xd;
+                    &quot;goodImg&quot;: &quot;http://testimgs.woliwu.com/goods/images/9000000175_default.jpeg&quot;,&#xd;
+                    &quot;price&quot;: &quot;100&quot;,&#xd;
                     &quot;sku_name&quot;: &quot;大&quot;,&#xd;
-                    &quot;num&quot;: &quot;60&quot;&#xd;
+                    &quot;num&quot;: &quot;6&quot;&#xd;
                 }&#xd;
             ],&#xd;
-            &quot;receiveName&quot;: &quot;张三&quot;,&#xd;
-            &quot;receiveAddress&quot;: &quot;北京市朝阳区爱工场&quot;,&#xd;
+            &quot;receiveName&quot;: &quot;王小勇&quot;,&#xd;
+            &quot;receiveAddress&quot;: &quot;接口地址——北京市朝阳区爱工场&quot;,&#xd;
             &quot;receivePhone&quot;: &quot;13439127899&quot;,&#xd;
-            &quot;thirdOrderFormId&quot;: &quot;6503141643641177040&quot;,&#xd;
+            &quot;thirdOrderFormId&quot;: &quot;${__Random(6503141643600000000,6503141643700000000,thirdOrderFormId)}&quot;,&#xd;
             &quot;thirdId&quot;: &quot;1&quot;&#xd;
         }&#xd;
     ],&#xd;
 &quot;payPrice&quot;: 1200,&#xd;
-&quot;payCompletedUrl&quot;: &quot;&quot;&#xd;
+&quot;payCompletedUrl&quot;: &quot;http://dsfhsh.xinfuli.net/web/mall/order/payOrder?order_code=${thirdOrderFormId}&quot;&#xd;
 }</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
@@ -309,31 +309,177 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                   <stringProp name="script">prev.setDataEncoding(&quot;UTF-8&quot;);</stringProp>
                 </BeanShellPostProcessor>
                 <hashTree/>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_payUrl(支付页面)、payOrderId(支付订单ID)、payPrice(支付金额)、thirdOrderFormId(第三方订单ID)" enabled="false">
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_payUrl(支付页面)、payOrderId(支付订单ID)、payPrice(支付金额)、thirdOrderFormId(第三方订单ID)" enabled="true">
                   <stringProp name="JSONPostProcessor.referenceNames">payUrl;payOrderId;payPrice;thirdOrderFormId</stringProp>
                   <stringProp name="JSONPostProcessor.jsonPathExprs">$.payUrl;$.payOrderId;$.payPrice;$.thirdOrderFormId</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0</stringProp>
-                  <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-                </JSONPostProcessor>
-                <hashTree/>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_thirdUserId(第三方用户ID)、tradeMoney(第三方支付金额)、tradeNo(第三方订单)、outTradeNo(结算单号)" enabled="true">
-                  <stringProp name="JSONPostProcessor.referenceNames">thirdUserId;tradeMoney;tradeNo;outTradeNo</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.thirdUserId;$.tradeMoney;$.tradeNo;$.outTradeNo</stringProp>
-                  <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">not fund;not fund;not fund;not fund</stringProp>
                   <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 </JSONPostProcessor>
                 <hashTree/>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="-789901355">&quot;tradeStatus&quot;:&quot;SUCCESS&quot;</stringProp>
+                    <stringProp name="67791722">&quot;code&quot;:1</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="支付流程" enabled="true">
+                <boolProp name="TransactionController.includeTimers">false</boolProp>
+                <boolProp name="TransactionController.parent">true</boolProp>
+              </TransactionController>
+              <hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取支付页面" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path"></stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">Referer</stringProp>
+                        <stringProp name="Header.value">${payUrl}</stringProp>
+                      </elementProp>
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">Content-Type</stringProp>
+                        <stringProp name="Header.value">application/json;charset=utf-8</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁雄兵-获取支付方式及余额及订单金额" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain">test.91hework.com</stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol">https</stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/payment/pay/choose?payOrderId=${payOrderId}</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="886146591">&quot;code&quot;:100000,&quot;msg&quot;:&quot;请求成功</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">2</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器-获取余额" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">balance</stringProp>
+                    <stringProp name="RegexExtractor.regex">余额 \\(当前余额为\\)(.+?)元</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                    <stringProp name="TestPlan.comments">当前余额为)99238.67元&quot;</stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_payOrderId(支付订单ID)merchantId(商业ID?)totalAmount(支付金额)" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">payOrderId;merchantId;totalAmount</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.result.payOrderId;$.result.merchantId;$.result.totalAmount</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">0;0;0</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="支付密码核对" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain">test.91hiwork.com</stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol">https</stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/payment-account/user/password/find?personId=${personID}&amp;merchantId=${merchantId}</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁雄兵-余额支付" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain">test.91hework.com</stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol">https</stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/payment/channel/order/create/balance?payOrderId=${payOrderId}&amp;paymentType=balance&amp;amount=${totalAmount}&amp;password=${paypassword}</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="1183350441">&quot;code&quot;:100000,&quot;msg&quot;:&quot;请求成功&quot;,</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">2</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="支付管理-核对支付成功？" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain">test.91hiwork.com</stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol">https</stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/payment/pay/success?payOrderId=${payOrderId}</stringProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="取消订单" enabled="true">
@@ -343,7 +489,7 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
                       <stringProp name="Argument.value">{&#xd;
-    &quot;thirdOrderFormId&quot;:&quot;${tradeNo}&quot;&#xd;
+    &quot;thirdOrderFormId&quot;:&quot;${thirdOrderFormId}&quot;&#xd;
 }</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
@@ -367,6 +513,7 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
                     <stringProp name="-285611319">&quot;message&quot;:&quot;取消订单成功&quot;</stringProp>
+                    <stringProp name="67791722">&quot;code&quot;:1</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -374,17 +521,24 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
                 <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_cancelOrderFormId(取消的订单号)-第三方订单号" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">cancelOrderFormId</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.cancelOrderFormId</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+                </JSONPostProcessor>
+                <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="退款接口" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="退款接口  ?没搞明白，是后台那个同意退款接口调用的嘛" enabled="false">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
                       <stringProp name="Argument.value">{&#xd;
-&quot;thirdOrderFormId&quot;:&quot;${tradeNo}&quot;,&#xd;
-&quot;price&quot;:&quot;${tradeMoney}&quot;,&#xd;
-&quot;thirdRefundOrderId&quot;:&quot;678456&quot;,&#xd;
+&quot;thirdOrderFormId&quot;:&quot;${thirdOrderFormId}&quot;,&#xd;
+&quot;price&quot;:&quot;${totalAmount}&quot;,&#xd;
+&quot;thirdRefundOrderId&quot;:&quot;${__Random(100000,900000,thirdRefundOrderId)}&quot;,&#xd;
 &quot;thirdId&quot;:&quot;1&quot;&#xd;
 }</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
@@ -448,9 +602,7 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="订单统计" enabled="true">
-              <stringProp name="TestPlan.comments">蚂蚁上下级关系</stringProp>
-            </GenericController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="订单统计" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="订单统计列表" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -495,9 +647,9 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
               <hashTree>
                 <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_orderFormId" enabled="true">
                   <stringProp name="JSONPostProcessor.referenceNames">orderFormId</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[*].orderFormId</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[?(@.orderFormId==&quot;${cancelOrderFormId}&quot;)].orderFormId</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">not fund</stringProp>
                   <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 </JSONPostProcessor>
                 <hashTree/>
@@ -508,7 +660,7 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;orderFormId&quot;:&quot;${orderFormId}&quot;,&quot;remarks&quot;:&quot;接口测试_增加备注${__time(yyyy-MM-dd HH:mm:ss)}&quot;}</stringProp>
+                      <stringProp name="Argument.value">{&quot;orderFormId&quot;:&quot;${orderFormId}&quot;,&quot;remarks&quot;:&quot;接口测试_我是接口场景中的取消订单的数据${__time(yyyy-MM-dd HH:mm:ss)}&quot;}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -552,7 +704,7 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
-                <stringProp name="HTTPSampler.path">/extecommerce/ecRefundOrder/getRefundOrderByPage?status=1&amp;pageIndex=1&amp;pageMaxSize=10</stringProp>
+                <stringProp name="HTTPSampler.path">/extecommerce/ecRefundOrder/getRefundOrderByPage?status=1&amp;pageIndex=1&amp;pageMaxSize=1000</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -564,25 +716,24 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
               </HTTPSamplerProxy>
               <hashTree>
                 <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取列表数据" enabled="true">
-                  <stringProp name="TestPlan.comments">$.data.dataList[?(@.orderFormId==&quot;${orderFormId}&quot;)]  提取器放变量走不通</stringProp>
                   <stringProp name="JSONPostProcessor.referenceNames">dataList</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[0]</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[?(@.orderFormId==&quot;${orderFormId}&quot;)]</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">not fund</stringProp>
                   <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                 </JSONPostProcessor>
                 <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-202256116">result&quot;:&quot;success&quot;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
               </hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-202256116">result&quot;:&quot;success&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="同意退款确认提交" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -611,42 +762,13 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
               <hashTree>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="-942459379">{&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;,&quot;message&quot;:&quot;退款次数&quot;,&quot;data&quot;:1}</stringProp>
+                    <stringProp name="-1608338648">{&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;,&quot;message&quot;:&quot;&quot;,&quot;data&quot;:null}</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-              </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_同意退款确认" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/extecommerce/ecRefundOrder/getRefundCount?orderFormId=${tradeNo}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">16</intProp>
+                  <stringProp name="TestPlan.comments">退款失败？{&quot;result&quot;:&quot;exception&quot;,&quot;code&quot;:&quot;-1&quot;,&quot;message&quot;:&quot;&quot;,&quot;data&quot;:&quot;&quot;}</stringProp>
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
@@ -681,15 +803,6 @@ vars.put(&quot;personID&quot;,&quot;2924183926278734145&quot;);         //顾客
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-              <collectionProp name="HeaderManager.headers">
-                <elementProp name="" elementType="Header">
-                  <stringProp name="Header.name">cookies</stringProp>
-                  <stringProp name="Header.value">Cookie: dajiaID=5952169824888311215_1594614114246; UM_distinctid=1734668903d15-0b4d5c3a02f3d7-b5d6f0a-41be0-1734668903e95; PID=411e1b7cd5db4e948bc46af126e91ab5; CNZZDATA1278274866=166318059-1594614125-https%253A%252F%252Ftest.91hiwork.com%252F%7C1594621783; agent_APPLET_SESSION_ID=2889623997500444401; uid=0; org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE=zh_CN; JSESSIONID=C66DE278AC18F9BEF275629680C71629; extecommerce_APPLET_SESSION_ID=282045246295067022</stringProp>
-                </elementProp>
-              </collectionProp>
-            </HeaderManager>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="调试取样器" enabled="true">
