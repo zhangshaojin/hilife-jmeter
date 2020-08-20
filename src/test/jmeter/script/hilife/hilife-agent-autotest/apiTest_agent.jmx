@@ -128,11 +128,6 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
-      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
-        <collectionProp name="CookieManager.cookies"/>
-        <boolProp name="CookieManager.clearEachIteration">false</boolProp>
-      </CookieManager>
-      <hashTree/>
       <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection Configuration" enabled="true">
         <boolProp name="autocommit">true</boolProp>
         <stringProp name="checkQuery">select 1</stringProp>
@@ -151,7 +146,7 @@
       </JDBCDataSource>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="基础接口" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
@@ -161,6 +156,7 @@
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="TestPlan.comments">获取基础数据</stringProp>
       </SetupThreadGroup>
       <hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
@@ -338,7 +334,7 @@
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${back_username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
+              <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -418,89 +414,44 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+          <collectionProp name="CookieManager.cookies">
+            <elementProp name="JSESSIONID" elementType="Cookie" testname="JSESSIONID">
+              <stringProp name="Cookie.value">${__P(JSESSIONID)}</stringProp>
+              <stringProp name="Cookie.domain">${domain}</stringProp>
+              <stringProp name="Cookie.path">/</stringProp>
+              <boolProp name="Cookie.secure">false</boolProp>
+              <longProp name="Cookie.expires">0</longProp>
+              <boolProp name="Cookie.path_specified">true</boolProp>
+              <boolProp name="Cookie.domain_specified">true</boolProp>
+            </elementProp>
+            <elementProp name="hID" elementType="Cookie" testname="hID">
+              <stringProp name="Cookie.value">${__P(back_hid)}</stringProp>
+              <stringProp name="Cookie.domain">${domain}</stringProp>
+              <stringProp name="Cookie.path">/</stringProp>
+              <boolProp name="Cookie.secure">false</boolProp>
+              <longProp name="Cookie.expires">0</longProp>
+              <boolProp name="Cookie.path_specified">true</boolProp>
+              <boolProp name="Cookie.domain_specified">true</boolProp>
+            </elementProp>
+            <elementProp name="admin_APPLET_SESSION_ID" elementType="Cookie" testname="admin_APPLET_SESSION_ID">
+              <stringProp name="Cookie.value">${__P(admin_APPLET_SESSION_ID)}</stringProp>
+              <stringProp name="Cookie.domain">${domain}</stringProp>
+              <stringProp name="Cookie.path">/</stringProp>
+              <boolProp name="Cookie.secure">false</boolProp>
+              <longProp name="Cookie.expires">0</longProp>
+              <boolProp name="Cookie.path_specified">true</boolProp>
+              <boolProp name="Cookie.domain_specified">true</boolProp>
+            </elementProp>
+          </collectionProp>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+        </CookieManager>
+        <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="场景用例" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </LoopController>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取cookie" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">false</boolProp>
-          </TransactionController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="用户登陆_获取access_token(合生活App)" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">token.91hework.com</stringProp>
-              <stringProp name="HTTPSampler.port">443</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/oauth/token?version=${version}&amp;password=${password}&amp;grant_type=multiple&amp;customID=${customID}&amp;username=${username}</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="TestPlan.comments">合生活token变量设置为access_token   其他服务toke命名为 服务_token</stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="" elementType="Header">
-                    <stringProp name="Header.name">Authorization</stringProp>
-                    <stringProp name="Header.value">Basic ZXNuTW9iaWxlQ2xpZW50OmVzbk1vYmlsZQ==</stringProp>
-                  </elementProp>
-                  <elementProp name="" elementType="Header">
-                    <stringProp name="Header.name">Content-Type</stringProp>
-                    <stringProp name="Header.value">application/json; charset=utf-8</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-获取access_token、openID" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">access_token;openID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.access_token;$.openID</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">not fund;not fund</stringProp>
-                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-              </JSONPostProcessor>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-登陆" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App场景" enabled="true">
             <stringProp name="TestPlan.comments">购买商品-提现</stringProp>
           </GenericController>
@@ -526,7 +477,7 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
-                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器" enabled="true">
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_agent_APPLET_SESSION_ID" enabled="true">
                   <stringProp name="RegexExtractor.useHeaders">true</stringProp>
                   <stringProp name="RegexExtractor.refname">agent_APPLET_SESSION_ID</stringProp>
                   <stringProp name="RegexExtractor.regex">agent_APPLET_SESSION_ID=(.+?); </stringProp>
@@ -534,6 +485,14 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
                   <stringProp name="RegexExtractor.default"></stringProp>
                   <stringProp name="RegexExtractor.match_number">1</stringProp>
                 </RegexExtractor>
+                <hashTree/>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters">${agent_APPLET_SESSION_ID}</stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">${__setProperty(agent_APPLET_SESSION_ID,${agent_APPLET_SESSION_ID},)};         //agent_APPLET_SESSION_ID
+</stringProp>
+                </BeanShellPostProcessor>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_蚂蚁首页_经纪人信息" enabled="true">
@@ -730,7 +689,7 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="购买商品" enabled="true">
+            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App_购买商品" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">true</boolProp>
             </TransactionController>
@@ -754,27 +713,22 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
-                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                  <collectionProp name="HeaderManager.headers">
-                    <elementProp name="" elementType="Header">
-                      <stringProp name="Header.name">Accept</stringProp>
-                      <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</stringProp>
-                    </elementProp>
-                    <elementProp name="" elementType="Header">
-                      <stringProp name="Header.name">User-Agent</stringProp>
-                      <stringProp name="Header.value">dajia/{&quot;app&quot;:&quot;dajia&quot;,&quot;appCode&quot;:&quot;999&quot;,&quot;appVersion&quot;:&quot;5.3.7&quot;,&quot;appname&quot;:&quot;heshenghuo&quot;,&quot;buildVersion&quot;:&quot;1&quot;,&quot;cID&quot;:&quot;269931278217394676665406&quot;,&quot;customID&quot;:&quot;2699312782173946766&quot;,&quot;deviceBrand&quot;:&quot;HUAWEI&quot;,&quot;deviceType&quot;:&quot;HMA-AL00&quot;,&quot;pID&quot;:&quot;2924183926278734145&quot;,&quot;system&quot;:&quot;android&quot;,&quot;version&quot;:&quot;6.2.1&quot;}</stringProp>
-                    </elementProp>
-                  </collectionProp>
-                </HeaderManager>
-                <hashTree/>
-                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器" enabled="true">
+                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_vshop_APPLET_SESSION_ID" enabled="true">
                   <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-                  <stringProp name="RegexExtractor.refname">agent_APPLET_SESSION_ID</stringProp>
-                  <stringProp name="RegexExtractor.regex">agent_APPLET_SESSION_ID=(.+?);</stringProp>
+                  <stringProp name="RegexExtractor.refname">vshop_APPLET_SESSION_ID</stringProp>
+                  <stringProp name="RegexExtractor.regex">vshop_APPLET_SESSION_ID=(.+?);</stringProp>
                   <stringProp name="RegexExtractor.template">$1$</stringProp>
                   <stringProp name="RegexExtractor.default"></stringProp>
                   <stringProp name="RegexExtractor.match_number">1</stringProp>
                 </RegexExtractor>
+                <hashTree/>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters">${vshop_APPLET_SESSION_ID}</stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">${__setProperty(vshop_APPLET_SESSION_ID,${vshop_APPLET_SESSION_ID},)};         //agent_APPLET_SESSION_ID
+</stringProp>
+                </BeanShellPostProcessor>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品详情" enabled="true">
@@ -1635,36 +1589,6 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
             <stringProp name="TestPlan.comments">后台管理_审核管理_详情管理_收益管理_结算管理_提现管理</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-登陆" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${back_username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
             <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
               <boolProp name="LoopController.continue_forever">true</boolProp>
               <stringProp name="LoopController.loops">1</stringProp>
@@ -1680,7 +1604,7 @@ ${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">{&quot;name&quot;:&quot;测试&quot;,&quot;auditStatus&quot;:null,&quot;registerMobile&quot;:null,&quot;jobNumber&quot;:null,&quot;parentAgentMobile&quot;:null,&quot;parentAgentName&quot;:null,&quot;source&quot;:null,&quot;applyStartTime&quot;:null,&quot;applyEndTime&quot;:null,&quot;idNumber&quot;:null,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
+                        <stringProp name="Argument.value">{&quot;name&quot;:&quot;新增&quot;,&quot;auditStatus&quot;:null,&quot;registerMobile&quot;:null,&quot;jobNumber&quot;:null,&quot;parentAgentMobile&quot;:null,&quot;parentAgentName&quot;:null,&quot;source&quot;:null,&quot;applyStartTime&quot;:null,&quot;applyEndTime&quot;:null,&quot;idNumber&quot;:null,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
                     </collectionProp>
@@ -2737,107 +2661,6 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
                   <hashTree/>
                 </hashTree>
               </hashTree>
-              <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="活动管理_新建/停止/冻结" enabled="false"/>
-              <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-蚂蚁雄兵-活动显示操作 " enabled="true">
-                  <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                    <collectionProp name="Arguments.arguments">
-                      <elementProp name="" elementType="HTTPArgument">
-                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">{&quot;ruleId&quot;:&quot;${ruleId}&quot;,&quot;isShow&quot;:1}</stringProp>
-                        <stringProp name="Argument.metadata">=</stringProp>
-                      </elementProp>
-                    </collectionProp>
-                  </elementProp>
-                  <stringProp name="HTTPSampler.domain"></stringProp>
-                  <stringProp name="HTTPSampler.port"></stringProp>
-                  <stringProp name="HTTPSampler.protocol"></stringProp>
-                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">/agent/agentInfo/updateProceedsRuleIsShow</stringProp>
-                  <stringProp name="HTTPSampler.method">POST</stringProp>
-                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                  <stringProp name="TestPlan.comments">isShow：0，不显示  1，显示</stringProp>
-                </HTTPSamplerProxy>
-                <hashTree>
-                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                    <collectionProp name="Asserion.test_strings">
-                      <stringProp name="789079806">操作成功</stringProp>
-                    </collectionProp>
-                    <stringProp name="Assertion.custom_message"></stringProp>
-                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                    <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
-                  </ResponseAssertion>
-                  <hashTree/>
-                </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-蚂蚁雄兵-活动停止" enabled="true">
-                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                    <collectionProp name="Arguments.arguments"/>
-                  </elementProp>
-                  <stringProp name="HTTPSampler.domain"></stringProp>
-                  <stringProp name="HTTPSampler.port"></stringProp>
-                  <stringProp name="HTTPSampler.protocol"></stringProp>
-                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">/agent/agentInfo/proceedsRuleStop?ruleId=${ruleId}</stringProp>
-                  <stringProp name="HTTPSampler.method">GET</stringProp>
-                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                </HTTPSamplerProxy>
-                <hashTree>
-                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                    <collectionProp name="Asserion.test_strings">
-                      <stringProp name="789079806">操作成功</stringProp>
-                    </collectionProp>
-                    <stringProp name="Assertion.custom_message"></stringProp>
-                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                    <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
-                  </ResponseAssertion>
-                  <hashTree/>
-                </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="校验活动名称-生成一个随机名称" enabled="true">
-                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                    <collectionProp name="Arguments.arguments"/>
-                  </elementProp>
-                  <stringProp name="HTTPSampler.domain"></stringProp>
-                  <stringProp name="HTTPSampler.port"></stringProp>
-                  <stringProp name="HTTPSampler.protocol"></stringProp>
-                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">/agent/proceedsRule/getProceedsRuleByName?ruleName=接口测试活动${__RandomString(5,abcdefg,ruleName)</stringProp>
-                  <stringProp name="HTTPSampler.method">GET</stringProp>
-                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                </HTTPSamplerProxy>
-                <hashTree>
-                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                    <collectionProp name="Asserion.test_strings">
-                      <stringProp name="789079806">操作成功</stringProp>
-                    </collectionProp>
-                    <stringProp name="Assertion.custom_message"></stringProp>
-                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                    <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">2</intProp>
-                  </ResponseAssertion>
-                  <hashTree/>
-                </hashTree>
-              </hashTree>
             </hashTree>
           </hashTree>
         </hashTree>
@@ -2982,7 +2805,7 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;${agentID}&quot;,&quot;companyId&quot;:&quot;${__P(companyId)}&quot;,&quot;companyInfoId&quot;:&quot;2699312782173946766&quot;,&quot;name&quot;:&quot;新增${__RandomString(3,abcde,)}&quot;,&quot;mobile&quot;:&quot;${mobile}&quot;,&quot;jobNumber&quot;:&quot;${__Random(000000,888888,jobNumber)}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;${agentID}&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;2699312782173946766&quot;,&quot;name&quot;:&quot;新增${__RandomString(3,abcde,)}&quot;,&quot;mobile&quot;:&quot;${mobile}&quot;,&quot;jobNumber&quot;:&quot;${__Random(000000,888888,jobNumber)}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -3019,7 +2842,7 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;${agentID}&quot;,&quot;companyId&quot;:&quot;${__P(companyId)}&quot;,&quot;companyInfoId&quot;:&quot;2699312782173946766&quot;,&quot;name&quot;:&quot;新增${__RandomString(3,abcde,)}&quot;,&quot;mobile&quot;:&quot;${__Random(18855550000,18855559999,mobile)}&quot;,&quot;idNumber&quot;:&quot;&quot;,&quot;accountNumber&quot;:&quot;&quot;,&quot;jobNumber&quot;:&quot;&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;${agentID}&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;2699312782173946766&quot;,&quot;name&quot;:&quot;新增${__RandomString(3,abcde,)}&quot;,&quot;mobile&quot;:&quot;${__Random(18855550000,18855559999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -3125,36 +2948,6 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-登陆" enabled="true">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
-            <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${back_username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">2</intProp>
-            </ResponseAssertion>
-            <hashTree/>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_规则配置" enabled="true"/>
           <hashTree>
@@ -3993,7 +3786,7 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
               <hashTree>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="-1941718803">&quot;data&quot;:&quot;操作成功！&quot;
+                    <stringProp name="405434689">&quot;code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;,&quot;data&quot;:&quot;操作成功！&quot;
 </stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
@@ -4087,39 +3880,30 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="false">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies">
             <elementProp name="JSESSIONID" elementType="Cookie" testname="JSESSIONID">
-              <stringProp name="Cookie.value">${__property(JSESSIONID)}</stringProp>
+              <stringProp name="Cookie.value">${__P(JSESSIONID)}</stringProp>
               <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path"></stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="extecommerce_APPLET_SESSION_ID" elementType="Cookie" testname="extecommerce_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__property(extecommerce_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path"></stringProp>
+              <stringProp name="Cookie.path">/</stringProp>
               <boolProp name="Cookie.secure">false</boolProp>
               <longProp name="Cookie.expires">0</longProp>
               <boolProp name="Cookie.path_specified">true</boolProp>
               <boolProp name="Cookie.domain_specified">true</boolProp>
             </elementProp>
             <elementProp name="hID" elementType="Cookie" testname="hID">
-              <stringProp name="Cookie.value">${__property(back_hid)}</stringProp>
+              <stringProp name="Cookie.value">${__P(back_hid)}</stringProp>
               <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path"></stringProp>
+              <stringProp name="Cookie.path">/</stringProp>
               <boolProp name="Cookie.secure">false</boolProp>
               <longProp name="Cookie.expires">0</longProp>
               <boolProp name="Cookie.path_specified">true</boolProp>
               <boolProp name="Cookie.domain_specified">true</boolProp>
             </elementProp>
             <elementProp name="admin_APPLET_SESSION_ID" elementType="Cookie" testname="admin_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__property(admin_APPLET_SESSION_ID)}</stringProp>
+              <stringProp name="Cookie.value">${__P(admin_APPLET_SESSION_ID)}</stringProp>
               <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path"></stringProp>
+              <stringProp name="Cookie.path">/</stringProp>
               <boolProp name="Cookie.secure">false</boolProp>
               <longProp name="Cookie.expires">0</longProp>
               <boolProp name="Cookie.path_specified">true</boolProp>
@@ -4129,45 +3913,6 @@ vars.put(&quot;time&quot;,&quot;${__time(,)}&quot;);</stringProp>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-          <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">Content-Type</stringProp>
-              <stringProp name="Header.value">application/json;charset=utf-8</stringProp>
-            </elementProp>
-          </collectionProp>
-        </HeaderManager>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_登陆_获取用户信息" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-          <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${back_username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">2</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-        </hashTree>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">77</stringProp>
