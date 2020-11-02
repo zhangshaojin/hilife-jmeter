@@ -30,7 +30,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.19</version>
+            <version>8.0.16</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -67,6 +67,23 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <outputDirectory>${project.build.directory}/jmeter/lib</outputDirectory>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <!--核心插件，用于将Apache JMeter集成到Maven中
@@ -100,7 +117,7 @@
 <!--                    </testFilesIncluded>-->
 
                     <!--指定运行的jmeter脚本jmexml-maven-pluginter路径下-->
-                    <testFilesDirectory>${basedir}/src/test/jmeter/script/hilife/${projectName}-autotest</testFilesDirectory>
+                    <testFilesDirectory>${basedir}/src/test/jmeter/script/hilife/hilife-advert-autotest</testFilesDirectory>
 <!--                    <testFilesDirectory>${basedir}/src/test/jmeter/script/hilife/${projectName}-autotest</testFilesDirectory>-->
                     <!--导入外部扩展包-->
                     <!--<jmeterExtensions>
