@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>maven</groupId>
+    <artifactId>jmeterMaven</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!--    <name>jmeter-maven</name>-->
+    <!--    <url>http://maven.apache.org</url>-->
+
+    <!--设置报告生成的路径-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--此路径用于存储JMeter的原生测试结果文件，比如csv或者jtl-->
+        <jmeter.result.jtl.dir>${project.build.directory}/jmeter/results</jmeter.result.jtl.dir>
+        <!--此路径用于存储由模板转换过来的详细的测试结果的html文件-->
+        <jmeter.result.html.dir>${project.build.directory}/jmeter/html_detail_report</jmeter.result.html.dir>
+        <!--此路径用于存储由模板转换过来的测试结果的html文件-->
+        <jmeter.result.html.dir1>${project.build.directory}/jmeter/html_report</jmeter.result.html.dir1>
+        <ReportName>TestReport</ReportName>
+        <projectName>default</projectName>
+    </properties>
+
+    <!--依赖包-->
+    <dependencies>
+        <!--mysql驱动-->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.71</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jmeter</groupId>
+            <artifactId>ApacheJMeter_core</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jmeter</groupId>
+            <artifactId>ApacheJMeter_java</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jmeter</groupId>
+            <artifactId>jorphan</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jmeter</groupId>
+            <artifactId>ApacheJMeter_functions</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <outputDirectory>${project.build.directory}/jmeter/lib</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!--核心插件，用于将Apache JMeter集成到Maven中
+                     https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/blob/master/CHANGELOG.md-->
+                <groupId>com.lazerycode.jmeter</groupId>
+                <artifactId>jmeter-maven-plugin</artifactId>
+                <version>2.9.0</version>
+                <configuration>
+                    <!--JMeter能够创建.jtl（XML格式）测试结果和csv测试结果。
+                     默认情况下，此插件使用csv格式。这里需要将其切换为xml格式。-->
+                    <resultsFileFormat>xml</resultsFileFormat>
+                    <!--这里是否生成result report需要设置为false，否则运行时会出现“前言中不允许有内容”的报错。
+                    因为若该项为true，无论你在.properties配置文件或者此pom文件中将结果文件的格式显示设置为xml，最后都只会生成csv的结果文件。
+                    而csv的格式无法转换成我们最后要的html结果文件，就会报上述的错。-->
+                    <generateReports>false</generateReports>
+                    <!-- 设置忽略失败是否停止运行-->
+                    <ignoreResultFailures>true</ignoreResultFailures>
+                    <!--为结果文件添加时间戳-->
+                    <testResultsTimestamp>true</testResultsTimestamp>
+                    <appendResultsTimestamp>true</appendResultsTimestamp>
+                    <resultsFileNameDateFormat>yyyyMMdd-HHmm</resultsFileNameDateFormat>
+                    <!--指定日志级别-->
+                    <overrideRootLogLevel>debug</overrideRootLogLevel>
+<!--                    <testFilesIncluded>-->
+                        <!--指定运行的jmeter脚本jmeter路径下-->
+<!--                        <jMeterTestFile>*.jmx</jMeterTestFile>-->
+                        <!--指定不需要运行的jmeter脚本-->
+                        <!--<testFilesExcluded>aaa.jmx</testFilesExcluded>-->
+                        <!-- 指定jtl生成目录 -->
+<!--                        <resultsDirectory>${jmeter.result.jtl.dir}</resultsDirectory>-->
+<!--                    </testFilesIncluded>-->
+
+                    <!--指定运行的jmeter脚本jmexml-maven-pluginter路径下-->
+                    <testFilesDirectory>${basedir}/src/test/jmeter/script/hilife/hilife-advert-autotest</testFilesDirectory>
+<!--                    <testFilesDirectory>${basedir}/src/test/jmeter/script/hilife/${projectName}-autotest</testFilesDirectory>-->
+                    <!--导入外部扩展包-->
+                    <!--<jmeterExtensions>
+                     <artifact>com.jmeter:PurseComm_fat:1.0</artifact>
+                     <artifact>com.jmeter:json:1.0</artifact>
+                     <artifact>com.jmeter:fastjsont:1.2.67</artifact>
+                    </jmeterExtensions>-->
+
+                </configuration>
+
+                <executions>
+                    <!-- 生成jmeter配置 -->
+                    <execution>
+                        <id>configuration</id>
+                        <goals>
+                            <goal>configure</goal>
+                        </goals>
+                    </execution>
+                    <!-- 运行jmeter测试 -->
+                    <execution>
+                        <id>jmeter-tests</id>
+                        <phase>verify</phase>
+                        <!--脚本所在的文件夹 -->
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+
+                    </execution>
+                    <!-- 基于测试中的错误生成失败 -->
+                    <!--                    <execution>-->
+                    <!--                        <id>jmeter-check-results</id>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>results</goal>-->
+                    <!--                        </goals>-->
+                    <!--                    </execution>-->
+                </executions>
+
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+
+                        <transformationSet>
+                            <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
+                            <dir>${jmeter.result.jtl.dir}</dir>
+                            <!--需要解析的模板-->
+                            <stylesheet>src/test/resources/jmeter-results-detail-report_30.xsl</stylesheet>
+                            <!--通过模板生成测试结果的html文件-->
+                            <outputDir>${jmeter.result.html.dir1}</outputDir>
+                            <fileMappers>
+                                <fileMapper
+                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>html</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+
+                        <transformationSet>
+                            <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
+                            <dir>${jmeter.result.jtl.dir}</dir>
+                            <!--需要解析的模板-->
+                            <stylesheet>src/test/resources/jmeter-results-shanhe-me.xsl</stylesheet>
+                            <!--通过模板生成测试结果的html文件-->
+                            <outputDir>${jmeter.result.html.dir}</outputDir>
+                            <fileMappers>
+                                <fileMapper
+                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>html</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>saxon</artifactId>
+                        <version>8.7</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+        <defaultGoal>clean</defaultGoal>
+    </build>
+</project>
