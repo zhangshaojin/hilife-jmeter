@@ -164,6 +164,28 @@
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
         <hashTree/>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Reques_t删除" enabled="true">
+          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">SELECT * FROM agent_info WHERE name LIKE &apos;%接口测试%&apos;;
+SELECT * FROM agent_video WHERE title LIKE &apos;%接口测试%&apos;;
+SELECT * FROM proceeds_rule WHERE rule_name LIKE &apos;%接口测试%&apos;;
+SELECT * FROM agent_rule WHERE head_rule_content LIKE &apos;%接口测试%&apos;;
+
+DELETE FROM agent_info WHERE name LIKE &apos;%接口测试%&apos;;
+DELETE FROM agent_video WHERE title LIKE &apos;%接口测试%&apos;;
+DELETE FROM proceeds_rule WHERE rule_name LIKE &apos;%接口测试%&apos;;
+DELETE FROM agent_rule WHERE head_rule_content LIKE &apos;%接口测试%&apos;;
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="TestPlan.comments">计划/模板</stringProp>
+        </JDBCSampler>
+        <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
@@ -1503,6 +1525,7 @@ ${__setProperty(coupon_APPLET_SESSION_ID,${coupon_APPLET_SESSION_ID},)};
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="-1146137678">&quot;data&quot;:true</stringProp>
+                      <stringProp name="40066830">code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;,</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -3736,7 +3759,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品首页-获取vshop_APPLET_SESSION_ID" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品首页" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -3846,9 +3869,9 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">test.91hiwork.com</stringProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
               <stringProp name="HTTPSampler.path">//vshop/orderform/transCheckBuyProductFlow.json?version=6.2.1&amp;companyID=${__P(companyID)}&amp;productID=${productID}&amp;shopID=${shopId}&amp;access_token=${__P(access_token)}&amp;customID=${__P(customID)}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -3879,7 +3902,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品购买详情--(返回html)" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品购买详情(html)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -3945,7 +3968,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </RegexExtractor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品下单提交 (formRecordMapStr 前端写死的)" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-蚂蚁活动-商品下单提交" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="formRecordMapStr" elementType="HTTPArgument">
@@ -4665,7 +4688,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
