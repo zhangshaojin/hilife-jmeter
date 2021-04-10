@@ -151,7 +151,7 @@
         <stringProp name="connectionProperties"></stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化" enabled="false">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -165,30 +165,36 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="false">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
           <stringProp name="dataSource">${projectName}</stringProp>
           <stringProp name="queryType">Callable Statement</stringProp>
-          <stringProp name="query">DELETE a,b,c,d,e,f,g,h FROM promotion_activity a 
-INNER join activity_company_sub b on a.activity_id =b.activity_id 
-join activity_product_sub c on b.activity_id =c.activity_id 
-join activity_supplier_sub d on c.activity_id =d.activity_id 
-join bargain_order_info e on d.activity_id =e.activity_id 
-join help_cut f on e.activity_id =f.activity_id 
-join per_prodect_bargain_info g on f.activity_id =g.activity_id 
-join statistics_record h on g.bargain_info_id =h.bargain_info_id 
-WHERE a.activity_name LIKE &apos;%接口测试-活动名称-砍价%&apos;;
+          <stringProp name="query">/*删除装修登记数据*/
+DELETE a,b FROM decoration_registrat a
+INNER join decoration_registrat_answer b on a.registrat_id=b.registrat_id
+WHERE a.construction_content LIKE &apos;%接口测试%&apos;;
 
-DELETE a,b,c,d,e,f FROM promotion_activity a 
-INNER join activity_company_sub b on a.activity_id =b.activity_id 
-join activity_product_sub c on b.activity_id =c.activity_id 
-join activity_supplier_sub d on c.activity_id =d.activity_id 
-join join_group e on d.activity_id =e.activity_id 
-join start_group f on e.activity_id =f.activity_id 
-WHERE a.activity_name LIKE &apos;%接口测试-活动名称-拼团%&apos;;
+/*删除装修签约数据*/
+DELETE a,b,c,d FROM decoration_signing a
+INNER join decoration_order b on a.signing_id=b.signing_id
+INNER join decoration_order_fee_item c on a.signing_id=c.signing_id
+INNER join decoration_commission_person d on a.signing_id=d.signing_id
+WHERE a.name LIKE &apos;%接口测试%&apos;;
 
-DELETE FROM tag_library WHERE tag_name LIKE &apos;%接口测试%&apos;;
-DELETE FROM promotion_activity WHERE activity_name LIKE &apos;%接口测试%&apos;;
-DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
+DELETE a,c,d FROM decoration_signing a
+INNER join decoration_order_fee_item c on a.signing_id=c.signing_id
+INNER join decoration_commission_person d on a.signing_id=d.signing_id
+WHERE a.name LIKE &apos;%接口测试%&apos;;
+
+DELETE  FROM decoration_signing  WHERE name LIKE &apos;%接口测试%&apos;;
+
+/*删除优惠券跟进记录*/
+DELETE  FROM decoration_apply_follow_up  WHERE content LIKE &apos;%接口测试%&apos;;
+/*删除优惠券装修申请记录表用户*/
+DELETE  FROM decoration_apply_record  WHERE user_name LIKE &apos;%接口测试%&apos;;
+/*删除付款项*/
+DELETE  FROM decoration_order_fee_item  WHERE order_fee_item_name LIKE &apos;%接口测试%&apos;;
+
+
 
 </stringProp>
           <stringProp name="queryArguments"></stringProp>
@@ -1095,7 +1101,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </collectionProp>
           </HeaderManager>
           <hashTree/>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="预约优惠卷" enabled="false"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="预约优惠卷" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券(html)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1164,64 +1170,20 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器--userName;phone;companyName;id;promotionCode" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">userName;phone;companyName;id;promotionCode</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">;$.data.result[*].userName;$.data.result[*].phone;$.data.result[*].companyName;$.data.result[*].id;$.data.result[*].promotionCode</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1;1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0;0</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器--data;dispatchSupplier;remark;source" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">data;dispatchSupplier;remark;source</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.result[*].data;$.data.result[*].dispatchSupplier;$.data.result[*].remark;$.data.result[*].source</stringProp>
+                <stringProp name="JSONPostProcessor.referenceNames">userName;phone;companyName;id</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.result[*].userName;$.data.result[*].phone;$.data.result[*].companyName;$.data.result[*].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_查看预约优惠券跟进记录" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_编辑预约优惠券用户信息" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;decorationApplyRecordId&quot;:19,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/decoration/advanceCoupon/findFollowUpList</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_编辑预约优惠券用户信息" enabled="false">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;id&quot;:${id},&quot;userName&quot;:&quot;${userName}&quot;,&quot;phone&quot;:&quot;${phone}&quot;,&quot;companyName&quot;:&quot;${companyName}&quot;,&quot;source&quot;:${source},&quot;houseArea&quot;:&quot;123&quot;,&quot;houseLayout&quot;:&quot;三室一厅&quot;,&quot;expectDecorationTime&quot;:&quot;2020-11-29T16:00:00.000Z&quot;,&quot;houseType&quot;:&quot;新房&quot;,&quot;promotionCode&quot;:&quot;${promotionCode}&quot;,&quot;remark&quot;:${remark},&quot;createTime&quot;:1599648962000,&quot;updateTime&quot;:1600082742000,&quot;isEffective&quot;:1,&quot;dispatchSupplier&quot;:&quot;${dispatchSupplier}&quot;,&quot;data&quot;:${data}}</stringProp>
+                    <stringProp name="Argument.value">{&quot;id&quot;:${id},&quot;userName&quot;:&quot;${userName}&quot;,&quot;phone&quot;:&quot;${phone}&quot;,&quot;companyName&quot;:&quot;${companyName}&quot;,&quot;source&quot;:null,&quot;houseArea&quot;:&quot;123&quot;,&quot;houseLayout&quot;:&quot;一室一厅&quot;,&quot;expectDecorationTime&quot;:&quot;${__time(yyyy-MM-dd,)}T16:00:00.000Z&quot;,&quot;houseType&quot;:&quot;新房&quot;,&quot;promotionCode&quot;:&quot;8ztlr3&quot;,&quot;remark&quot;:null,&quot;createTime&quot;:${__timeShift(,,,,)},&quot;updateTime&quot;:${__timeShift(,,P3D,,)},&quot;isEffective&quot;:1,&quot;dispatchSupplier&quot;:&quot;接口测试供应商&quot;,&quot;data&quot;:null}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -1252,13 +1214,50 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_接口测试新增跟进记录" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_查看预约优惠券跟进记录" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;decorationApplyRecordId&quot;:19,&quot;content&quot;:&quot;接口测试_新增跟进记录&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;decorationApplyRecordId&quot;:${id},&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/decoration/advanceCoupon/findFollowUpList</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_接口测试新增跟进记录" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;decorationApplyRecordId&quot;:${id},&quot;content&quot;:&quot;接口测试_新增跟进记录&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -1476,6 +1475,13 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_orderID" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">orderID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..orderId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_装修订单管理菜单" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1521,6 +1527,41 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_装修订单管理详情" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;orderId&quot;:&quot;${orderID}&quot;}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/decoration/order/selectInfo</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings"/>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
@@ -2285,7 +2326,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_装修管理" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_装修管理" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="装修" enabled="true"/>
           <hashTree>
@@ -2309,8 +2350,8 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                       <stringProp name="Argument.name">personID</stringProp>
                     </elementProp>
                     <elementProp name="tagName" elementType="HTTPArgument">
-                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">%E8%A3%85%E4%BF%AE</stringProp>
+                      <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                      <stringProp name="Argument.value">装修</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">tagName</stringProp>
@@ -3144,7 +3185,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="装修分期" enabled="true"/>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_跳转装修分期页" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_跳转装修分期页" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -3174,7 +3215,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_申请装修分期" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_申请装修分期" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -3200,6 +3241,15 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
                     <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
@@ -3260,10 +3310,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <hashTree>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="-787092494">https://cdns1.91hilife.com/hilife-decoration-web/myApplyList/css/myApplyList.9440f42383c98a639f26812a39b48e51.css</stringProp>
+                    <stringProp name="49586">200</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
@@ -3374,10 +3424,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1896646927">https://cdns1.91hilife.com/hilife-decoration-web/decorationRegistration/css/decorationRegistration.cda1fde90f6a9ae37d3b8662c04b54bd.css</stringProp>
+                      <stringProp name="49586">200</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
-                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
                     <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
@@ -3523,7 +3573,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">{&quot;decorationCompanyId&quot;:&quot;${__P(companyID)&quot;,&quot;buildId&quot;:&quot;${parentId}&quot;,&quot;houseId&quot;:&quot;${objectId}&quot;,&quot;houseName&quot;:&quot;${objectName}&quot;,&quot;personId&quot;:&quot;${__P(personID)}&quot;,&quot;ownerName&quot;:&quot;${__P(name)}&quot;,&quot;mobile&quot;:&quot;${username}&quot;,&quot;decorationStartTime&quot;:${__timeShift(,,,,)},&quot;decorationEndTime&quot;:${__timeShift(,,P3D,,)},&quot;registratAnswerMos&quot;:[{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;1&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;2&quot;},{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;3&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;3826011175065268265&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;3877260482776184415&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;5021968828662792002&quot;},{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;6235217478618234501&quot;}],&quot;constructionContent&quot;:&quot;接口测试&quot;,&quot;constructionDrawings&quot;:&quot;https://cdns4.91helife.com/coupon/other/2020/11/09/1848d235-0c41-4411-b2b4-004c59bdee9f.jpeg&quot;,&quot;decorationMethod&quot;:1,&quot;decorationFirmName&quot;:&quot;接口测试公司&quot;,&quot;businessLicense&quot;:&quot;https://cdns4.91helife.com/coupon/other/2020/11/09/80554afb-2c4f-4d67-8c4d-4e3317000812.jpeg&quot;,&quot;qualification&quot;:&quot;https://cdns4.91helife.com/coupon/other/2020/11/09/a9f243b4-4295-4fe6-bc2a-5c17510a641f.jpeg&quot;,&quot;constructionManager&quot;:&quot;接口测试&quot;,&quot;constructionManagerMobile&quot;:&quot;15732057266&quot;,&quot;constructionPersons&quot;:&quot;5&quot;}</stringProp>
+                        <stringProp name="Argument.value">{&quot;decorationCompanyId&quot;:&quot;${__P(companyID)}&quot;,&quot;buildId&quot;:&quot;${parentId}&quot;,&quot;houseId&quot;:&quot;${objectId}&quot;,&quot;houseName&quot;:&quot;${objectName}&quot;,&quot;personId&quot;:&quot;${__P(personID)}&quot;,&quot;ownerName&quot;:&quot;${__P(name)}&quot;,&quot;mobile&quot;:&quot;${username}&quot;,&quot;decorationStartTime&quot;:${__timeShift(,,,,)},&quot;decorationEndTime&quot;:${__timeShift(,,P1D,,)},&quot;registratAnswerMos&quot;:[{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;1&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;2&quot;},{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;3&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;3826011175065268265&quot;},{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;3877260482776184415&quot;},{&quot;answerContent&quot;:&quot;是&quot;,&quot;questionId&quot;:&quot;5021968828662792002&quot;},{&quot;answerContent&quot;:&quot;否&quot;,&quot;questionId&quot;:&quot;6235217478618234501&quot;}],&quot;constructionContent&quot;:&quot;接口测试&quot;,&quot;constructionDrawings&quot;:&quot;https://cdns4.91helife.com/coupon/other/2021/04/09/a3381227-06d6-43bc-b5ce-22ca5063318f.jpg&quot;,&quot;decorationMethod&quot;:2,&quot;decorationFirmName&quot;:&quot;&quot;,&quot;businessLicense&quot;:&quot;&quot;,&quot;qualification&quot;:&quot;&quot;,&quot;constructionManager&quot;:&quot;个人装修负责人&quot;,&quot;constructionManagerMobile&quot;:&quot;15656565555&quot;,&quot;constructionPersons&quot;:&quot;5&quot;}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
                     </collectionProp>
@@ -3543,6 +3593,15 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">Content-Type</stringProp>
+                        <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
@@ -3580,6 +3639,15 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">Content-Type</stringProp>
+                        <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
@@ -3594,7 +3662,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="撤销报备登记" enabled="true"/>
               <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修报备申请_列表" enabled="false">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修报备申请_列表" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="pageNumber" elementType="HTTPArgument">
@@ -3662,7 +3730,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   </JSONPostProcessor>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修报备申请_装修报备详情" enabled="false">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修报备申请_装修报备详情" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="registratId" elementType="HTTPArgument">
@@ -3707,7 +3775,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修报备申请_撤销登记" enabled="false">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修报备申请_撤销登记" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="registratId" elementType="HTTPArgument">
@@ -3869,13 +3937,21 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_跳转物业节距" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="tagName" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">物业节聚</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">tagName</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/decoration/index/goPageAggregation/?tagName=%E7%89%A9%E4%B8%9A%E8%8A%82%E8%81%9A</stringProp>
+              <stringProp name="HTTPSampler.path">/decoration/index/goPageAggregation/</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3888,16 +3964,16 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="732292997">https://cdns1.91hilife.com/hilife-decoration-web/appointment/css/appointment.0dfb7ff98f8f3bc52106b2e458c96af7.css</stringProp>
+                  <stringProp name="49586">200</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_跳转装修预约" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_跳转装修预约" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -3918,16 +3994,16 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-1166262930">https://cdns1.91hilife.com/hilife-decoration-web/appointIndex/css/appointIndex.569623cfd123d9f38ed730c356e17059.css</stringProp>
+                  <stringProp name="49586">200</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_banner" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_banner" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -3957,7 +4033,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_获取全部装修类型" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_获取全部装修类型" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -3987,7 +4063,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_获取广告" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_获取广告" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -4017,13 +4093,13 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_获取优惠券" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_获取优惠券" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;userName&quot;:&quot;接口测试&quot;,&quot;phone&quot;:&quot;15201129${__Random(100,999)}&quot;,&quot;companyName&quot;:&quot;北京&quot;,&quot;source&quot;:&quot;&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;userName&quot;:&quot;接口测试_用户&quot;,&quot;phone&quot;:&quot;15201129${__Random(100,999)}&quot;,&quot;companyName&quot;:&quot;北京&quot;,&quot;source&quot;:&quot;&quot;,&quot;remark&quot;:&quot;接口测试备注&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -4066,7 +4142,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例1_用户装修报备申请(随机个人/委托)_四格?" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例1_用户装修报备申请(随机个人/委托)_四格?" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -4687,7 +4763,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例2_用户装修报备申请(随机个人/委托)_撤销报备登记（完成）" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例2_用户装修报备申请(随机个人/委托)_撤销报备登记" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -5469,7 +5545,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_用户预约装修(5个类型随机)_后台装修签约_核对装修订单(未完成)" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_用户预约装修(5个类型随机)_后台装修签约_核对装修订单" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -5614,8 +5690,8 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                     <stringProp name="Argument.name">personID</stringProp>
                   </elementProp>
                   <elementProp name="tagName" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">%E8%A3%85%E4%BF%AE</stringProp>
+                    <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                    <stringProp name="Argument.value">装修</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">tagName</stringProp>
@@ -6538,7 +6614,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例4_用户申请装修分期_后台核对列表 (待调试)" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例4_用户申请装修分期_后台核对列表" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6667,7 +6743,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="装修首页" enabled="true"/>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修_跳转去装修页面" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_跳转去装修页面" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="companyID" elementType="HTTPArgument">
@@ -6719,7 +6795,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修_banner" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_banner" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -6749,7 +6825,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修_装修分类" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_装修分类" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -6786,7 +6862,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修_广告" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_广告" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -6819,7 +6895,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="装修分期" enabled="true"/>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_跳转装修分期页" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_跳转装修分期页" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -6849,7 +6925,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_申请装修分期" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修_申请装修分期" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -6875,9 +6951,18 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
+                    <stringProp name="-1340695031">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;,&quot;message&quot;:&quot;预约成功！</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -6890,7 +6975,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台核对列表" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="装修管理_装修分期预约列表" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_装修分期预约列表" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -6916,9 +7001,19 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                <collectionProp name="HeaderManager.headers">
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">Content-Type</stringProp>
+                    <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </HeaderManager>
+              <hashTree/>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="2127390830">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
+                  <stringProp name="-1900544003">&quot;name&quot;:&quot;接口测试&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -6930,7 +7025,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例5_用户申请预约优惠卷_后台编辑跟进(待调试)" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例5_用户申请预约优惠卷_后台编辑跟进" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -7096,7 +7191,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_跳转装修预约" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_跳转装修预约" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -7126,7 +7221,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_banner" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_banner" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -7156,7 +7251,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_获取全部装修类型" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_获取全部装修类型" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -7186,7 +7281,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_获取广告" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_获取广告" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -7216,7 +7311,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP装修预约_获取优惠券" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_装修预约_获取优惠券" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -7265,7 +7360,16 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台编辑跟进" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="装修管理_预约优惠券列表 " enabled="true">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_列表 " enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -7309,7 +7413,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="装修管理_编辑预约优惠券用户信息" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_编辑预约优惠券用户信息" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -7346,7 +7450,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="装修管理_查看预约优惠券跟进记录" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_查看预约优惠券跟进记录" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -7383,7 +7487,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="装修管理_接口测试新增跟进记录" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_装修管理_预约优惠券_接口测试新增跟进记录" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
