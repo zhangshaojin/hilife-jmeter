@@ -6915,7 +6915,7 @@ vars.put(&quot;content_two&quot;,content1);
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例18_全局搜索_搜索页推荐配置_屏蔽展示位_历史记录查看_app端校验热门搜索是否屏蔽" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例18_全局搜索_搜索页推荐配置_屏蔽展示位_历史记录查看_app端校验热门搜索是否屏蔽" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -7063,10 +7063,10 @@ vars.put(&quot;content_two&quot;,content1);
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_companyInfoId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">companyInfoId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[*].companyInfoId</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_recommendPositionId" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">recommendPositionId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[*].searchRecommendItemMoList[*].recommendPositionId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -7083,13 +7083,21 @@ vars.put(&quot;content_two&quot;,content1);
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_屏蔽展示位" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="recommendPositionId" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${recommendPositionId}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">recommendPositionId</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/appmanage/searchRecommend/deleteSearchRecommend?recommendPositionId=${companyInfoId}</stringProp>
+              <stringProp name="HTTPSampler.path">/appmanage/searchRecommend/deleteSearchRecommend</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -7101,15 +7109,22 @@ vars.put(&quot;content_two&quot;,content1);
             </HTTPSamplerProxy>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_查看历史记录" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;recommendPositionId&quot;:&quot;${recommendPositionId}&quot;,&quot;position&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;hot&quot;:&quot;&quot;,&quot;deleted&quot;:&quot;&quot;,&quot;companyInfoId&quot;:&quot;&quot;,&quot;createPersonId&quot;:&quot;&quot;,&quot;startTime&quot;:&quot;&quot;,&quot;endTime&quot;:&quot;&quot;,&quot;pageNumber&quot;:1,&quot;pageMaxSize&quot;:20}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain"></stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path"></stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <stringProp name="HTTPSampler.path">/appmanage/searchRecommend/listSearchKeyWordVOPage</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
