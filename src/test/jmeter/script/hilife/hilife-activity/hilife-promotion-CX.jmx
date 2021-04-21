@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -138,6 +138,8 @@
         <stringProp name="transactionIsolation">DEFAULT</stringProp>
         <stringProp name="trimInterval">60000</stringProp>
         <stringProp name="username">main</stringProp>
+        <boolProp name="preinit">false</boolProp>
+        <stringProp name="connectionProperties"></stringProp>
       </JDBCDataSource>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化" enabled="true">
@@ -151,6 +153,7 @@
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
@@ -185,6 +188,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
           <stringProp name="resultVariable"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
           <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request_查询测试门店" enabled="false">
@@ -197,6 +201,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
           <stringProp name="resultSetHandler">Store as String</stringProp>
           <stringProp name="resultVariable"></stringProp>
           <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request_查询测试门店/商品/审批记录" enabled="false">
@@ -214,6 +219,7 @@ SELECT * FROM eb_orderform WHERE description LIKE &apos;%接口测试%&apos;;
           <stringProp name="resultSetHandler">Store as String</stringProp>
           <stringProp name="resultVariable"></stringProp>
           <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request_插入" enabled="false">
@@ -227,6 +233,7 @@ SELECT * FROM eb_orderform WHERE description LIKE &apos;%接口测试%&apos;;
           <stringProp name="resultVariable"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
           <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request_更新" enabled="false">
@@ -240,6 +247,7 @@ SELECT * FROM eb_orderform WHERE description LIKE &apos;%接口测试%&apos;;
           <stringProp name="resultVariable"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
           <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
       </hashTree>
@@ -255,11 +263,13 @@ SELECT * FROM eb_orderform WHERE description LIKE &apos;%接口测试%&apos;;
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <stringProp name="TestPlan.comments">获取基础数据</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
@@ -951,7 +961,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -962,6 +972,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
@@ -1067,6 +1078,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </elementProp>
           </collectionProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="页面请求" enabled="true"/>
@@ -4923,6 +4935,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies"/>
               <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取拼团参团人员信息" enabled="true">
@@ -7812,6 +7825,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies"/>
               <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取砍价人员信息" enabled="true">
@@ -8817,7 +8831,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景1：新增/发布拼团活动_发起拼团_参与拼团_核对拼团记录" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景1：新增/发布拼团活动_发起拼团_参与拼团_核对拼团记录" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -8828,11 +8842,13 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="新增/发布拼团活动_发起拼团_参与拼团_核对拼团记录" enabled="true">
@@ -9685,6 +9701,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </elementProp>
               </collectionProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="发布促销活动(拼团)" enabled="true">
@@ -10302,6 +10319,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </elementProp>
               </collectionProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="拼团首页" enabled="true"/>
@@ -11502,6 +11520,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies"/>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取拼团参团人员信息" enabled="true">
@@ -13599,7 +13618,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景2：新增/发布砍价活动_发起砍价_参与砍价_购买商品_核对砍价记录" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景2：新增/发布砍价活动_发起砍价_参与砍价_购买商品_核对砍价记录" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -13610,11 +13629,13 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="新增/发布砍价活动_发起砍价_参与砍价_购买商品_核对砍价记录" enabled="true">
@@ -15013,6 +15034,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </elementProp>
               </collectionProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="砍价首页" enabled="true"/>
@@ -18469,7 +18491,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景3：用于拼团通知- 用户发起拼团-拼团完成，用户接收到拼团消息" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景3：用于拼团通知_用户发起拼团_拼团完成_用户接收到拼团消息" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -18480,14 +18502,16 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="用于拼团通知- 用户发起拼团-拼团完成，用户接收到拼团消息" enabled="true">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="用于拼团通知_用户发起拼团_拼团完成_用户接收到拼团消息" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
@@ -19331,6 +19355,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </elementProp>
               </collectionProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="发布促销活动(拼团)" enabled="true">
@@ -19978,6 +20003,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </elementProp>
               </collectionProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="拼团首页" enabled="true"/>
@@ -21178,6 +21204,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies"/>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取拼团参团人员信息" enabled="true">
@@ -23116,7 +23143,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景4：用于砍价通知-用户发起砍价，砍价完成，用户接收到砍价消息" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景4：用于砍价通知_用户发起砍价_砍价完成_用户接收到砍价消息" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -23127,14 +23154,16 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="用于砍价通知-用户发起砍价，砍价完成，用户接收到砍价消息" enabled="true">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="用于砍价通知_用户发起砍价_砍价完成_用户接收到砍价消息" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
@@ -24500,6 +24529,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </elementProp>
               </collectionProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+              <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
             </CookieManager>
             <hashTree/>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="砍价首页" enabled="true"/>
@@ -26105,7 +26135,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -26116,6 +26146,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
@@ -26212,6 +26243,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </elementProp>
           </collectionProp>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
