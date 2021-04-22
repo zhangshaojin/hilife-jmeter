@@ -3546,7 +3546,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
 
 Random_str ran = new Random_str();
 String content1 = ran.RandomJianHan(4);//此处生成的是长度为4的字符串
-vars.put(&quot;content_post&quot;,content1);
+vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
 </stringProp>
               <stringProp name="BeanShellSampler.filename"></stringProp>
               <stringProp name="BeanShellSampler.parameters"></stringProp>
@@ -5386,7 +5386,7 @@ vars.put(&quot;content_two&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="社区服务_app样式管理_社区服务_后台删除标题（一级/二级)_APP端列表检验是否删除" enabled="true">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="app样式管理_社区服务_后台删除标题（一级/二级)_APP端列表检验是否删除" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
@@ -5437,6 +5437,13 @@ vars.put(&quot;content_two&quot;,&quot;接口测试-&quot;+content1);
                   <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
                 </JSONPostProcessor>
                 <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_sonId" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">sonId</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.content[*].companyServiceSeconds[*].id</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+                </JSONPostProcessor>
+                <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_app样式管理_社区服务_删除一级标题" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -5466,7 +5473,44 @@ vars.put(&quot;content_two&quot;,&quot;接口测试-&quot;+content1);
               <hashTree>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
+                    <stringProp name="-671696245">&quot;code&quot;:&quot;200&quot;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">16</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_app样式管理_社区服务_删除二级标题" enabled="true">
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">{&quot;id&quot;:&quot;${sonId}&quot;,&quot;type&quot;:1,&quot;deleted&quot;:1}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/vshop/companyService/update</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-671696245">&quot;code&quot;:&quot;200&quot;</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -5476,7 +5520,7 @@ vars.put(&quot;content_two&quot;,&quot;接口测试-&quot;+content1);
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台_app样式管理_社区服务_删除二级标题" enabled="true">
+            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台_app样式管理_社区服务_删除二级标题" enabled="false">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">true</boolProp>
             </TransactionController>
@@ -5546,7 +5590,7 @@ vars.put(&quot;content_two&quot;,&quot;接口测试-&quot;+content1);
               <hashTree>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="49586">200</stringProp>
+                    <stringProp name="1874825586">&quot;message&quot;:&quot;查询成功！&quot;</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -5634,7 +5678,7 @@ vars.put(&quot;content_two&quot;,&quot;接口测试-&quot;+content1);
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-1784414233">companyServiceSeconds</stringProp>
+                  <stringProp name="1874825586">&quot;message&quot;:&quot;查询成功！&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -5999,7 +6043,7 @@ vars.put(&quot;content_title&quot;,&quot;接口测试-&quot;+content1);
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-1784414233">companyServiceSeconds</stringProp>
+                  <stringProp name="1874825586">&quot;message&quot;:&quot;查询成功！&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -6338,7 +6382,7 @@ vars.put(&quot;content_title&quot;,&quot;接口测试-&quot;+content1);
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="110371416">title</stringProp>
+                  <stringProp name="1874825586">&quot;message&quot;:&quot;查询成功！&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
