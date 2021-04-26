@@ -2,23 +2,196 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="html" indent="no" encoding="UTF-8" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
     <xsl:strip-space elements="*"/>
-	<xsl:param name="dateReport" select="'date not defined'"/>
-	<xsl:param name="projectName" select="'project name not defined'"/>
-	<xsl:param name="version" select="'project name not defined'"/>
+	<!-- Defined parameters (overrideable) -->
+<xsl:param    name="showData" select="'n'"/>
+<xsl:param    name="titleReport" select="'Load Test Results'"/>
+<xsl:param    name="dateReport" select="'date not defined'"/>
+
+	<xsl:template name="pageHeader">
+		<h1><xsl:value-of select="$titleReport" /></h1>
+		<table width="100%">
+			<tr>
+				<td align="left">Date report: <xsl:value-of select="$dateReport" /></td>
+				<td align="right">Designed for use with <a href="http://jmeter.apache.org/">JMeter</a> and <a href="http://ant.apache.org">Ant</a>.</td>
+			</tr>
+		</table>
+		<hr size="1" />
+	</xsl:template>
+
+	<xsl:template name="summary">
+		<h2>Summary</h2>
+		<table align="center" class="details" border="0" cellpadding="5" cellspacing="2" width="100%">
+			<tr valign="top">
+				<th># Samples</th>
+				<th>Failures</th>
+				<th>Success Rate</th>
+				<th>Average Time</th>
+				<th>Min Time</th>
+				<th>Max Time</th>
+			</tr>
+			<tr valign="top">
+				<xsl:variable name="allCount" select="count(/testResults/*)" />
+				<xsl:variable name="allFailureCount" select="count(/testResults/*[attribute::s='false'])" />
+				<xsl:variable name="allSuccessCount" select="count(/testResults/*[attribute::s='true'])" />
+				<xsl:variable name="allSuccessPercent" select="$allSuccessCount div $allCount" />
+				<xsl:variable name="allTotalTime" select="sum(/testResults/*/@t)" />
+				<xsl:variable name="allAverageTime" select="$allTotalTime div $allCount" />
+				<xsl:variable name="allMinTime">
+					<xsl:call-template name="min">
+						<xsl:with-param name="nodes" select="/testResults/*/@t" />
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:variable name="allMaxTime">
+					<xsl:call-template name="max">
+						<xsl:with-param name="nodes" select="/testResults/*/@t" />
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:attribute name="class">
+					<xsl:choose>
+						<xsl:when test="$allFailureCount &gt; 0">Failure</xsl:when>
+					</xsl:choose>
+				</xsl:attribute>
+				<td align="center">
+					<xsl:value-of select="$allCount" />
+				</td>
+				<td align="center">
+					<xsl:value-of select="$allFailureCount" />
+				</td>
+				<td align="center">
+					<xsl:call-template name="display-percent">
+						<xsl:with-param name="value" select="$allSuccessPercent" />
+					</xsl:call-template>
+				</td>
+				<td align="center">
+					<xsl:call-template name="display-time">
+						<xsl:with-param name="value" select="$allAverageTime" />
+					</xsl:call-template>
+				</td>
+				<td align="center">
+					<xsl:call-template name="display-time">
+						<xsl:with-param name="value" select="$allMinTime" />
+					</xsl:call-template>
+				</td>
+				<td align="center">
+					<xsl:call-template name="display-time">
+						<xsl:with-param name="value" select="$allMaxTime" />
+					</xsl:call-template>
+				</td>
+			</tr>
+		</table>
+	</xsl:template>
+	<xsl:template name="min">
+		<xsl:param name="nodes" select="/.." />
+		<xsl:choose>
+			<xsl:when test="not($nodes)">NaN</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="$nodes">
+					<xsl:sort data-type="number" />
+					<xsl:if test="position() = 1">
+						<xsl:value-of select="number(.)" />
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="max">
+		<xsl:param name="nodes" select="/.." />
+		<xsl:choose>
+			<xsl:when test="not($nodes)">NaN</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="$nodes">
+					<xsl:sort data-type="number" order="descending" />
+					<xsl:if test="position() = 1">
+						<xsl:value-of select="number(.)" />
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="display-percent">
+		<xsl:param name="value" />
+		<xsl:value-of select="format-number($value,'0.00%')" />
+	</xsl:template>
+
+	<xsl:template name="display-time">
+		<xsl:param name="value" />
+		<xsl:value-of select="format-number($value,'0 ms')" />
+	</xsl:template>
     <xsl:template match="/testResults">
         <html lang="en">
         <head>
             <meta name="Author" content="shanhe.me"/>
-            <title>JMeter Test Results</title>
+            <title><xsl:value-of select="$titleReport" /></title>
+			<style type="text/css">
+				body {
+					font:normal 68% verdana,arial,helvetica;
+					color:#000000;
+					background:#EA7500;
+				}
+				table tr td, table tr th {
+					font-size: 68%;
+				}
+				table.details tr th{
+				    color: #ffffff;
+					font-weight: bold;
+					text-align:center;
+					background:#2674a6;
+					white-space: nowrap;
+				}
+				table.details tr td{
+					background:#eeeee0;
+					white-space: nowrap;
+				}
+				h1 {
+					margin: 0px 0px 5px; font: 165% verdana,arial,helvetica
+				}
+				h2 {
+					margin-top: 1em; margin-bottom: 0.5em; font: bold 125% verdana,arial,helvetica
+				}
+				h3 {
+					margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica
+				}
+				.Failure {
+					font-weight:bold; color:red;
+				}
+				
+	
+				img
+				{
+				  border-width: 0px;
+				}
+				
+				.expand_link
+				{
+				   position=absolute;
+				   right: 0px;
+				   width: 27px;
+				   top: 1px;
+				   height: 27px;
+				}
+				
+				.page_details
+				{
+				   display: none;
+				}
+                                
+                                .page_details_expanded
+                                {
+                                    display: block;
+                                    display/* hide this definition from  IE5/6 */: table-row;
+                                }
+
+
+			</style>
             <style type="text/css"><![CDATA[
+            
                 * { margin: 0; padding: 0 }
-                html, body { width: 100%; height: 100%; background: #b4b4b4; font-size: 12px }
+                html, body { width: 100%; height: 100%; background: #FFFFFF; font-size: 12px }
                 table { border: none; border-collapse: collapse; table-layout: fixed }
                 td { vertical-align: baseline; font-size: 12px }
-				#pageHeader-panel {background:#dee4ea}
-				#pageHeader-panel table tr td {padding: 0 0 0 18px}
-				#pageHeader-panel input.lname {border-radius: 25px; width: 270px;  outline: none;}
-                #left-panel { position: absolute; left: 0; top:55px; bottom: 0; width: 300px; overflow: auto; background: #dee4ea }
+                #left-panel { position: absolute; left: 0; top: 120px; bottom: 0; width: 500px; overflow: auto; background: #dee4ea }
                 #left-panel li.navigation { font-weight: bold; cursor: default; color: #9da8b2; line-height: 18px; background-position: 12px 5px; background-repeat: no-repeat; padding: 0 0 0 25px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAICAYAAAArzdW1AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sDEBQqGbO7BEcAAAAdaVRYdENvbW1lbnQAAAAAAENyZWF0ZWQgd2l0aCBHSU1QZC5lBwAAAKRJREFUGNN1zM0KgkAYheF3RvtXSsGyWhRNaILS7bdt11W0KgJvoPwZp0UlBPUtz3nOJw7Hk7necv5dOA2Qaazo2vZP0LEt9olCVtqQROufKNmuqBuBNAYW4QzXGX6B0bDPcjGnMQYJ8Cg12U59oSzaUJQa4IUAXMclDHwAAn/MxPMw765FZd2QRgopBWmsKCrdfhXnS/4ZYElBXdyxewN008Y8AephLAkqz613AAAAAElFTkSuQmCC) }
                 #left-panel li.success { color: #565b60 }
                 #left-panel li.failure { color: red }
@@ -28,47 +201,23 @@
                 #left-panel div.success { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAOCAYAAADwikbvAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sDEBULEEc6wzcAAAAdaVRYdENvbW1lbnQAAAAAAENyZWF0ZWQgd2l0aCBHSU1QZC5lBwAAAiNJREFUKM99kktIVGEYhp/jzJl08lI6logp2Y2EFkbtaqlFROsWrlq4ioJWQRs37VoUVItWkYEVRGSBlhleCpywDEWxTEuxcURTZ6YzxzP/5WshCOHUt36f93kXnyMi5Lsnb4clI4s4fhkXzp5w8mWcfHBvfEpUxVdCUUU6lUPNHuD86cYtBQX5GhPrM7hRg7GaSDRg2vuUd90WuOPVsOyqy6FFo2yOQHlU1S9z9dZT+S/8I7GCLlkAN4eyAf56mnT6Fy1HLnGuuYa++MS/4e74qMRqfXLaJ9BpfnsrLC0m2BYuoqwUbj/+274JD43OEqmexwvW8NUKXnaZtVSS1pNtAAyOvyC6v48HnUNb4Z7PH8UtTlIQWA5tb2RhYY7kz3l2FleytJYg/qWb8t2KZ/0PN+1hgI6uEUr2jpHKpGlquExVaS0VbjUZL7WxaqIXK6ADQ0n9GNfv9XCttWnD/O57t0TKFklnF3g5fJ/seoaa2D4O1x0F4PlgO9oIftbgFgYMfLgjACGqj0vlsddoUnj+Kt/mxunq72RP+UGqYjWMTA7R+b6dUCSEGEF5hoJQip6BaFs4HJtCyRrKs6wHCovDip/kys0WWpovMpOYBCtoT2N9B5uzWG0Zid8gnFrVFEQDtBaUrxEgXBimaEeER2/uIiK4roPOaMRYjBKsFly3fOO3G06dETGCWIsYjckprMphtEKMAQtgsMYi1mJMQHJ6xvkDKQoyphCzkl0AAAAASUVORK5CYII=) }
                 #left-panel div.failure { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAOCAYAAADwikbvAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sDEBUJOEC5CU8AAAAdaVRYdENvbW1lbnQAAAAAAENyZWF0ZWQgd2l0aCBHSU1QZC5lBwAAAeVJREFUKM+NkDtok2EUhp8vl9ZLo/EyKI6KFgqCKC4OClrBWUQEcRRx1cGpk3WyInWrgoMZKkW8thYaEYQ0i7WC2ngrNDTERHJvkv/L/3//dxwc7F8jeOAsh/c973OOEhG61aPnaen7maXYt4MLZ4+pbppQt+F06jNH3QWOb8pxUs+SmJzjv83hxY8SVy3wNdtVneiHqe54IhLoB4/TUkyMyOrKj5yXoVtPZK02kLyYK7OnlqFWzgcCGtUC/YUJ3n5a/jd28tU7ORTN0myUA6Jms8bpWIa798elqzn1fokjThrpVBC3ETzNbYAuca59j/Hp+b/N869Tsk8tgVMCXQk+RlfQuk1/tMLMwzsSMCcm5zjhvoR2AdpF0GuwO4aqttS05ZSbZHhsBoAIwI83Cdkd/460XDAOG02d24MxvlR8dsUUh3f2UHaEtgdbWCHz4oZwcVCp66PP5FLhKjEc8DXaCMsNy8DYn/SnZ+L0hhWOb/F8yLs9fDtwk8j+VpqwrlC34PrgGEu2bhlYhZ1b8dncq3AMeBaUr/k6NUyk4ChKzu+N2hc6Bqody+WDG8g2fLatD7F3axjPgmvAtYJvIbouhhIRrl0ZktnkBGIt1gqeMXQ8D2MMiCIUCqFEsFhEQMSykCuqX0MzLAUJTzRsAAAAAElFTkSuQmCC) }
                 #left-panel div.detail { display: none }
-                #right-panel { position: absolute; right: 0; top: 55px; bottom: 0; left: 301px; overflow: auto; background: white }
+                #right-panel { position: absolute; right: 0; top: 120px; bottom: 0; left: 501px; overflow: auto; background: white }
                 #right-panel .group { font-size: 12px; font-weight: bold; line-height: 16px; padding: 0 0 0 18px; counter-reset: assertion; background-repeat: repeat-x; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAQCAYAAADXnxW3AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sDEBUkDq8pxjkAAAAdaVRYdENvbW1lbnQAAAAAAENyZWF0ZWQgd2l0aCBHSU1QZC5lBwAAADdJREFUCNdVxrERwDAMAzGK0v47eS6Z927SpMFBAAbkvSvnRk5+7K5cVfLMyN39bWakJAjA5xw9R94jN3tVhVEAAAAASUVORK5CYII=) }
                 #right-panel .zebra { background-repeat: repeat; padding: 0 0 0 18px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAmCAYAAAAFvPEHAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sDEBYWFlNztEcAAAAdaVRYdENvbW1lbnQAAAAAAENyZWF0ZWQgd2l0aCBHSU1QZC5lBwAAABdJREFUCNdjYKAtePv5338mBgYGBpoQAGy1BAJlb/y6AAAAAElFTkSuQmCC) }
-                #right-panel .data { line-height: 19px; white-space: nowrap }
-                #right-panel pre.data { white-space: pre }
+                #right-panel .data { word-break:break-all; overflow:auto; line-height: 19px; white-space: pre-wrap }
+                right-panel pre.data { white-space: pre-wrap }
                 #right-panel tbody.failure { color: red }
                 #right-panel td.key { min-width: 108px }
                 #right-panel td.delimiter { min-width: 18px }
                 #right-panel td.assertion:before { counter-increment: assertion; content: counter(assertion) ". " }
                 #right-panel td.assertion { color: black }
                 #right-panel .trail { border-top: 1px solid #b4b4b4 }
-				
-				<!--JSON响应值格式化所用样式 -->
-				div.ControlsRow, div.HeadersRow {font-family: Georgia;}
-				div.Canvas{font-family: Lucida Console, Georgia;font-size: 13px;background-color:#ECECEC;color:#000000;border:solid 1px #CECECE;}
-				.ObjectBrace{color:#00AA00;font-weight:bold;}
-				.ArrayBrace{color:#0033FF;font-weight:bold;}
-				.PropertyName{color:#CC0000;font-weight:bold;}
-				.String{color:#007777;}
-				.Number{color:#AA00AA;}
-				.Boolean{color:#0000FF;}
-				.Function{color:#AA6633;text-decoration:italic;}
-				.Null{color:#0000FF;}
-				.Comma{color:#000000;font-weight:bold;}
-				PRE.CodeContainer{margin-top:0px;margin-bottom:0px;}
-				PRE.CodeContainer img{cursor:pointer;border:none;margin-bottom:-1px;}
-				#CollapsibleViewDetail a{padding-left:10px;}
-				#ControlsRow{white-space:nowrap;font: 11px Georgia;}
-				#TabSizeHolder{padding-left:10px;padding-right:10px;}
-				#HeaderTitle{text-align:right;font-size:11px;}
-				#HeaderSubTitle{margin-bottom:2px;margin-top:0px}
-				A.OtherToolsLink {color:#555;text-decoration:none;}
-				A.OtherToolsLink:hover {text-decoration:underline;}	
-                
             ]]></style>
             <script type="text/javascript"><![CDATA[
             
                 var onclick_li = (function() {
                     var last_selected = null;
-                    return function(li, index) {
-						Process(index);
+                    return function(li) {
                         if( last_selected == li )
                             return;
                         if( last_selected )
@@ -133,211 +282,16 @@
                     o = o ? o.firstChild : null;
                     o = o ? o.nextSibling : null;
                     if(o)
-                        onclick_li(o, 1);
+                        onclick_li(o);
                 };
-				
-				
-				//JSON 格式化引用的js
-				window.SINGLE_TAB = "  ";
-				window.QuoteKeys = true;
-				function $id(id){ return document.getElementById(id); }
-				function IsArray(obj) {
-				  return  obj && 
-						  typeof obj === 'object' && 
-						  typeof obj.length === 'number' &&
-						  !(obj.propertyIsEnumerable('length'));
-				}
-
-				function Process(index){
-				  SetTab();
-				  window.IsCollapsible = false;
-				  debugger;
-				  if (!index){
-					return false;
-				  }  
-				  var json = $id("RawJson" + index).textContent;
-				  
-				  var html = "";
-				  try{
-					if(json == "") json = "\"\"";
-					var obj = eval("["+json+"]");
-					html = ProcessObject(obj[0], 0, false, false, false);
-					$id("Canvas" + index).innerHTML = "<PRE class='CodeContainer'>"+html+"</PRE>";
-				  }catch(e){
-					//alert("JSON数据格式不正确:\n"+e.message);
-					$id("Canvas" + index).innerHTML = "not Json Data";
-				  }
-				}
-				window._dateObj = new Date();
-				window._regexpObj = new RegExp();
-				function ProcessObject(obj, indent, addComma, isArray, isPropertyContent){
-
-				  var html = "";
-				  var comma = (addComma) ? "<span class='Comma'>,</span> " : ""; 
-				  var type = typeof obj;
-				  var clpsHtml ="";
-				  if(IsArray(obj)){
-					if(obj.length == 0){
-					  html += GetRow(indent, "<span class='ArrayBrace'>[ ]</span>"+comma, isPropertyContent);
-					}else{
-					  clpsHtml = window.IsCollapsible ? "<span><img src=\""+window.ImgExpanded+"\" onClick=\"ExpImgClicked(this)\" /></span><span class='collapsible'>" : "";
-					  html += GetRow(indent, "<span class='ArrayBrace'>[</span>"+clpsHtml, isPropertyContent);
-					  for(var i = 0; i < obj.length; i++){
-						html += ProcessObject(obj[i], indent + 1, i < (obj.length - 1), true, false);
-					  }
-					  clpsHtml = window.IsCollapsible ? "</span>" : "";
-					  html += GetRow(indent, clpsHtml+"<span class='ArrayBrace'>]</span>"+comma);
-					}
-				  }else if(type == 'object'){
-					if (obj == null){
-						html += FormatLiteral("null", "", comma, indent, isArray, "Null");
-					}else if (obj.constructor == window._dateObj.constructor) { 
-						html += FormatLiteral("new Date(" + obj.getTime() + ") /*" + obj.toLocaleString()+"*/", "", comma, indent, isArray, "Date"); 
-					}else if (obj.constructor == window._regexpObj.constructor) {
-						html += FormatLiteral("new RegExp(" + obj + ")", "", comma, indent, isArray, "RegExp"); 
-					}else{
-					  var numProps = 0;
-					  for(var prop in obj) numProps++;
-					  if(numProps == 0){
-						html += GetRow(indent, "<span class='ObjectBrace'>{ }</span>"+comma, isPropertyContent);
-					  }else{
-						clpsHtml = window.IsCollapsible ? "<span><img src=\""+window.ImgExpanded+"\" onClick=\"ExpImgClicked(this)\" /></span><span class='collapsible'>" : "";
-						html += GetRow(indent, "<span class='ObjectBrace'>{</span>"+clpsHtml, isPropertyContent);
-
-						var j = 0;
-
-						for(var prop in obj){
-
-						  var quote = window.QuoteKeys ? "\"" : "";
-
-						  html += GetRow(indent + 1, "<span class='PropertyName'>"+quote+prop+quote+"</span>: "+ProcessObject(obj[prop], indent + 1, ++j < numProps, false, true));
-
-						}
-
-						clpsHtml = window.IsCollapsible ? "</span>" : "";
-
-						html += GetRow(indent, clpsHtml+"<span class='ObjectBrace'>}</span>"+comma);
-
-					  }
-
-					}
-
-				  }else if(type == 'number'){
-
-					html += FormatLiteral(obj, "", comma, indent, isArray, "Number");
-
-				  }else if(type == 'boolean'){
-
-					html += FormatLiteral(obj, "", comma, indent, isArray, "Boolean");
-
-				  }else if(type == 'function'){
-
-					if (obj.constructor == window._regexpObj.constructor) {
-
-						html += FormatLiteral("new RegExp(" + obj + ")", "", comma, indent, isArray, "RegExp"); 
-
-					}else{
-
-						obj = FormatFunction(indent, obj);
-
-						html += FormatLiteral(obj, "", comma, indent, isArray, "Function");
-
-					}
-
-				  }else if(type == 'undefined'){
-
-					html += FormatLiteral("undefined", "", comma, indent, isArray, "Null");
-
-				  }else{
-
-					html += FormatLiteral(obj.toString().split("\\").join("\\\\").split('"').join('\\"'), "\"", comma, indent, isArray, "String");
-
-				  }
-
-				  return html;
-
-				}
-
-				function FormatLiteral(literal, quote, comma, indent, isArray, style){
-
-				  if(typeof literal == 'string')
-					literal = literal.split("<").join("&lt;").split(">").join("&gt;");
-				  var str = "<span class='"+style+"'>"+quote+literal+quote+comma+"</span>";
-				  if(isArray) str = GetRow(indent, str);
-				  return str;
-
-				}
-
-				function FormatFunction(indent, obj){
-				  var tabs = "";
-				  for(var i = 0; i < indent; i++) tabs += window.TAB;
-				  var funcStrArray = obj.toString().split("\n");
-				  var str = "";
-				  for(var i = 0; i < funcStrArray.length; i++){
-					str += ((i==0)?"":tabs) + funcStrArray[i] + "\n";
-				  }
-				  return str;
-				}
-
-				function GetRow(indent, data, isPropertyContent){
-				  var tabs = "";
-				  for(var i = 0; i < indent && !isPropertyContent; i++) tabs += window.TAB;
-				  if(data != null && data.length > 0 && data.charAt(data.length-1) != "\n")
-					data = data+"\n";
-				  return tabs+data;                       
-				}
-
-				function TraverseChildren(element, func, depth){
-				  for(var i = 0; i < element.childNodes.length; i++){
-					TraverseChildren(element.childNodes[i], func, depth + 1);
-				  }
-				  func(element, depth);
-				}
-
-				function SetTab(){
-				  window.TAB = MultiplyString(2, window.SINGLE_TAB);
-				}
-
-				function MultiplyString(num, str){
-				  var sb =[];
-				  for(var i = 0; i < num; i++){
-					sb.push(str);
-				  }
-				  return sb.join("");
-				}
-				
+        
             ]]></script>
-				<script src="jquery-1.11.3.min.js"></script>
-				<script type="text/javascript">
-					$(function(){
-						$("#search-button").on("click",function(){
-							var val = $("#key-word").val();
-							var patt = new RegExp(val);
-							$("#result-list li .success").each(function(i,v){
-								if(!patt.test($(v).html())){
-									$(v).parent().remove();
-								}
-							})
-						})
-					})
-				</script>
+			
         </head>
         <body>
-			<div id="pageHeader-panel">
-					<h1>JMeter Test Results</h1>
-					<table width="100%">
-					  <tr>
-						<td align="left">Date report: <xsl:value-of select="$dateReport" /></td>
-						<td align="center">Project name: <xsl:value-of select="$projectName" /></td>
-						<td align="center">Version: <xsl:value-of select="$version" /></td>
-						<td align="right">
-							<input id="key-word" class="lname" type="text" placeholder="  请输入用例名称" ></input>
-							<button id="search-button">搜索</button>
-						</td>
-					 </tr>
-					</table>
-					<hr  style="height:1px;border:none;border-top:1px solid #555555;" />
-			</div>
+			<xsl:call-template name="pageHeader" />				
+			<xsl:call-template name="summary" />
+			<hr size="1" width="100%" align="center" />
             <div id="left-panel">
                 <ol id="result-list">
                     <xsl:for-each select="*">
@@ -345,7 +299,7 @@
                         <xsl:if test="position() = 1 or @tn != preceding-sibling::*[1]/@tn">
                             <li class="navigation">Thread: <xsl:value-of select="@tn"/></li>
                         </xsl:if>
-                        <li onclick="return onclick_li(this, {position()});">
+                        <li onclick="return onclick_li(this);">
                             <div>
                                 <xsl:attribute name="class">
                                     <xsl:choose>
@@ -406,9 +360,7 @@
                                 <div class="zebra">
                                     <table>
                                         <tr><td class="data key">Response Headers</td><td class="data delimiter">:</td><td class="data"><pre class="data"><xsl:value-of select="responseHeader"/></pre></td></tr>
-                                        <tr><td class="data key">Response Data</td><td class="data delimiter">:</td><td class="data"><pre id='RawJson{position()}' class="data"><xsl:value-of select="responseData"/></pre></td></tr>
-                                        <tr><td class="data key">Response File</td><td class="data delimiter">:</td><td class="data"><pre class="data"><xsl:value-of select="responseFile"/></pre></td></tr>
-										<tr><td class="data key">JSON Data Format</td><td class="data delimiter">:</td><td><div id="Canvas{position()}" class="Canvas"></div></td></tr>
+                                        <tr><td class="data key">Response Data</td><td class="data delimiter">:</td><td class="data"><pre class="data"><xsl:value-of select="responseData "/></pre></td></tr>                                    
                                     </table>
                                 </div>
                                 <div class="trail"></div>
