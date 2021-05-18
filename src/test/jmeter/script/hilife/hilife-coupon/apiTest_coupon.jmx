@@ -2395,7 +2395,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                 </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_优惠券管理_线下优惠券_编辑(接口返回有问题)" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_优惠券管理_线下优惠券_编辑" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="useType" elementType="HTTPArgument">
@@ -7305,7 +7305,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   <hashTree/>
                   <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_name,couponTemplateID" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">name;couponTemplateID</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[*].name;$..couponTemplateID</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[?(@.denomination==&quot;5元&quot;)].name;$.data.dataList[?(@.name==&quot;测试&quot;)].couponTemplateID</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">not;not</stringProp>
                   </JSONPostProcessor>
@@ -7398,7 +7398,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="1711574891">&quot;name&quot;:&quot;接口测试_线上优惠券</stringProp>
+                      <stringProp name="1429372836">&quot;name&quot;:&quot;${name}&quot;</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -7639,13 +7639,13 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </JSONPostProcessor>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_发券管理_手动发券_查看发放记录_查看详情(bObjectID取值?)" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_发券管理_手动发券_查看发放记录_查看详情" enabled="true">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">{&quot;couponID&quot;:&quot;${couponID}&quot;,&quot;bObjectID&quot;:&quot;${bObjectID}&quot;,&quot;couponTemplateID&quot;:&quot;${couponTemplateID}&quot;}</stringProp>
+                        <stringProp name="Argument.value">{&quot;couponID&quot;:&quot;${couponID}&quot;,&quot;bObjectID&quot;:&quot;${__P(personID)}&quot;,&quot;couponTemplateID&quot;:&quot;${couponTemplateID}&quot;}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
                     </collectionProp>
@@ -7663,6 +7663,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
                   <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                  <stringProp name="TestPlan.comments">bObjectID与pid一致。参数用的pid代替</stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
@@ -9040,7 +9041,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             </hashTree>
           </hashTree>
         </hashTree>
-        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="APP" enabled="true">
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="APP" enabled="false">
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </LoopController>
@@ -10450,7 +10451,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponTemplateID" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">couponTemplateID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[*].couponTemplateID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券_体验.*?/)].couponTemplateID</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
@@ -10556,7 +10557,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_bObjectID" enabled="true">
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_bObjectID" enabled="false">
                 <stringProp name="RegexExtractor.useHeaders">false</stringProp>
                 <stringProp name="RegexExtractor.refname">bObjectID</stringProp>
                 <stringProp name="RegexExtractor.regex">input id=&quot;bObjectID&quot; type=&quot;hidden&quot; value=&quot;(.+?)&quot;</stringProp>
@@ -10564,6 +10565,19 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <stringProp name="RegexExtractor.default">not</stringProp>
                 <stringProp name="RegexExtractor.match_number">1</stringProp>
               </RegexExtractor>
+              <hashTree/>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="false">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">Integer N = Integer.valueOf(vars.get(&quot;bObjectID _matchNr&quot;));
+String finalArr = &quot;&quot;;
+
+for(Integer i = 1; i &lt;= N; i++)
+{   
+   finalArr = finalArr + (vars.get(&quot;bObjectID &quot;+String.valueOf(i)+&quot;_g1&quot;)) + &quot;,&quot;;
+}</stringProp>
+              </BeanShellPostProcessor>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券列表(待使用)" enabled="true">
@@ -10592,7 +10606,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="bObjectID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${bObjectID}</stringProp>
+                    <stringProp name="Argument.value">${__P(personID)}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">bObjectID</stringProp>
@@ -10654,21 +10668,28 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponID" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">couponID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..couponID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券_体验.*?/)].couponID  </stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券列表_获取核销券码" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
-                  <elementProp name="couponId" elementType="HTTPArgument">
+                  <elementProp name="couponID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">${couponID}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">couponId</stringProp>
+                    <stringProp name="Argument.name">couponID</stringProp>
+                  </elementProp>
+                  <elementProp name="companyID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">companyID</stringProp>
                   </elementProp>
                 </collectionProp>
               </elementProp>
@@ -10676,7 +10697,44 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/coupon//mcc/updateVerifyByUrl</stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//coupon/getCouponDetail</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1328787868">&quot;couponID&quot;:&quot;${couponID}&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_redeemedCode" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">redeemedCode</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..redeemedCode</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销(优惠券核销页面)" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/coupon/mcc/underLineCouponRedeemed?tagName=%E4%BC%98%E6%83%A0%E5%88%B8%E6%A0%B8%E9%94%80</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -10687,7 +10745,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="false">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="220273355">resultType=1</stringProp>
                 </collectionProp>
@@ -10698,15 +10756,15 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销(已核销)" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
-                  <elementProp name="couponId" elementType="HTTPArgument">
+                  <elementProp name="redeemedCode" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${couponID}</stringProp>
+                    <stringProp name="Argument.value">${redeemedCode}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">couponId</stringProp>
+                    <stringProp name="Argument.name">redeemedCode</stringProp>
                   </elementProp>
                 </collectionProp>
               </elementProp>
@@ -10714,7 +10772,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/coupon//mcc/updateVerifyByUrl</stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//djCouponUnder/updateVerifyByCode</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -10727,12 +10785,12 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="513820878">resultType=2&amp;message=ErrorCode3</stringProp>
+                  <stringProp name="1709555192">&quot;result&quot;:&quot;核销成功&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
+                <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
@@ -10762,7 +10820,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="bObjectID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${bObjectID}</stringProp>
+                    <stringProp name="Argument.value">${__P(personID)}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">bObjectID</stringProp>
@@ -11554,7 +11612,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponTemplateID" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">couponTemplateID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[*].couponTemplateID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券_抵用.*?/)].couponTemplateID</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
@@ -11660,7 +11718,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_bObjectID" enabled="true">
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_bObjectID" enabled="false">
                 <stringProp name="RegexExtractor.useHeaders">false</stringProp>
                 <stringProp name="RegexExtractor.refname">bObjectID</stringProp>
                 <stringProp name="RegexExtractor.regex">input id=&quot;bObjectID&quot; type=&quot;hidden&quot; value=&quot;(.+?)&quot;</stringProp>
@@ -11696,7 +11754,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="bObjectID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${bObjectID}</stringProp>
+                    <stringProp name="Argument.value">${__P(personID)}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">bObjectID</stringProp>
@@ -11758,7 +11816,59 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponID" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">couponID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..couponID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券_抵用.*?/)].couponID</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券列表_获取核销券码" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="couponID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${couponID}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">couponID</stringProp>
+                  </elementProp>
+                  <elementProp name="companyID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">companyID</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//coupon/getCouponDetail</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1328787868">&quot;couponID&quot;:&quot;${couponID}&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_redeemedCode" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">redeemedCode</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..redeemedCode</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
@@ -11767,12 +11877,12 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
-                  <elementProp name="couponId" elementType="HTTPArgument">
+                  <elementProp name="redeemedCode" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${couponID}</stringProp>
+                    <stringProp name="Argument.value">${redeemedCode}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">couponId</stringProp>
+                    <stringProp name="Argument.name">redeemedCode</stringProp>
                   </elementProp>
                 </collectionProp>
               </elementProp>
@@ -11780,7 +11890,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/coupon//mcc/updateVerifyByUrl</stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//djCouponUnder/updateVerifyByCode</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -11793,50 +11903,12 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="220273355">resultType=1</stringProp>
+                  <stringProp name="1709555192">&quot;result&quot;:&quot;核销成功&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销(已核销)" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="couponId" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${couponID}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">couponId</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/coupon//mcc/updateVerifyByUrl</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="513820878">resultType=2&amp;message=ErrorCode3</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
+                <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
@@ -11866,7 +11938,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="bObjectID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${bObjectID}</stringProp>
+                    <stringProp name="Argument.value">${__P(personID)}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">bObjectID</stringProp>
@@ -12658,7 +12730,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponTemplateID" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">couponTemplateID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.status==3)].couponTemplateID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券_折扣.*?/)].couponTemplateID</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
@@ -12764,7 +12836,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_bObjectID" enabled="true">
+              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_bObjectID" enabled="false">
                 <stringProp name="RegexExtractor.useHeaders">false</stringProp>
                 <stringProp name="RegexExtractor.refname">bObjectID</stringProp>
                 <stringProp name="RegexExtractor.regex">input id=&quot;bObjectID&quot; type=&quot;hidden&quot; value=&quot;(.+?)&quot;</stringProp>
@@ -12800,7 +12872,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="bObjectID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${bObjectID}</stringProp>
+                    <stringProp name="Argument.value">${__P(personID)}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">bObjectID</stringProp>
@@ -12862,7 +12934,59 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponID" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">couponID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..couponID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券_折扣.*?/)].couponID</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券列表_获取核销券码" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="couponID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${couponID}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">couponID</stringProp>
+                  </elementProp>
+                  <elementProp name="companyID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">companyID</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//coupon/getCouponDetail</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1328787868">&quot;couponID&quot;:&quot;${couponID}&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_redeemedCode" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">redeemedCode</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..redeemedCode</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
@@ -12871,12 +12995,12 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
-                  <elementProp name="couponId" elementType="HTTPArgument">
+                  <elementProp name="redeemedCode" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${couponID}</stringProp>
+                    <stringProp name="Argument.value">${redeemedCode}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">couponId</stringProp>
+                    <stringProp name="Argument.name">redeemedCode</stringProp>
                   </elementProp>
                 </collectionProp>
               </elementProp>
@@ -12884,7 +13008,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/coupon//mcc/updateVerifyByUrl</stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//djCouponUnder/updateVerifyByCode</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -12897,50 +13021,12 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="220273355">resultType=1</stringProp>
+                  <stringProp name="1709555192">&quot;result&quot;:&quot;核销成功&quot;,&quot;code&quot;:&quot;1&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_优惠券核销(已核销)" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="couponId" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${couponID}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">couponId</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/coupon//mcc/updateVerifyByUrl</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="513820878">resultType=2&amp;message=ErrorCode3</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
+                <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
@@ -12970,7 +13056,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="bObjectID" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${bObjectID}</stringProp>
+                    <stringProp name="Argument.value">${__P(personID)}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">bObjectID</stringProp>
