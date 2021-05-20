@@ -19,6 +19,8 @@
         <jmeter.result.html.dir>${project.build.directory}/jmeter/html_detail_report</jmeter.result.html.dir>
         <!--此路径用于存储由模板转换过来的测试结果的html文件-->
         <jmeter.result.html.dir1>${project.build.directory}/jmeter/html_report</jmeter.result.html.dir1>
+        <jmeter.result.html.dir2>${project.build.directory}/jmeter/html_report2</jmeter.result.html.dir2>
+        <jmeter.result.html.dir3>${project.build.directory}/jmeter/html_report3</jmeter.result.html.dir3>
         <ReportName>TestReport</ReportName>
         <projectName>default</projectName>
     </properties>
@@ -197,7 +199,7 @@
                             <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
                             <dir>${jmeter.result.jtl.dir}</dir>
                             <!--需要解析的模板-->
-                            <stylesheet>src/test/resources/jmeter.results.shanhe.me.xsl.xml</stylesheet>
+                            <stylesheet>src/test/resources/jmeter.results.shanhe.me.xsl</stylesheet>
                             <!--通过模板生成测试结果的html文件-->
                             <outputDir>${jmeter.result.html.dir}</outputDir>
                             <fileMappers>
@@ -207,6 +209,39 @@
                                 </fileMapper>
                             </fileMappers>
                         </transformationSet>
+
+                        <transformationSet>
+                            <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
+                            <dir>${jmeter.result.jtl.dir}</dir>
+                            <!--需要解析的模板-->
+                            <stylesheet>src/test/resources/jmeter.results.shanhe.me.xsl.xml</stylesheet>
+                            <!--通过模板生成测试结果的html文件-->
+                            <outputDir>${jmeter.result.html.dir2}</outputDir>
+                            <fileMappers>
+                                <fileMapper
+                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>html</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+
+                        <transformationSet>
+                            <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
+                            <dir>${jmeter.result.jtl.dir}</dir>
+                            <!--需要解析的模板-->
+                            <stylesheet>src/test/resources/jmeter-results-shanhe-me.xsl</stylesheet>
+                            <!--通过模板生成测试结果的html文件-->
+                            <outputDir>${jmeter.result.html.dir3}</outputDir>
+                            <fileMappers>
+                                <fileMapper
+                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>html</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+
+
+
                     </transformationSets>
                 </configuration>
 
