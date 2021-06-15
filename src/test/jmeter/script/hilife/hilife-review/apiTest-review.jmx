@@ -91,9 +91,9 @@
             <stringProp name="Argument.desc">数据库地址/端口号/及库名</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="influxdbIP" elementType="Argument">
-            <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.135:18086</stringProp>
+          <elementProp name="influxdbUrl" elementType="Argument">
+            <stringProp name="Argument.name">influxdbUrl</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -219,6 +219,16 @@ DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;
           <stringProp name="resultSetHandler">Store as String</stringProp>
         </JDBCSampler>
         <hashTree/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="869052411">测试计划</stringProp>
+            <stringProp name="869052411">测试计划</stringProp>
+            <stringProp name="701348580">基础接口</stringProp>
+            <stringProp name="-851911368">后台导入_完成任务_验收任务(3级)_查看/统计任务(两元三元)</stringProp>
+            <stringProp name="623924656">任务验收</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
       </hashTree>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -281,10 +291,7 @@ DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取个人信息" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取个人信息" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取个人信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -312,6 +319,10 @@ DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;
                   <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">0;0</stringProp>
                 </JSONPostProcessor>
+                <hashTree/>
+                <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                  <intProp name="OnError.action">2</intProp>
+                </ResultAction>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_完整的个人信息" enabled="true">
@@ -1756,10 +1767,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                     </JSONPostProcessor>
                     <hashTree/>
                   </hashTree>
-                  <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取个人信息" enabled="true">
-                    <boolProp name="TransactionController.includeTimers">false</boolProp>
-                    <boolProp name="TransactionController.parent">true</boolProp>
-                  </TransactionController>
+                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取个人信息" enabled="true"/>
                   <hashTree>
                     <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取个人信息" enabled="true">
                       <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -2283,10 +2291,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                     </JSONPostProcessor>
                     <hashTree/>
                   </hashTree>
-                  <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取个人信息" enabled="true">
-                    <boolProp name="TransactionController.includeTimers">false</boolProp>
-                    <boolProp name="TransactionController.parent">true</boolProp>
-                  </TransactionController>
+                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取个人信息" enabled="true"/>
                   <hashTree>
                     <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取个人信息" enabled="true">
                       <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3376,10 +3381,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(地区负责)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(地区负责)" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_两三验收_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3629,10 +3631,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <boolProp name="CookieManager.clearEachIteration">false</boolProp>
               </CookieManager>
               <hashTree/>
-              <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
-                <boolProp name="TransactionController.includeTimers">false</boolProp>
-                <boolProp name="TransactionController.parent">true</boolProp>
-              </TransactionController>
+              <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取基础参数" enabled="true"/>
               <hashTree>
                 <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App基础接口" enabled="true">
                   <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -4167,15 +4166,9 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                   <boolProp name="CookieManager.clearEachIteration">false</boolProp>
                 </CookieManager>
                 <hashTree/>
-                <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
-                  <boolProp name="TransactionController.includeTimers">false</boolProp>
-                  <boolProp name="TransactionController.parent">true</boolProp>
-                </TransactionController>
+                <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取基础参数" enabled="true"/>
                 <hashTree>
-                  <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App基础接口" enabled="true">
-                    <boolProp name="TransactionController.includeTimers">false</boolProp>
-                    <boolProp name="TransactionController.parent">true</boolProp>
-                  </TransactionController>
+                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App基础接口" enabled="true"/>
                   <hashTree>
                     <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="用户登陆_获取access_token(合生活App)" enabled="true">
                       <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4325,10 +4318,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                       <hashTree/>
                     </hashTree>
                   </hashTree>
-                  <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台基础接口" enabled="true">
-                    <boolProp name="TransactionController.includeTimers">false</boolProp>
-                    <boolProp name="TransactionController.parent">true</boolProp>
-                  </TransactionController>
+                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台基础接口" enabled="true"/>
                   <hashTree>
                     <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_登陆_获取用户信息(admin_APPLET_SESSION_ID)" enabled="true">
                       <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4458,10 +4448,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                     </hashTree>
                   </hashTree>
                 </hashTree>
-                <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收" enabled="true">
-                  <boolProp name="TransactionController.includeTimers">false</boolProp>
-                  <boolProp name="TransactionController.parent">true</boolProp>
-                </TransactionController>
+                <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收" enabled="true"/>
                 <hashTree>
                   <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_两三验收_任务信息" enabled="true">
                     <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4868,10 +4855,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台导入任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台导入任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_品质服务管理_两元三元_获取全部企业" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -5009,10 +4993,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="执行任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="执行任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_春雷任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -5374,10 +5355,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收" enabled="true"/>
           <hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(房产代表)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(房产代表)" enabled="true"/>
             <hashTree>
               <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
                 <collectionProp name="CookieManager.cookies"/>
@@ -5936,10 +5914,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(第三方公司)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(第三方公司)" enabled="true"/>
             <hashTree>
               <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
                 <collectionProp name="CookieManager.cookies"/>
@@ -6498,10 +6473,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(业主代表)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(业主代表)" enabled="true"/>
             <hashTree>
               <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
                 <collectionProp name="CookieManager.cookies"/>
@@ -7279,10 +7251,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台导入任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台导入任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_管家_获取全部企业" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -7420,10 +7389,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="执行任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="执行任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_服务任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -7789,10 +7755,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(地区负责)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(地区负责)" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_服务验收_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -8063,10 +8026,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收" enabled="true"/>
           <hashTree>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(爱心大使)" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -9207,10 +9167,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查看任务" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查看任务" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_管家_核对任务状态(已完成/已验收)" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -9428,10 +9385,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台导入任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台导入任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_清洁绿化_获取全部企业" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -9569,10 +9523,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="执行任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="执行任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_清洁任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -9938,10 +9889,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(地区负责)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(地区负责)" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_清洁任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -10214,10 +10162,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收" enabled="true"/>
           <hashTree>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(爱心大使)" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -11362,10 +11307,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查看任务" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查看任务" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_清洁绿化_核对任务状态(已完成/已验收)" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -11583,10 +11525,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台导入任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台导入任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_安全费用_获取全部企业" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -11724,10 +11663,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="执行任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="执行任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_安全任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -12093,10 +12029,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(地区负责)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(地区负责)" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_安全任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -12367,10 +12300,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收" enabled="true"/>
           <hashTree>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(爱心大使)" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -13511,10 +13441,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查看任务" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查看任务" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_安全费用_核对任务状态(已完成/已验收)" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -13732,10 +13659,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台导入任务(两元三元)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台导入任务(两元三元)" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_工程费用_获取全部企业" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -13873,10 +13797,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="执行任务" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="执行任务" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_工程任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -14242,10 +14163,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(地区负责)" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收(地区负责)" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_任务验收_工程任务_任务信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -14516,10 +14434,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="任务验收" enabled="true"/>
           <hashTree>
             <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="任务验收(爱心大使)" enabled="true">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -15660,10 +15575,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查看任务" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查看任务" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_合同验收_工程费用_核对任务状态(已完成/已验收)" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -16093,7 +16005,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbUrl}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
