@@ -78,9 +78,9 @@
             <stringProp name="Argument.desc">后台密码</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="influxdbIP" elementType="Argument">
-            <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
+          <elementProp name="influxdbUrl" elementType="Argument">
+            <stringProp name="Argument.name">influxdbUrl</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">influxdb时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -112,15 +112,6 @@
           <elementProp name="" elementType="Header">
             <stringProp name="Header.name">Content-Type</stringProp>
             <stringProp name="Header.value">application/x-www-form-urlencoded;charset=UTF-8</stringProp>
-          </elementProp>
-        </collectionProp>
-      </HeaderManager>
-      <hashTree/>
-      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="false">
-        <collectionProp name="HeaderManager.headers">
-          <elementProp name="" elementType="Header">
-            <stringProp name="Header.name">Content-Type</stringProp>
-            <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
           </elementProp>
         </collectionProp>
       </HeaderManager>
@@ -251,12 +242,12 @@ DELETE FROM recommended WHERE recommended_name LIKE &apos;%接口测试%&apos;;
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="false">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取基础参数" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取基础参数" enabled="false"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App基础接口" enabled="true"/>
           <hashTree>
@@ -958,6 +949,10 @@ ${__setProperty(portalmanage_APPLET_SESSION_ID,${portalmanage_APPLET_SESSION_ID}
             </hashTree>
           </hashTree>
         </hashTree>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+          <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -7055,7 +7050,7 @@ DELETE FROM company_application_sub WHERE name LIKE &apos;%接口测试%&apos;;
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="用例集合1_后台新增内容_用户浏览操作内容" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="用例集合1_后台新增内容_用户浏览操作内容(待优化)" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -43637,7 +43632,7 @@ DELETE FROM company_application_sub WHERE name LIKE &apos;%接口测试%&apos;;
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -43751,7 +43746,7 @@ DELETE FROM company_application_sub WHERE name LIKE &apos;%接口测试%&apos;;
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbUrl}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
