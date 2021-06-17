@@ -67,21 +67,9 @@
             <stringProp name="Argument.desc">后台密码</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="clientID" elementType="Argument">
-            <stringProp name="Argument.name">clientID</stringProp>
-            <stringProp name="Argument.value">id_3155583436507529782</stringProp>
-            <stringProp name="Argument.desc">有分客户端ID(固定)</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="client_secret" elementType="Argument">
-            <stringProp name="Argument.name">client_secret</stringProp>
-            <stringProp name="Argument.value">781216684</stringProp>
-            <stringProp name="Argument.desc">有分客户端(固定)</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="influxdbIP" elementType="Argument">
-            <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
+          <elementProp name="influxdbUrl" elementType="Argument">
+            <stringProp name="Argument.name">influxdbUrl</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">influxdb时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -89,17 +77,6 @@
             <stringProp name="Argument.name">mysql</stringProp>
             <stringProp name="Argument.value">rm-2zeh7r5s96nge1014.mysql.rds.aliyuncs.com:3306/wxapplet</stringProp>
             <stringProp name="Argument.desc">数据库地址/端口号/及库名</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="clientID2" elementType="Argument">
-            <stringProp name="Argument.name">clientID2</stringProp>
-            <stringProp name="Argument.value">id_8686453165593477535</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.desc">买金网客户端ID(固定)</stringProp>
-          </elementProp>
-          <elementProp name="client_secret2" elementType="Argument">
-            <stringProp name="Argument.name">client_secret2</stringProp>
-            <stringProp name="Argument.value"></stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -182,15 +159,9 @@
         <stringProp name="TestPlan.comments">获取基础数据</stringProp>
       </SetupThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取基础参数" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="小程序基础接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序基础接口" enabled="true"/>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
               <collectionProp name="HeaderManager.headers">
@@ -335,10 +306,7 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App基础接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App基础接口" enabled="true"/>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
               <collectionProp name="HeaderManager.headers">
@@ -390,10 +358,7 @@
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取个人信息" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取个人信息" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-获取个人信息" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -500,10 +465,7 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台基础接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台基础接口" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_登陆_获取用户信息(admin_APPLET_SESSION_ID)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -2674,10 +2636,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景用例一小程序用户申请_后台审核通过" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例一小程序用户申请_后台审核通过" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序用户申请" enabled="true"/>
           <hashTree>
@@ -3318,10 +3277,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景用例二 小程序用户申请_后台审核通过_取消认证" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例二 小程序用户申请_后台审核通过_取消认证" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序用户申请" enabled="true"/>
           <hashTree>
@@ -3994,10 +3950,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景用例三 小程序_用户选择账单_支付_后台查看账单" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例三 小程序_用户选择账单_支付_后台查看账单" enabled="true"/>
         <hashTree>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
             <collectionProp name="HeaderManager.headers">
@@ -4008,11 +3961,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
             </collectionProp>
           </HeaderManager>
           <hashTree/>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="选择账单" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <stringProp name="TestPlan.comments">收银台之前的物业缴费页面</stringProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序用户申请" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="小程序_物业缴费_缴费页面获取业主房间" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -4218,10 +4167,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="小程序_查看账单" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台审核通过" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="小程序_个人中心页面" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4332,15 +4278,9 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景用例四 小程序_用户提交有偿报修工单_APP/后台列表显示数据_用户取消工单" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例四 小程序_用户提交有偿报修工单_APP/后台列表显示数据_用户取消工单" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="用户提交有偿报修工单" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="用户提交有偿报修工单" enabled="true"/>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
               <collectionProp name="HeaderManager.headers">
@@ -4606,10 +4546,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台_有偿报修列表" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_有偿报修列表" enabled="true"/>
           <hashTree>
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies">
@@ -4755,10 +4692,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="用户取消工单(有偿)" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="用户取消工单(有偿)" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的工单_查询工单列表数据" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4966,10 +4900,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
         <stringProp name="TestPlan.comments">物业节返现</stringProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景用例三 小程序_用户选择账单_支付_后台查看账单（物业节特定使用）" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例三 小程序_用户选择账单_支付_后台查看账单（物业节特定使用）" enabled="true"/>
         <hashTree>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
             <collectionProp name="HeaderManager.headers">
@@ -4980,11 +4911,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
             </collectionProp>
           </HeaderManager>
           <hashTree/>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="选择账单" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <stringProp name="TestPlan.comments">收银台之前的物业缴费页面</stringProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="选择账单" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="小程序_物业缴费_缴费页面获取业主房间" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -5208,10 +5135,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="小程序_查看账单" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序_查看账单" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="小程序_个人中心页面" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -5422,7 +5346,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -5536,7 +5460,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbUrl}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
