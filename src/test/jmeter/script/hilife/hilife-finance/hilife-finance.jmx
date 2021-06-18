@@ -75,7 +75,7 @@
           </elementProp>
           <elementProp name="influxdbIP" elementType="Argument">
             <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">influxdb时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -172,8 +172,12 @@ DELETE FROM loan_product WHERE inner_name LIKE &apos;%接口测试_内部名称%
           <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+          <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -4070,7 +4074,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="保险管理" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="保险管理" enabled="false"/>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="信息收集" enabled="true"/>
             <hashTree>
@@ -4977,7 +4981,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbIP}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
