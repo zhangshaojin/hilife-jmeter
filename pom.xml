@@ -22,7 +22,7 @@
         <jmeter.result.html.dir2>${project.build.directory}/jmeter/html_report2</jmeter.result.html.dir2>
         <jmeter.result.html.dir3>${project.build.directory}/jmeter/html_report3</jmeter.result.html.dir3>
         <ReportName>TestReport</ReportName>
-        <projectName>default</projectName>
+        <projectName>projectName</projectName>
     </properties>
 
     <!--依赖包-->
@@ -113,25 +113,19 @@
                     <appendResultsTimestamp>true</appendResultsTimestamp>
                     <resultsFileNameDateFormat>yyyyMMdd-HHmm</resultsFileNameDateFormat>
                     <!--指定日志级别-->
-                    <overrideRootLogLevel>debug</overrideRootLogLevel>
-<!--                    <testFilesIncluded>-->
+                    <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+                    <testFilesIncluded>
                         <!--指定运行的jmeter脚本jmeter路径下-->
-<!--                        <jMeterTestFile>*.jmx</jMeterTestFile>-->
+                        <jMeterTestFiles>script/${projectName}/*.jmx</jMeterTestFiles>
                         <!--指定不需要运行的jmeter脚本-->
                         <!--<testFilesExcluded>aaa.jmx</testFilesExcluded>-->
                         <!-- 指定jtl生成目录 -->
 <!--                        <resultsDirectory>${jmeter.result.jtl.dir}</resultsDirectory>-->
-<!--                    </testFilesIncluded>-->
+                    </testFilesIncluded>
 
-                    <!--指定运行的jmeter脚本jmexml-maven-pluginter路径下-->
-                    <testFilesDirectory>${basedir}/src/test/jmeter/script/${projectName}</testFilesDirectory>
+                    <!--指定运行的jmeter脚本jmexml-maven-pluginter路径下,指定文件夹-->
+<!--                    <testFilesDirectory>${basedir}/src/test/jmeter/script/${projectName}</testFilesDirectory>-->
 <!--                    <testFilesDirectory>${basedir}/src/test/jmeter/script/商学院/</testFilesDirectory>-->
-                    <!--导入外部扩展包-->
-                    <!--<jmeterExtensions>
-                     <artifact>com.jmeter:PurseComm_fat:1.0</artifact>
-                     <artifact>com.jmeter:json:1.0</artifact>
-                     <artifact>com.jmeter:fastjsont:1.2.67</artifact>
-                    </jmeterExtensions>-->
 
                 </configuration>
 
@@ -153,13 +147,6 @@
                         </goals>
 
                     </execution>
-                    <!-- 基于测试中的错误生成失败 -->
-                    <!--                    <execution>-->
-                    <!--                        <id>jmeter-check-results</id>-->
-                    <!--                        <goals>-->
-                    <!--                            <goal>results</goal>-->
-                    <!--                        </goals>-->
-                    <!--                    </execution>-->
                 </executions>
 
             </plugin>
@@ -168,7 +155,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.1</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -180,20 +167,20 @@
                 <configuration>
                     <transformationSets>
 
-                        <transformationSet>
-                            <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
-                            <dir>${jmeter.result.jtl.dir}</dir>
-                            <!--需要解析的模板-->
-                            <stylesheet>src/test/resources/jmeter-results-report_21.xsl</stylesheet>
-                            <!--通过模板生成测试结果的html文件-->
-                            <outputDir>${jmeter.result.html.dir1}</outputDir>
-                            <fileMappers>
-                                <fileMapper
-                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                                    <targetExtension>html</targetExtension>
-                                </fileMapper>
-                            </fileMappers>
-                        </transformationSet>
+<!--                        <transformationSet>-->
+<!--                            &lt;!&ndash;保存JMeter原生测试结果文件（.jtl文件）的路径&ndash;&gt;-->
+<!--                            <dir>${jmeter.result.jtl.dir}</dir>-->
+<!--                            &lt;!&ndash;需要解析的模板&ndash;&gt;-->
+<!--                            <stylesheet>src/test/resources/jmeter-results-detail-report_21.xsl</stylesheet>-->
+<!--                            &lt;!&ndash;通过模板生成测试结果的html文件&ndash;&gt;-->
+<!--                            <outputDir>${jmeter.result.html.dir1}</outputDir>-->
+<!--                            <fileMappers>-->
+<!--                                <fileMapper-->
+<!--                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">-->
+<!--                                    <targetExtension>html</targetExtension>-->
+<!--                                </fileMapper>-->
+<!--                            </fileMappers>-->
+<!--                        </transformationSet>-->
 
                         <transformationSet>
                             <!--保存JMeter原生测试结果文件（.jtl文件）的路径-->
