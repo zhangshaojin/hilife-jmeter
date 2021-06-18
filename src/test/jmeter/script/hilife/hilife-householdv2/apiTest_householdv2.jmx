@@ -81,7 +81,7 @@
           </elementProp>
           <elementProp name="influxdbIP" elementType="Argument">
             <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">influxdb时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -161,8 +161,12 @@
           <stringProp name="resultSetHandler">Store as String</stringProp>
         </JDBCSampler>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+          <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1367,6 +1371,10 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
+              <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                <intProp name="OnError.action">3</intProp>
+              </ResultAction>
+              <hashTree/>
             </hashTree>
           </hashTree>
         </hashTree>
@@ -2147,6 +2155,10 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
                 <hashTree/>
+                <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                  <intProp name="OnError.action">3</intProp>
+                </ResultAction>
+                <hashTree/>
               </hashTree>
             </hashTree>
           </hashTree>
@@ -2286,10 +2298,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP用户申请_后台审核通过" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请_后台审核通过" enabled="true"/>
         <hashTree>
           <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="APP用户申请" enabled="true">
             <boolProp name="LoopController.continue_forever">true</boolProp>
@@ -3165,10 +3174,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP用户申请_管家审核通过" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请_管家审核通过" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请" enabled="true"/>
           <hashTree>
@@ -4654,10 +4660,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP用户申请_本人取消" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请_本人取消" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请" enabled="true"/>
           <hashTree>
@@ -5518,10 +5521,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP用户申请_后台审核不通过" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请_后台审核不通过" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请" enabled="true"/>
           <hashTree>
@@ -6280,10 +6280,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP用户申请_管家审核不通过" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请_管家审核不通过" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请" enabled="true"/>
           <hashTree>
@@ -7769,10 +7766,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP用户申请_后台审核通过_取消认证" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP用户申请_后台审核通过_取消认证" enabled="true"/>
         <hashTree>
           <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="APP用户申请" enabled="true">
             <boolProp name="LoopController.continue_forever">true</boolProp>
@@ -8672,25 +8666,6 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP请求" enabled="true">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/estatepayment/company/getCompanyList</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
           <stringProp name="LoopController.loops">0</stringProp>
@@ -8904,7 +8879,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbIP}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
