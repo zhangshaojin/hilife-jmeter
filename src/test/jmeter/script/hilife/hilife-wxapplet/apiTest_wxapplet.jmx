@@ -4,7 +4,7 @@
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
@@ -306,7 +306,7 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App基础接口" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App基础接口" enabled="false"/>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
               <collectionProp name="HeaderManager.headers">
@@ -465,7 +465,7 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台基础接口" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台基础接口" enabled="false"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_登陆_获取用户信息(admin_APPLET_SESSION_ID)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -904,7 +904,7 @@
                 </RegexExtractor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_报修管理_获取底层数据" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_报修管理_获取底层数据（tickets_APPLET_SESSION_ID）" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -1046,9 +1046,13 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
               </hashTree>
             </hashTree>
           </hashTree>
+          <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+            <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
+          </IncludeController>
+          <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础接口" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础接口" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1061,7 +1065,14 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序用户申请_后台审核通过" enabled="true"/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="小程序用户申请_后台审核通过" enabled="false">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="869052411">测试计划</stringProp>
+            <stringProp name="869052411">测试计划</stringProp>
+            <stringProp name="701348580">基础接口</stringProp>
+            <stringProp name="-875042216">小程序_用户选择账单_支付_后台查看账单</stringProp>
+          </collectionProp>
+        </ModuleController>
         <hashTree>
           <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
             <collectionProp name="Arguments.arguments">
@@ -1479,10 +1490,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
               <hashTree/>
             </hashTree>
           </hashTree>
-          <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="后台审核通过" enabled="true">
-            <boolProp name="LoopController.continue_forever">true</boolProp>
-            <stringProp name="LoopController.loops">1</stringProp>
-          </LoopController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台审核通过" enabled="true"/>
           <hashTree>
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies">
@@ -1688,7 +1696,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序_用户选择账单_支付_后台查看账单" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序_用户选择账单_支付_后台查看账单" enabled="false"/>
         <hashTree>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
             <collectionProp name="HeaderManager.headers">
@@ -1762,9 +1770,9 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/wxapplet//front/interface/propertyFees/getTollArrearsNew?access_token=${__P(access_token)}</stringProp>
+                <stringProp name="HTTPSampler.path">/estatepayment//front/interface/propertyFees/getTollArrearsNew?access_token=${__P(access_token)}</stringProp>
                 <stringProp name="HTTPSampler.method">POST</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
                 <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                 <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
@@ -2002,7 +2010,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
             </hashTree>
           </hashTree>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="小程序_用户提交有偿报修工单_APP/后台列表显示数据_用户取消工单" enabled="true">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="小程序_用户提交有偿报修工单_APP/后台列表显示数据_用户取消工单" enabled="false">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
@@ -4024,7 +4032,7 @@ ${__setProperty(access_token1,${access_token1},)};       //合生活token </stri
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/wxapplet//front/interface/propertyFees/getTollArrearsNew?access_token=${__P(access_token)}</stringProp>
+                <stringProp name="HTTPSampler.path">/estatepayment//front/interface/propertyFees/getTollArrearsNew?access_token=${__P(access_token)}</stringProp>
                 <stringProp name="HTTPSampler.method">POST</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>

@@ -111,7 +111,7 @@
           </elementProp>
           <elementProp name="influxdbIP" elementType="Argument">
             <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">influxdb时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -153,6 +153,15 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
       <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="连接mysql数据库_hilife-estatepayment" enabled="true">
         <boolProp name="autocommit">true</boolProp>
         <stringProp name="checkQuery">select 1</stringProp>
@@ -173,7 +182,25 @@
         <stringProp name="TestPlan.comments">数据库请求内使用时多语句时需要添加allowMultiQueries=true</stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+          <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
+      </hashTree>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -2347,6 +2374,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
                 <hashTree/>
+                <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                  <intProp name="OnError.action">3</intProp>
+                </ResultAction>
+                <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_物业缴费_用户退款授权_获取所有账单" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -3238,6 +3269,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
                 <hashTree/>
+                <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                  <intProp name="OnError.action">3</intProp>
+                </ResultAction>
+                <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_物业缴费_小区经理列表_获取所有账单" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -4053,6 +4088,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
                 <hashTree/>
+                <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                  <intProp name="OnError.action">3</intProp>
+                </ResultAction>
+                <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_物业缴费_地区经理列表_获取所有账单" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -4832,6 +4871,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
+              <hashTree/>
+              <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                <intProp name="OnError.action">3</intProp>
+              </ResultAction>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_物业缴费_地区财务经理列表_获取所有账单" enabled="true">
@@ -5613,6 +5656,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
+                <hashTree/>
+                <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                  <intProp name="OnError.action">3</intProp>
+                </ResultAction>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_物业缴费_地区科技经理列表_获取所有账单" enabled="true">
@@ -7628,15 +7675,9 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台配置返现规则_用户选择账单_使用优惠券支付_后台查看账单及返现(满足返现)" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台配置返现规则_用户选择账单_使用优惠券支付_后台查看账单及返现(满足返现)" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台管理_返现管理" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台管理_返现管理" enabled="true"/>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台管理_活动管理_删除现存的返现规则" enabled="true"/>
             <hashTree>
@@ -7830,10 +7871,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台管理_领取优惠券_使用优惠券" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台管理_领取优惠券_使用优惠券" enabled="true"/>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_领取优惠券" enabled="true"/>
             <hashTree>
@@ -7941,11 +7979,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App_物业缴费_选择账单相关接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <stringProp name="TestPlan.comments">收银台之前的物业缴费页面</stringProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_物业缴费_选择账单相关接口" enabled="true"/>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="物业缴费_选择账单（预缴账单）" enabled="true"/>
             <hashTree>
@@ -8093,6 +8127,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                     <boolProp name="Assertion.assume_success">false</boolProp>
                     <intProp name="Assertion.test_type">16</intProp>
                   </ResponseAssertion>
+                  <hashTree/>
+                  <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                    <intProp name="OnError.action">3</intProp>
+                  </ResultAction>
                   <hashTree/>
                 </hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--物业缴费_预缴账单_点击去缴费" enabled="true">
@@ -8347,7 +8385,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_查看账单" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--个人中心--物业缴费回调支付成功接口" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--个人中心--物业缴费回调支付成功接口" enabled="false">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -8411,10 +8449,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App_查看返现_查看优惠券" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_查看返现_查看优惠券" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_个人中心_我的优惠券数据" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -8456,7 +8491,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-300174695">&quot;remark&quot;:&quot;缴费返现(返现比例:100.00%)&quot;</stringProp>
+                  <stringProp name="783655130">&quot;code&quot;:&quot;success&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -10169,10 +10204,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台配置返现规则_管家无房代缴并使用优惠券_支付_后台查看账单及返现(满足返现)" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台配置返现规则_管家无房代缴并使用优惠券_支付_后台查看账单及返现(满足返现)" enabled="true"/>
         <hashTree>
           <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
             <collectionProp name="CookieManager.cookies"/>
@@ -10999,12 +11031,13 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   </hashTree>
                 </hashTree>
               </hashTree>
+              <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                <intProp name="OnError.action">3</intProp>
+              </ResultAction>
+              <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP_领取优惠券_使用优惠券" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_领取优惠券_使用优惠券" enabled="true"/>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_领取优惠券" enabled="true"/>
             <hashTree>
@@ -11145,11 +11178,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App_物业缴费_选择账单相关接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <stringProp name="TestPlan.comments">收银台之前的物业缴费页面</stringProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_物业缴费_选择账单相关接口" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_物业缴费_跳转缴费页面" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -11267,6 +11296,10 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
+              <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                <intProp name="OnError.action">3</intProp>
+              </ResultAction>
+              <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_物业缴费_自定义物业缴费页面(接口返回异常)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -11562,7 +11595,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--个人中心--物业缴费回调支付成功接口" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--个人中心--物业缴费回调支付成功接口" enabled="false">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -13098,10 +13131,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="物业缴费_选择账单_缴费成功（支付宝）_申请退款_退款成功（业主自缴退款成功流程）" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="物业缴费_选择账单_缴费成功（支付宝）_申请退款_退款成功（业主自缴退款成功流程）" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_业主自缴" enabled="true"/>
           <hashTree>
@@ -26529,7 +26559,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbIP}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
