@@ -73,12 +73,6 @@
             <stringProp name="Argument.desc">后台密码</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="influxdbIP" elementType="Argument">
-            <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
-            <stringProp name="Argument.desc">influxdb时序数据库IP</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="mysql" elementType="Argument">
             <stringProp name="Argument.name">mysql</stringProp>
             <stringProp name="Argument.value">rm-2zeh7r5s96nge1014.mysql.rds.aliyuncs.com:3306/agent</stringProp>
@@ -99,7 +93,7 @@
           </elementProp>
           <elementProp name="influxdbIP" elementType="Argument">
             <stringProp name="Argument.name">influxdbIP</stringProp>
-            <stringProp name="Argument.value">10.1.1.152</stringProp>
+            <stringProp name="Argument.value">http://10.1.1.135:18086/write?db=jmeter</stringProp>
             <stringProp name="Argument.desc">时序数据库IP</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -183,7 +177,7 @@
         <stringProp name="connectionProperties"></stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化-hilife-customerservice" enabled="false">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化-hilife-customerservice" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -197,7 +191,7 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="false">
           <stringProp name="dataSource">${projectName}</stringProp>
           <stringProp name="query">DELETE  FROM library WHERE business_id = 48 and  operator_id = 544015976526466296;
 DELETE FROM identifier WHERE identifier_name liKE &apos;%接口测试%&apos;;</stringProp>
@@ -211,8 +205,12 @@ DELETE FROM identifier WHERE identifier_name liKE &apos;%接口测试%&apos;;</s
           <stringProp name="resultSetMaxRows"></stringProp>
         </JDBCSampler>
         <hashTree/>
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+          <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
+        </IncludeController>
+        <hashTree/>
       </hashTree>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1098,15 +1096,9 @@ ${__setProperty(id,${id},)};     //群聊ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景1_群管理_平台群管理_后台新增群聊_APP端查看群聊列表" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景1_群管理_平台群管理_后台新增群聊_APP端查看群聊列表" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="群管理_平台群管理_后台新增群聊" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_后台新增群聊" enabled="true"/>
           <hashTree>
             <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="随机生成群聊名称" enabled="true">
               <stringProp name="BeanShellSampler.query">public class Random_str {
@@ -1269,10 +1261,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP群聊_APP端查看群聊列表" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_APP端查看群聊列表" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_查看群聊列表" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1476,15 +1465,9 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景2_群管理_平台群管理_后台群聊新增成员_APP端查看群成员" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景2_群管理_平台群管理_后台群聊新增成员_APP端查看群成员" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="群管理_平台群管理_后台群聊新增成员" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_后台群聊新增成员" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_搜索平台用户" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1641,10 +1624,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP群聊_APP端查看群成员" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_APP端查看群成员" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_查看群成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1861,15 +1841,9 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景3_APP群聊_创建群聊_群成员管理（加成员）_查看群成员" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景3_APP群聊_创建群聊_群成员管理（加成员）_查看群成员" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP群聊_创建群聊" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_创建群聊" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_当前用户是否可创建群聊" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -2139,10 +2113,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP群聊_群成员管理_新增群成员" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_群成员管理_新增群成员" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_搜索新增成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -2305,15 +2276,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景4_APP群聊_允许群成员互加好友_申请加好友_通讯查看好友" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景4_APP群聊_允许群成员互加好友_申请加好友_通讯查看好友" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="群管理允许加好友" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理允许加好友" enabled="true"/>
           <hashTree>
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies">
@@ -2458,15 +2423,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="申请加好友_好友同意" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="申请加好友_好友同意" enabled="true"/>
           <hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="申请加好友" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="申请加好友" enabled="true"/>
             <hashTree>
               <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
                 <collectionProp name="CookieManager.cookies">
@@ -2712,15 +2671,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="被加好友同意申请" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="被加好友同意申请" enabled="true"/>
             <hashTree>
-              <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="登录好友账号" enabled="true">
-                <boolProp name="TransactionController.includeTimers">false</boolProp>
-                <boolProp name="TransactionController.parent">true</boolProp>
-              </TransactionController>
+              <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="登录好友账号" enabled="true"/>
               <hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="用户登陆_获取access_token(合生活App)" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3157,10 +3110,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="通讯录查看好友" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="通讯录查看好友" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="通讯录查看好友" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3364,10 +3314,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景5_APP群聊_不允许群成员互加好友_申请无法加好友" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景5_APP群聊_不允许群成员互加好友_申请无法加好友" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理不允许加入群" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -3406,10 +3353,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="申请加好友" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="申请加好友" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取群成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3670,15 +3614,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景6_APP群聊_删除好友" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景6_APP群聊_删除好友" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="删除好友" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="删除好友" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取通讯录" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3914,15 +3852,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景7_APP群聊_群成员管理_踢成员_查看群成员" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景7_APP群聊_群成员管理_踢成员_查看群成员" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP群聊_创建群聊" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_创建群聊" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_当前用户是否可创建群聊" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4192,10 +4124,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="APP群聊_群成员管理_踢出群成员" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_群成员管理_踢出群成员" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_获取群成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -4449,15 +4378,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="场景8_群管理_平台群管理_后台群管理" enabled="true">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景8_群管理_平台群管理_后台群管理" enabled="true"/>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="群管理_平台群管理_群成员管理_设置管理员" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群成员管理_设置管理员" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -4585,10 +4508,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="群管理_平台群管理_群成员管理_群成员踢出群聊" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群成员管理_群成员踢出群聊" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -4709,10 +4629,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="群管理_平台群管理_关闭/打开群" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_关闭/打开群" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="开启群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -5018,7 +4935,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
             </elementProp>
             <elementProp name="influxdbUrl" elementType="Argument">
               <stringProp name="Argument.name">influxdbUrl</stringProp>
-              <stringProp name="Argument.value">http://${influxdbIP}:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.value">${influxdbIP}</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="application" elementType="Argument">
