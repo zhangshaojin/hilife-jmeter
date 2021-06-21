@@ -2544,7 +2544,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例1_登陆_下单_取消_退款申请_后台订单_后台退款" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例1_登陆_下单_取消_退款申请_后台订单_后台退款" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -2557,6 +2557,10 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="固定定时器" enabled="true">
+          <stringProp name="ConstantTimer.delay">5000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
         <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies">
             <elementProp name="JSESSIONID" elementType="Cookie" testname="JSESSIONID">
@@ -3003,7 +3007,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_有分商城_用户登陆" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3013,6 +3016,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">${youfenDomain}</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
@@ -3047,7 +3051,10 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="有分商城选择商品_下单" enabled="true"/>
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="有分商城选择商品_下单" enabled="true">
+            <boolProp name="TransactionController.includeTimers">false</boolProp>
+            <boolProp name="TransactionController.parent">true</boolProp>
+          </TransactionController>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
               <collectionProp name="HeaderManager.headers">
@@ -3063,7 +3070,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
             </HeaderManager>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_有分商城_下单接口(外部调用)" enabled="false">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3095,6 +3101,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">${openApiDomain}</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
@@ -3264,7 +3271,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
             </HTTPSamplerProxy>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/goods/addGoodsClickLog" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3274,6 +3280,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -3309,7 +3316,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
             </HTTPSamplerProxy>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/shoppingCart/goods/buyGoodsNow" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3319,6 +3325,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -3335,7 +3342,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
             </HTTPSamplerProxy>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/coupon/selectCoupons" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3345,6 +3351,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -3379,40 +3386,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/order/createOrder" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;couponCode&quot;:&quot;&quot;,&quot;goodsTotalMoney&quot;:10,&quot;orderGoodsList&quot;:[{&quot;goodsName&quot;:&quot;openapi专用勿改10038001 芒果&quot;,&quot;goodsCode&quot;:&quot;YX10038001&quot;,&quot;goodsNum&quot;:1,&quot;goodsPrice&quot;:10,&quot;saleType&quot;:&quot;0&quot;,&quot;sourceType&quot;:&quot;6&quot;}],&quot;remark&quot;:&quot;&quot;,&quot;userAddress&quot;:{&quot;cityCode&quot;:&quot;2801&quot;,&quot;countyCode&quot;:&quot;54766&quot;,&quot;provinceCode&quot;:&quot;1&quot;,&quot;townsCode&quot;:null,&quot;userAddressId&quot;:&quot;ff2548c0ecc444aba5d80c521f761298&quot;}}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/order/createOrder</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_orderCode" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">orderCode</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..data</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-            </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/shoppingCart/shoppingCartNum" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
@@ -3422,101 +3395,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <stringProp name="HTTPSampler.protocol">https</stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
               <stringProp name="HTTPSampler.path">/shoppingCart/shoppingCartNum</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/mall/order/orderInfo?orderCode=M1625892576682&amp;loading=true" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/mall/order/orderInfo?orderCode=${orderCode}&amp;loading=true</stringProp>
-              <stringProp name="HTTPSampler.method">OPTIONS</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/mall/order/orderInfo?orderCode=M1625892576682&amp;loading=true" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/mall/order/orderInfo?orderCode=${orderCode}&amp;loading=true</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/isv/getIsvCreateOrderUrl" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/isv/getIsvCreateOrderUrl</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/order/isOrderPay?orderCode=M1625892576682" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/order/isOrderPay?orderCode=${orderCode}</stringProp>
-              <stringProp name="HTTPSampler.method">OPTIONS</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/order/isOrderPay?orderCode=M1625892576682" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">admintestmall.xinfuli.net</stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/order/isOrderPay?orderCode=${orderCode}</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -3547,7 +3425,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
             </HTTPSamplerProxy>
             <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_有分商城_创建有分订单" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3557,6 +3434,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">${youfenDomain}</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
@@ -3630,7 +3508,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_有分商城_创建有分订单_获取支付单号" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3640,6 +3517,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">${youfenDomain}</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
@@ -3676,7 +3554,10 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="订单支付" enabled="true"/>
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="订单支付" enabled="true">
+            <boolProp name="TransactionController.includeTimers">false</boolProp>
+            <boolProp name="TransactionController.parent">true</boolProp>
+          </TransactionController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="支付_获取支付方式及余额及订单金额" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3900,7 +3781,6 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_有分商城_取消订单(外部调用)" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -3912,6 +3792,7 @@ ${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID}
                   </elementProp>
                 </collectionProp>
               </elementProp>
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <stringProp name="HTTPSampler.domain">${openApiDomain}</stringProp>
               <stringProp name="HTTPSampler.port">443</stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
