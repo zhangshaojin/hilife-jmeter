@@ -1185,7 +1185,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="基础用例" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_邀请注册(员工)" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_邀请注册(员工)" enabled="false">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -3459,6 +3459,43 @@ if(resPonseCode.equals(&quot;200&quot;)){
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_注册账号" enabled="true"/>
             <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_蚂蚁首页_经纪人信息" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain"></stringProp>
+                <stringProp name="HTTPSampler.port"></stringProp>
+                <stringProp name="HTTPSampler.protocol"></stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/agent/agentInfoAddApp/MyAgentInfo</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-1094674944">&quot;code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-agentID" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">agentID</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$..agentId</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+                </JSONPostProcessor>
+                <hashTree/>
+              </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_邀请蚂蚁" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
@@ -3549,7 +3586,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;mobile&quot;:&quot;${__Random(18855550000,18855559999,mobile)}&quot;}</stringProp>
+                      <stringProp name="Argument.value">{&quot;mobile&quot;:&quot;${__Random(17700000000,17799999999,mobile)}&quot;}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -3660,7 +3697,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;${agentID}&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;,&quot;name&quot;:&quot;接口测试-邀请注册非员工&quot;,&quot;mobile&quot;:&quot;${__Random(18855550000,18855559999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;&quot;}</stringProp>
+                      <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;${agentID}&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;,&quot;name&quot;:&quot;接口测试-邀请注册非员工&quot;,&quot;mobile&quot;:&quot;${__Random(18900000000,18999999999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;&quot;}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -3697,7 +3734,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;,&quot;name&quot;:&quot;接口测试-自主注册员工&quot;,&quot;mobile&quot;:&quot;${__Random(18855550000,18855559999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;${__Random(000000,888888,jobNumber)}&quot;}&#xd;
+                      <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;,&quot;name&quot;:&quot;接口测试-自主注册员工&quot;,&quot;mobile&quot;:&quot;${__Random(19900000000,19999999999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;${__Random(000000,888888,jobNumber)}&quot;}&#xd;
 </stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
@@ -3735,7 +3772,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;,&quot;name&quot;:&quot;接口测试-自主注册非员工&quot;,&quot;mobile&quot;:&quot;${__Random(18855550000,18855559999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;&quot;}</stringProp>
+                      <stringProp name="Argument.value">{&quot;parentAgentId&quot;:&quot;&quot;,&quot;companyId&quot;:&quot;${__P(companyID)}&quot;,&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;,&quot;name&quot;:&quot;接口测试-自主注册非员工&quot;,&quot;mobile&quot;:&quot;${__Random(19900000000,19999999999,mobile)}&quot;,&quot;jobNumber&quot;:&quot;&quot;}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -4093,6 +4130,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
                   <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                  <stringProp name="TestPlan.comments">接口报空指针异常</stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
@@ -5981,6 +6019,43 @@ if(resPonseCode.equals(&quot;200&quot;)){
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="注册账号(邀请注册需要上级蚂蚁ID)" enabled="true"/>
           <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_蚂蚁首页_经纪人信息" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/agent/agentInfoAddApp/MyAgentInfo</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1094674944">&quot;code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-agentID" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">agentID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..agentId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_邀请注册(员工)" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -6421,7 +6496,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <stringProp name="TestPlan.comments">蚂蚁上下级关系</stringProp>
           </GenericController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_详情管理" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_详情管理（接口报错）" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -9378,7 +9453,6 @@ DELETE FROM agent_rule WHERE agent_rule_status = 2;
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1146137678">&quot;data&quot;:true</stringProp>
                       <stringProp name="40066830">code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;,</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
@@ -11208,7 +11282,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
