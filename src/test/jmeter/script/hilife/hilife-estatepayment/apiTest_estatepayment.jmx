@@ -7536,7 +7536,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_物业缴费_业主自缴使用优惠券且满足返现（业主自缴使用优惠券且满足返现）" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_物业缴费_业主自缴使用优惠券且满足返现（业主自缴使用优惠券且满足返现）" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -8090,8 +8090,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
 	&quot;communityId&quot;: &quot;${communityID}&quot;,&#xd;
 	&quot;objectId&quot;: &quot;${roomID}&quot;,&#xd;
 	&quot;ownerCustomerId&quot;: &quot;${cusID}&quot;,&#xd;
-	&quot;year&quot;: &quot;1&quot;&#xd;
-}</stringProp>
+	&quot;year&quot;: &quot;1&quot;}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
                     </collectionProp>
@@ -8133,7 +8132,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   </ResultAction>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--物业缴费_预缴账单_点击去缴费" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--物业缴费_预缴账单_点击去缴费(接口报错)" enabled="false">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -10189,7 +10188,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例5_物业缴费_管家/无房间业主代缴（业主代缴使用优惠券且满足返现）" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例5_物业缴费_管家/无房间业主代缴（业主代缴使用优惠券且满足返现）" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -13537,6 +13536,101 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
                 <hashTree/>
+              </hashTree>
+              <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="预缴账单" enabled="false"/>
+              <hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--物业缴费--缴费页面获取账单信息以及缴费科目(预交费)" enabled="true">
+                  <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value">{&#xd;
+	&quot;companyId&quot;: &quot;${__P(companyID)}&quot;,&#xd;
+	&quot;personId&quot;: &quot;${__P(personID)}&quot;,&#xd;
+	&quot;communityId&quot;: &quot;${communityID}&quot;,&#xd;
+	&quot;objectId&quot;: &quot;${roomID}&quot;,&#xd;
+	&quot;ownerCustomerId&quot;: &quot;${cusID}&quot;,&#xd;
+	&quot;year&quot;: &quot;1&quot;}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/estatepayment/front/interface/propertyFees/getTollArrearsNew</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_billNo;amount" enabled="true">
+                    <stringProp name="JSONPostProcessor.referenceNames">billNo;amount</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.[*].yearDataVOS[*].tollArrearVOList[*].billNo;$..amount</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">not;not</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="650436133">&quot;code&quot;:&quot;0101&quot;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+                    <intProp name="OnError.action">3</intProp>
+                  </ResultAction>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App--物业缴费_预缴账单_点击去缴费(接口报错)" enabled="false">
+                  <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value">{&quot;companyId&quot;: &quot;${__P(companyID)}&quot;,&quot;personId&quot;: &quot;${__P(personID)}&quot;,&quot;communityId&quot;:&quot;${communityID}&quot;,&quot;objectId&quot;:&quot;${roomID}&quot;,&quot;ownerCustomerId&quot;:&quot;${cusID}&quot;}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/estatepayment/front/interface/propertyFees/checkTollArrearsNew</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                  <stringProp name="TestPlan.comments">ownerCustomerId=4430838939440728131</stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-165108628">&quot;msg&quot;:&quot;上一年有未支付的账单&quot;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
               </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="当期账单" enabled="true"/>
               <hashTree>
