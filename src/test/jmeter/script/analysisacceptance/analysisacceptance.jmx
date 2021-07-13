@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.20200625">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
       <stringProp name="TestPlan.comments">1后台登录需抓取验证码2.管家APP打卡需在指定时间内</stringProp>
@@ -4375,7 +4375,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;year&quot;:2021,&quot;month&quot;:6,&quot;staffCode&quot;:&quot;&quot;,&quot;name&quot;:&quot;&quot;,&quot;confirm&quot;:&quot;0&quot;,&quot;orgCode&quot;:&quot;&quot;,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
+                      <stringProp name="Argument.value">{&quot;year&quot;:2021,&quot;month&quot;:6,&quot;staffCode&quot;:&quot;${staffCode}&quot;,&quot;name&quot;:&quot;&quot;,&quot;confirm&quot;:&quot;0&quot;,&quot;orgCode&quot;:&quot;&quot;,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -4404,13 +4404,6 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">16</intProp>
                 </ResponseAssertion>
-                <hashTree/>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_staffCode" enabled="true">
-                  <stringProp name="JSONPostProcessor.referenceNames">staffCode</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.result[?(@.userName==&quot;${staffName}&quot;)].staffCode</stringProp>
-                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
-                </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台管理_绩效管理_确认绩效" enabled="true">
@@ -21459,70 +21452,6 @@ ${__setProperty(hID,${hID},)}</stringProp>
                 </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP后台管理_登陆_获取用户信息(admin_APPLET_SESSION_ID)" enabled="false">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password2}&amp;username=${contactPhone}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">2</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_companyID(社区ID)、companyInfoID(企业ID)、personID(用户ID)、personName(用户名称)、back_hid()" enabled="true">
-                  <stringProp name="JSONPostProcessor.referenceNames">companyID;companyInfoID;personID;personName</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.companyID;$.data.companyInfoID;$.data.personID;$.data.personName</stringProp>
-                  <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0</stringProp>
-                </JSONPostProcessor>
-                <hashTree/>
-                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_hID" enabled="true">
-                  <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-                  <stringProp name="RegexExtractor.refname">hID</stringProp>
-                  <stringProp name="RegexExtractor.regex">hID=(.+?);</stringProp>
-                  <stringProp name="RegexExtractor.template">$1$</stringProp>
-                  <stringProp name="RegexExtractor.default"></stringProp>
-                  <stringProp name="RegexExtractor.match_number">1</stringProp>
-                </RegexExtractor>
-                <hashTree/>
-                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_JSESSIONID" enabled="true">
-                  <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-                  <stringProp name="RegexExtractor.refname">JSESSIONID</stringProp>
-                  <stringProp name="RegexExtractor.regex">JSESSIONID=(.+?);</stringProp>
-                  <stringProp name="RegexExtractor.template">$1$</stringProp>
-                  <stringProp name="RegexExtractor.default"></stringProp>
-                  <stringProp name="RegexExtractor.match_number">1</stringProp>
-                </RegexExtractor>
-                <hashTree/>
-                <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_admin_APPLET_SESSION_ID" enabled="true">
-                  <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-                  <stringProp name="RegexExtractor.refname">admin_APPLET_SESSION_ID</stringProp>
-                  <stringProp name="RegexExtractor.regex">admin_APPLET_SESSION_ID=(.+?);</stringProp>
-                  <stringProp name="RegexExtractor.template">$1$</stringProp>
-                  <stringProp name="RegexExtractor.default"></stringProp>
-                  <stringProp name="RegexExtractor.match_number">1</stringProp>
-                </RegexExtractor>
-                <hashTree/>
-              </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="获取个人信息" enabled="true"/>
               <hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取个人信息" enabled="true">
@@ -21552,16 +21481,19 @@ ${__setProperty(hID,${hID},)}</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">0;0</stringProp>
                   </JSONPostProcessor>
                   <hashTree/>
+<<<<<<< Updated upstream
+=======
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1382949693">&quot;pName&quot;:&quot;张喜富&quot;</stringProp>
+                      <stringProp name="-133697392">${communityID}</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
+                    <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
+>>>>>>> Stashed changes
                 </hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_完整的个人信息" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -21589,16 +21521,19 @@ ${__setProperty(hID,${hID},)}</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">0;0;0</stringProp>
                   </JSONPostProcessor>
                   <hashTree/>
+<<<<<<< Updated upstream
+=======
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1382949693">&quot;pName&quot;:&quot;张喜富&quot;</stringProp>
+                      <stringProp name="-2108899242">${personID}</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
+                    <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
+>>>>>>> Stashed changes
                 </hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取社区信息" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -21628,16 +21563,19 @@ ${__setProperty(hID,${hID},)}</stringProp>
                     <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                   </JSONPostProcessor>
                   <hashTree/>
+<<<<<<< Updated upstream
+=======
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-278589787">&quot;cName&quot;:&quot;合生活家园&quot;</stringProp>
+                      <stringProp name="1937084791">${company}</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
+                    <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
+>>>>>>> Stashed changes
                 </hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取所有项目" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -21657,10 +21595,13 @@ ${__setProperty(hID,${hID},)}</stringProp>
                   <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
+<<<<<<< Updated upstream
+                <hashTree/>
+=======
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="641274002">&quot;mID&quot;:&quot;7529587449837404604&quot;</stringProp>
+                      <stringProp name="-161783867">&quot;status&quot;:1</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -21669,6 +21610,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
+>>>>>>> Stashed changes
               </hashTree>
             </hashTree>
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
@@ -22637,7 +22579,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
