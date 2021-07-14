@@ -154,22 +154,46 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${projectName}-健康检查" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/vshop/diagnosis/health</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+            <intProp name="OnError.action">3</intProp>
+          </ResultAction>
+          <hashTree/>
+        </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
           <stringProp name="dataSource">${projectName}</stringProp>
           <stringProp name="queryType">Callable Statement</stringProp>
           <stringProp name="query">/*删除新增的供应商数据--新增成功*/
 DELETE a,b,c,d,e,f FROM supplier a
-INNER JOIN supplier_withdraw_setting b ON a.supplier_id=b.supplier_id
-JOIN supplier_district_relation c ON a.supplier_id=c.supplier_id
-JOIN business_classification d ON a.supplier_id=d.supplier_id
-JOIN margin e ON a.supplier_id=e.supplier_id
-JOIN renew f ON a.supplier_id=f.supplier_id
+LEFT JOIN supplier_withdraw_setting b ON a.supplier_id=b.supplier_id
+LEFT JOIN supplier_district_relation c ON a.supplier_id=c.supplier_id
+LEFT JOIN business_classification d ON a.supplier_id=d.supplier_id
+LEFT JOIN margin e ON a.supplier_id=e.supplier_id
+LEFT JOIN renew f ON a.supplier_id=f.supplier_id
 WHERE supplier_name LIKE &apos;%接口测试%&apos;;
 
 /*删除新增的供应商数据--新增失败*/
 DELETE a,b,c FROM supplier a
-INNER JOIN supplier_withdraw_setting b ON a.supplier_id=b.supplier_id
-JOIN supplier_district_relation c ON a.supplier_id=c.supplier_id
+LEFT JOIN supplier_withdraw_setting b ON a.supplier_id=b.supplier_id
+LEFT JOIN supplier_district_relation c ON a.supplier_id=c.supplier_id
 WHERE supplier_name LIKE &apos;%接口测试%&apos;;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -196,7 +220,7 @@ WHERE supplier_name LIKE &apos;%接口测试%&apos;;</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="false">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
@@ -1257,7 +1281,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${companyInfoID}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -1303,7 +1327,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${companyInfoID}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -1499,7 +1523,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${companyInfoID}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -2683,7 +2707,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${companyInfoID}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;companyInfoId&quot;:&quot;${__P(companyInfoID)}&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
