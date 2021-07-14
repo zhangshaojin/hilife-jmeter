@@ -85,6 +85,12 @@
             <stringProp name="Argument.desc">数据库地址/端口号/及库名</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="basePath" elementType="Argument">
+            <stringProp name="Argument.name">basePath</stringProp>
+            <stringProp name="Argument.value">yhbill</stringProp>
+            <stringProp name="Argument.desc">j基础路径</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -115,7 +121,7 @@
         <boolProp name="autocommit">true</boolProp>
         <stringProp name="checkQuery">select 1</stringProp>
         <stringProp name="connectionAge">5000</stringProp>
-        <stringProp name="dataSource">hilife</stringProp>
+        <stringProp name="dataSource">${projectName}</stringProp>
         <stringProp name="dbUrl">jdbc:mysql://rm-2zeh7r5s96nge1014.mysql.rds.aliyuncs.com:3306/yhbill</stringProp>
         <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
         <stringProp name="initQuery"></stringProp>
@@ -128,7 +134,7 @@
         <stringProp name="username">main</stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="测试前置准备" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -139,274 +145,39 @@
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <stringProp name="TestPlan.comments">获取基础数据</stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="false">
-          <boolProp name="TransactionController.includeTimers">false</boolProp>
-          <boolProp name="TransactionController.parent">true</boolProp>
-        </TransactionController>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+        </CookieManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${projectName}-健康检查" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${basePath}/diagnosis/health</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="App基础接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="用户登陆_获取access_token(合生活App)" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">token.91hework.com</stringProp>
-              <stringProp name="HTTPSampler.port">443</stringProp>
-              <stringProp name="HTTPSampler.protocol">https</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/oauth/token?version=${version}&amp;password=${password}&amp;grant_type=multiple&amp;customID=${customID}&amp;username=${username}</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="TestPlan.comments">合生活token变量设置为access_token   其他服务toke命名为 服务_token</stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="" elementType="Header">
-                    <stringProp name="Header.name">Authorization</stringProp>
-                    <stringProp name="Header.value">Basic ZXNuTW9iaWxlQ2xpZW50OmVzbk1vYmlsZQ==</stringProp>
-                  </elementProp>
-                  <elementProp name="" elementType="Header">
-                    <stringProp name="Header.name">Content-Type</stringProp>
-                    <stringProp name="Header.value">application/json; charset=utf-8</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-获取access_token、openID" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">access_token;openID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.access_token;$.openID</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">not fund;not fund</stringProp>
-                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-              </JSONPostProcessor>
-              <hashTree/>
-            </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取个人信息" enabled="true">
-              <boolProp name="TransactionController.includeTimers">false</boolProp>
-              <boolProp name="TransactionController.parent">true</boolProp>
-            </TransactionController>
-            <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-获取个人信息" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol">https</stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">//mobile/person/current?version=${version}&amp;access_token=${access_token}&amp;customID=${customID}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                <stringProp name="TestPlan.comments">主要</stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-personID(用户ID)、communityID(社区ID)" enabled="true">
-                  <stringProp name="JSONPostProcessor.referenceNames">personID;communityID</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.pID;$.cID</stringProp>
-                  <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0;0</stringProp>
-                </JSONPostProcessor>
-                <hashTree/>
-              </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-完整的个人信息" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol">https</stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">//mobile/person/complete?version=${version}&amp;personID=${personID}&amp;communityID=${communityID}&amp;access_token=${access_token}&amp;customID=${customID}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-name(姓名)、company(社区名称)、cardID(卡片？)" enabled="true">
-                  <stringProp name="JSONPostProcessor.referenceNames">name;company;cardID</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.person.personBasic.pName;$.card.company;$.card.cardID</stringProp>
-                  <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0;0;0</stringProp>
-                </JSONPostProcessor>
-                <hashTree/>
-              </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App-获取社区信息" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol">https</stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">//mobile/community/get?version=${version}&amp;communityID=${communityID}&amp;access_token=${access_token}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_logo 、logoUrl、desc(描述)" enabled="true">
-                  <stringProp name="TestPlan.comments">1806926078139845226</stringProp>
-                  <stringProp name="JSONPostProcessor.referenceNames">logo;logoUrl;desc</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.logo;$.logoUrl;$.desc</stringProp>
-                  <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
-                  <stringProp name="JSONPostProcessor.defaultValues">0;0;0</stringProp>
-                  <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-                </JSONPostProcessor>
-                <hashTree/>
-              </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_所有项目入口" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol">https</stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">//mobile/topicPreset/receive/list?version=${version}&amp;communityID=${communityID}&amp;access_token=${access_token}&amp;customID=${customID}</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="后台基础接口" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_登陆_获取用户信息" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_companyID(社区ID)、companyInfoID(企业ID)、personID(用户ID)、personName(用户名称)、back_hid()" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">companyID;companyInfoID;personID;personName;back_hid</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.companyID;$.data.companyInfoID;$.data.personID;$.data.personName;$.data.hid</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1;1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">0;0;0;0;0</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_JSESSIONID" enabled="true">
-                <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-                <stringProp name="RegexExtractor.refname">JSESSIONID</stringProp>
-                <stringProp name="RegexExtractor.regex">JSESSIONID=(.+?);</stringProp>
-                <stringProp name="RegexExtractor.template">$1$</stringProp>
-                <stringProp name="RegexExtractor.default"></stringProp>
-                <stringProp name="RegexExtractor.match_number">1</stringProp>
-              </RegexExtractor>
-              <hashTree/>
-              <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_admin_APPLET_SESSION_ID" enabled="true">
-                <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-                <stringProp name="RegexExtractor.refname">admin_APPLET_SESSION_ID</stringProp>
-                <stringProp name="RegexExtractor.regex">admin_APPLET_SESSION_ID=(.+?);</stringProp>
-                <stringProp name="RegexExtractor.template">$1$</stringProp>
-                <stringProp name="RegexExtractor.default"></stringProp>
-                <stringProp name="RegexExtractor.match_number">1</stringProp>
-              </RegexExtractor>
-              <hashTree/>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
-                <stringProp name="filename"></stringProp>
-                <stringProp name="parameters">${access_token};${openID};${personID};${communityID};${name};${company};${cardID};${back_hid};${JSESSIONID};${admin_APPLET_SESSION_ID};${companyID}</stringProp>
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="script">${__setProperty(access_token,${access_token},)};       //合生活token 
-${__setProperty(openID,${openID},)};                   //合生活openID      
-${__setProperty(personID,${personID},)};               //合生活用户ID
-${__setProperty(communityID,${communityID},)};         //社区ID
-${__setProperty(name,${name},)};                       //用户名称
-${__setProperty(company,${company},)};                 //社区名称
-${__setProperty(cardID,${cardID},)};                   //
-${__setProperty(back_hid,${back_hid},)};               //后台hid
-${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
-${__setProperty(admin_APPLET_SESSION_ID,${admin_APPLET_SESSION_ID},)};         //后台admin_APPLET_SESSION_ID
-${__setProperty(companyID,${companyID},)};             //社区ID</stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-        </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="测试环境" enabled="false">
-          <stringProp name="IfController.condition">&quot;${environment}&quot;==&quot;测试环境&quot;</stringProp>
-          <boolProp name="IfController.evaluateAll">false</boolProp>
-        </IfController>
-        <hashTree>
-          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="${environment}_获取测试环境全局变量" enabled="true">
-            <stringProp name="BeanShellSampler.query">vars.put(&quot;domain&quot;,&quot;test.91hiwork.com&quot;);    //要运行环境的域名或ip
-vars.put(&quot;paypassword&quot;,&quot;${paypassword}&quot;);    //支付密码
-vars.put(&quot;username&quot;,&quot;${username}&quot;);   //登陆账号
-vars.put(&quot;password&quot;,&quot;${password}&quot;);     //登陆密码
-vars.put(&quot;back_username&quot;,&quot;${back_username}&quot;);  //后台管理账号
-vars.put(&quot;back_password&quot;,&quot;${back_password}&quot;);   //后台管理密码
-vars.put(&quot;companyId&quot;,&quot;${__PcompanyId)}&quot;);       //社区ID
-vars.put(&quot;communityID&quot;,&quot;${__P(communityID)}&quot;);    //社区ID
-vars.put(&quot;clientID&quot;,&quot;id_3155583436507529782&quot;);     //固定登陆验证clientID
-vars.put(&quot;client_secret&quot;,&quot;781216684&quot;);              //固定登陆client_secret
-vars.put(&quot;personID&quot;,&quot;${personID}&quot;);         //用户ID</stringProp>
-            <stringProp name="BeanShellSampler.filename"></stringProp>
-            <stringProp name="BeanShellSampler.parameters"></stringProp>
-            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-          </BeanShellSampler>
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+            <intProp name="OnError.action">3</intProp>
+          </ResultAction>
           <hashTree/>
         </hashTree>
-        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="Include控制器" enabled="true">
+        <IncludeController guiclass="IncludeControllerGui" testclass="IncludeController" testname="公用参数及登陆信息获取" enabled="true">
           <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
         </IncludeController>
         <hashTree/>
@@ -871,7 +642,7 @@ vars.put(&quot;personID&quot;,&quot;${personID}&quot;);         //用户ID</stri
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
