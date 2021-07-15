@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.20200625">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -16,7 +16,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="projectName" elementType="Argument">
             <stringProp name="Argument.name">projectName</stringProp>
-            <stringProp name="Argument.value">hilife-societyservice-societyService</stringProp>
+            <stringProp name="Argument.value">hilife-societyservice</stringProp>
             <stringProp name="Argument.desc">项目名称</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -106,6 +106,12 @@
             <stringProp name="Argument.value">6.0.4</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="basePath" elementType="Argument">
+            <stringProp name="Argument.name">basePath</stringProp>
+            <stringProp name="Argument.value">manage</stringProp>
+            <stringProp name="Argument.desc">j基础路径</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -141,7 +147,7 @@
         <stringProp name="TestPlan.comments">数据库请求内使用时多语句时需要添加allowMultiQueries=true</stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="测试前置准备" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -152,8 +158,38 @@
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+        </CookieManager>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${projectName}-健康检查" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${basePath}/diagnosis/health</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+            <intProp name="OnError.action">3</intProp>
+          </ResultAction>
+          <hashTree/>
+        </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
           <stringProp name="dataSource">${projectName}</stringProp>
           <stringProp name="queryType">Callable Statement</stringProp>
@@ -167,26 +203,6 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           <stringProp name="queryTimeout"></stringProp>
           <stringProp name="resultSetHandler">Store as String</stringProp>
         </JDBCSampler>
-        <hashTree/>
-      </hashTree>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <stringProp name="TestPlan.comments">获取基础数据</stringProp>
-      </SetupThreadGroup>
-      <hashTree>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
-          <collectionProp name="CookieManager.cookies"/>
-          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
-        </CookieManager>
         <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -464,6 +480,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="TestPlan.comments">和场景只能打开一个</stringProp>
       </ThreadGroup>
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="社会服务平台-app" enabled="true"/>
@@ -654,7 +671,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -1261,7 +1278,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登录获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -1930,7 +1947,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登录获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -2441,7 +2458,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登录获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -2686,7 +2703,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -3149,7 +3166,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -3556,7 +3573,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -4089,7 +4106,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -4758,7 +4775,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
               </hashTree>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
                 <collectionProp name="ModuleController.node_path">
-                  <stringProp name="764597751">Test Plan</stringProp>
+                  <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="869052411">测试计划</stringProp>
                   <stringProp name="641811747">公共接口</stringProp>
                   <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -5722,9 +5739,9 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="641811747">公共接口</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
+              <stringProp name="1510329708">测试前置准备</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
               <stringProp name="1569444965">App基础接口</stringProp>
             </collectionProp>
@@ -6340,7 +6357,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登录获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -7009,7 +7026,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登录获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -7520,7 +7537,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登录获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -7776,7 +7793,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -8250,7 +8267,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -8657,7 +8674,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -9190,7 +9207,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>
@@ -9859,7 +9876,7 @@ DELETE FROM employee WHERE employee_name = &apos;孙艳娜&apos;;
           </hashTree>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="APP登陆获取信息" enabled="false">
             <collectionProp name="ModuleController.node_path">
-              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="641811747">公共接口</stringProp>
               <stringProp name="-1974300813">获取基础参数</stringProp>

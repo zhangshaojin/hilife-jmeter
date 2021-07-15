@@ -190,6 +190,12 @@
             <stringProp name="Argument.value">后台登录需手动抓取验证码图片和识别验证码</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="basePath" elementType="Argument">
+            <stringProp name="Argument.name">basePath</stringProp>
+            <stringProp name="Argument.value">analysisacceptance</stringProp>
+            <stringProp name="Argument.desc">j基础路径</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -225,7 +231,7 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
-      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="连接mysql数据库_hilife-analysisacceptance" enabled="true">
+      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="连接数据库_hilife-analysisacceptance" enabled="true">
         <boolProp name="autocommit">true</boolProp>
         <stringProp name="checkQuery">select 1</stringProp>
         <stringProp name="connectionAge">5000</stringProp>
@@ -245,7 +251,7 @@
         <stringProp name="connectionProperties"></stringProp>
       </JDBCDataSource>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="接口测试数据初始化" enabled="true">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="测试前置准备" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -259,12 +265,34 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="JDBC Request清理数据" enabled="true"/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${projectName}-健康检查" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/${basePath}/diagnosis/health</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
         <hashTree>
-          <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
-            <stringProp name="dataSource">${projectName}</stringProp>
-            <stringProp name="queryType">Callable Statement</stringProp>
-            <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+            <intProp name="OnError.action">3</intProp>
+          </ResultAction>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
 DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
 
 /*删除接口测试绩效数据，用于场景5、6*/
@@ -273,32 +301,15 @@ DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
 DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
 
 DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
-            <stringProp name="queryArguments"></stringProp>
-            <stringProp name="queryArgumentsTypes"></stringProp>
-            <stringProp name="variableNames"></stringProp>
-            <stringProp name="resultVariable"></stringProp>
-            <stringProp name="queryTimeout"></stringProp>
-            <stringProp name="resultSetHandler">Store as String</stringProp>
-            <stringProp name="resultSetMaxRows"></stringProp>
-          </JDBCSampler>
-          <hashTree/>
-        </hashTree>
-      </hashTree>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="公共接口" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <stringProp name="TestPlan.comments">获取基础数据</stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
-      </SetupThreadGroup>
-      <hashTree>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+        </JDBCSampler>
+        <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="获取基础参数" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
@@ -2663,43 +2674,6 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台_物业两算一控_工单单价管理_工单单价列表编辑工单单价" enabled="true">
-                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                  <collectionProp name="Arguments.arguments">
-                    <elementProp name="" elementType="HTTPArgument">
-                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;id&quot;:&quot;${id}&quot;,&quot;sigeJobId&quot;:&quot;${sigeJobId}&quot;,&quot;numberOfPost&quot;:4,&quot;price&quot;:3000,&quot;sigeCompanyId&quot;:&quot;${sigeCompanyId}&quot;}</stringProp>
-                      <stringProp name="Argument.metadata">=</stringProp>
-                    </elementProp>
-                  </collectionProp>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain"></stringProp>
-                <stringProp name="HTTPSampler.port"></stringProp>
-                <stringProp name="HTTPSampler.protocol"></stringProp>
-                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/analysisacceptance/zygJob/v1/updateJobInfo</stringProp>
-                <stringProp name="HTTPSampler.method">PUT</stringProp>
-                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </HTTPSamplerProxy>
-              <hashTree>
-                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                  <collectionProp name="Asserion.test_strings">
-                    <stringProp name="723337899">&quot;code&quot;:200</stringProp>
-                  </collectionProp>
-                  <stringProp name="Assertion.custom_message"></stringProp>
-                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                  <boolProp name="Assertion.assume_success">false</boolProp>
-                  <intProp name="Assertion.test_type">16</intProp>
-                </ResponseAssertion>
-                <hashTree/>
-              </hashTree>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="两算一控后台_物业两算一控_自营员工管理" enabled="true"/>
             <hashTree>
@@ -2740,7 +2714,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="自营员工管理列表" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台_物业两算一控_自营员工管理_自营员工管理列表" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -2786,7 +2760,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 </HeaderManager>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="自营员工管理_下载模板" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台_物业两算一控_自营员工管理_下载模板" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments"/>
                 </elementProp>
@@ -2805,8 +2779,39 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
               <hashTree>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="script">String resPonseCode = prev.getResponseCode();
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+                </BeanShellPostProcessor>
+                <hashTree/>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                  <collectionProp name="Asserion.test_strings"/>
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="722485389">导出成功</stringProp>
+                  </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                   <boolProp name="Assertion.assume_success">false</boolProp>
@@ -2817,8 +2822,8 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="自营员工管理_导入薪资模板" enabled="true">
                 <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
                   <collectionProp name="HTTPFileArgs.files">
-                    <elementProp name=".\data\员工信息表.xlsx" elementType="HTTPFileArg">
-                      <stringProp name="File.path">.\data\员工信息表.xlsx</stringProp>
+                    <elementProp name="./data/employee.xlsx" elementType="HTTPFileArg">
+                      <stringProp name="File.path">./data/employee.xlsx</stringProp>
                       <stringProp name="File.paramname">file</stringProp>
                       <stringProp name="File.mimetype">vnd.openxmlformats-officedocument.spreadsheetml.sheet</stringProp>
                     </elementProp>
@@ -2828,7 +2833,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="filename" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">员工信息表.xlsx</stringProp>
+                      <stringProp name="Argument.value">employee.xlsx</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">filename</stringProp>
@@ -3017,7 +3022,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="添加对接人信息" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台_物业两算一控_外派公司列表_添加对接人信息" enabled="true">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -3435,8 +3440,39 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
+                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+                    <boolProp name="resetInterpreter">false</boolProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="script">String resPonseCode = prev.getResponseCode();
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+                  </BeanShellPostProcessor>
+                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                    <collectionProp name="Asserion.test_strings"/>
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="722485389">导出成功</stringProp>
+                    </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
@@ -3669,8 +3705,39 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
                 <hashTree>
+                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+                    <boolProp name="resetInterpreter">false</boolProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="script">String resPonseCode = prev.getResponseCode();
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+                  </BeanShellPostProcessor>
+                  <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                    <collectionProp name="Asserion.test_strings"/>
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="722485389">导出成功</stringProp>
+                    </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
@@ -3851,8 +3918,8 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台管理_绩效管理_导入绩效工资" enabled="true">
                   <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
                     <collectionProp name="HTTPFileArgs.files">
-                      <elementProp name=".\data\performancesalary.xlsx" elementType="HTTPFileArg">
-                        <stringProp name="File.path">.\data\performancesalary.xlsx</stringProp>
+                      <elementProp name="./data/performancesalary.xlsx" elementType="HTTPFileArg">
+                        <stringProp name="File.path">./data/performancesalary.xlsx</stringProp>
                         <stringProp name="File.paramname">file</stringProp>
                         <stringProp name="File.mimetype">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</stringProp>
                       </elementProp>
@@ -3995,8 +4062,8 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="两算一控后台管理_绩效管理_导入绩效" enabled="true">
                   <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
                     <collectionProp name="HTTPFileArgs.files">
-                      <elementProp name=".\data\performance.xlsx" elementType="HTTPFileArg">
-                        <stringProp name="File.path">.\data\performance.xlsx</stringProp>
+                      <elementProp name="./data/performance.xlsx" elementType="HTTPFileArg">
+                        <stringProp name="File.path">./data/performance.xlsx</stringProp>
                         <stringProp name="File.paramname">multipartFile</stringProp>
                         <stringProp name="File.mimetype">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</stringProp>
                       </elementProp>
@@ -4259,7 +4326,47 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                   <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                   <stringProp name="HTTPSampler.response_timeout"></stringProp>
                 </HTTPSamplerProxy>
-                <hashTree/>
+                <hashTree>
+                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+                    <boolProp name="resetInterpreter">false</boolProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="script">String resPonseCode = prev.getResponseCode();
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+                  </BeanShellPostProcessor>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="722485389">导出成功</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
               </hashTree>
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="绩效确认" enabled="true"/>
@@ -4279,7 +4386,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">{&quot;year&quot;:2021,&quot;month&quot;:6,&quot;staffCode&quot;:&quot;&quot;,&quot;name&quot;:&quot;&quot;,&quot;confirm&quot;:&quot;0&quot;,&quot;orgCode&quot;:&quot;&quot;,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
+                      <stringProp name="Argument.value">{&quot;year&quot;:2021,&quot;month&quot;:6,&quot;staffCode&quot;:&quot;${staffCode}&quot;,&quot;name&quot;:&quot;&quot;,&quot;confirm&quot;:&quot;0&quot;,&quot;orgCode&quot;:&quot;&quot;,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
                   </collectionProp>
@@ -4423,7 +4530,47 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
                 <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                 <stringProp name="HTTPSampler.response_timeout"></stringProp>
               </HTTPSamplerProxy>
-              <hashTree/>
+              <hashTree>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="script">String resPonseCode = prev.getResponseCode();
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+                </BeanShellPostProcessor>
+                <hashTree/>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="722485389">导出成功</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">16</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
             </hashTree>
           </hashTree>
         </hashTree>
@@ -5375,7 +5522,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="模块测试线程" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例1_自营员工打卡_经理验收通过_查看打卡工资" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -5388,124 +5535,7 @@ ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="上传文件" enabled="true">
-          <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
-            <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="C:\Users\芳宝的电脑\Downloads\员工绩效李楠.xlsx" elementType="HTTPFileArg">
-                <stringProp name="File.path">C:\Users\芳宝的电脑\Downloads\员工绩效李楠.xlsx</stringProp>
-                <stringProp name="File.paramname">multipartFile</stringProp>
-                <stringProp name="File.mimetype">application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="operatorPersonName" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">admin</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">operatorPersonName</stringProp>
-              </elementProp>
-              <elementProp name="year" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">2021</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">year</stringProp>
-              </elementProp>
-              <elementProp name="month" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">5</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">month</stringProp>
-              </elementProp>
-              <elementProp name="filename" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">员工绩效李楠.xlsx</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">filename</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/analysisacceptance/employee/performance/v1/upload</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.implementation">Java</stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell 预处理程序" enabled="true">
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <boolProp name="resetInterpreter">false</boolProp>
-            <stringProp name="script">sampler.getHeaderManager().removeHeaderNamed(“Content-Type”);</stringProp>
-          </BeanShellPreProcessor>
-          <hashTree/>
-        </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="绩效导入结果查询" enabled="true">
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{&quot;year&quot;:2021,&quot;month&quot;:5,&quot;staffCode&quot;:&quot;&quot;,&quot;name&quot;:&quot;&quot;,&quot;orgCode&quot;:&quot;&quot;,&quot;status&quot;:&quot;&quot;,&quot;pageSize&quot;:10,&quot;pageNum&quot;:1}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/analysisacceptance/merit/employeeMeritManage</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1197432579">&quot;msg&quot;:&quot;请求成功&quot;</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">2</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-        </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例1_自营员工打卡_经理验收通过_查看打卡工资" enabled="false">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="员工打卡_员工登录合生活自查_两算后台管理员查" enabled="false">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="员工打卡_员工登录合生活自查_两算后台管理员查" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
@@ -6302,7 +6332,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                   <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-873515855">&quot;message&quot;:&quot;已提交成功！&quot;</stringProp>
+                      <stringProp name="-716955393">&quot;message&quot;:&quot;操作成功&quot;</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -9091,7 +9121,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例2_自营员工打卡_经理验收未通过_查看打卡工资" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例2_自营员工打卡_经理验收未通过_查看打卡工资" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -9919,7 +9949,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -10190,7 +10220,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                 </hashTree>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看员工打卡信息" enabled="true">
+            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看员工打卡信息" enabled="false">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">true</boolProp>
             </TransactionController>
@@ -11728,7 +11758,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -11999,7 +12029,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                 </hashTree>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看经理打卡信息" enabled="true">
+            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看经理打卡信息" enabled="false">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">true</boolProp>
             </TransactionController>
@@ -12689,7 +12719,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_外判员工打卡_经理验收通过_查看打卡工资" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_外判员工打卡_经理验收通过_查看打卡工资" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -12993,6 +13023,20 @@ ${__setProperty(organId,${organId},)}</stringProp>
               <stringProp name="TestPlan.comments">在上午9点至12点之前，执行脚本(合管家_查询订单接口待优化)</stringProp>
             </TransactionController>
             <hashTree>
+              <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP请求默认值" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                  <collectionProp name="Arguments.arguments"/>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain">${domain2}</stringProp>
+                <stringProp name="HTTPSampler.port">443</stringProp>
+                <stringProp name="HTTPSampler.protocol">https</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path"></stringProp>
+                <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </ConfigTestElement>
+              <hashTree/>
               <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
                 <collectionProp name="CookieManager.cookies">
                   <elementProp name="JSESSIONID" elementType="Cookie" testname="JSESSIONID">
@@ -13061,20 +13105,6 @@ ${__setProperty(organId,${organId},)}</stringProp>
                 </collectionProp>
                 <boolProp name="CookieManager.clearEachIteration">false</boolProp>
               </CookieManager>
-              <hashTree/>
-              <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP请求默认值" enabled="true">
-                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
-                </elementProp>
-                <stringProp name="HTTPSampler.domain">${domain2}</stringProp>
-                <stringProp name="HTTPSampler.port">443</stringProp>
-                <stringProp name="HTTPSampler.protocol">https</stringProp>
-                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
-                <stringProp name="HTTPSampler.path"></stringProp>
-                <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
-                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              </ConfigTestElement>
               <hashTree/>
               <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="接单" enabled="true">
                 <boolProp name="TransactionController.includeTimers">false</boolProp>
@@ -13165,7 +13195,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">{&quot;organId&quot;:&quot;${organId}&quot;,&quot;userId&quot;:&quot;${userId}&quot;,&quot;serviceOrderId&quot;:&quot;${serviceOrderId}&quot;,&quot;trackId&quot;:&quot;${trackId}&quot;,&quot;actionCode&quot;:&quot;${actionCode}&quot;,&quot;variables&quot;:[{&quot;attrInstId&quot;:&quot;${attrInstId}&quot;,&quot;attrCode&quot;:&quot;${attrCode}&quot;,&quot;attrValue&quot;:&quot;接口测试&quot;}]}</stringProp>
+                        <stringProp name="Argument.value">{&quot;organId&quot;:&quot;${organId}&quot;,&quot;serviceOrderId&quot;:&quot;${serviceOrderId}&quot;,&quot;userId&quot;:&quot;${userId}&quot;,&quot;trackId&quot;:&quot;${trackId}&quot;,&quot;actionCode&quot;:&quot;${actionCode}&quot;}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
                     </collectionProp>
@@ -13498,7 +13528,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                   <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-538662559">message&quot;:&quot;操作成功&quot;</stringProp>
+                      <stringProp name="-716955393">&quot;message&quot;:&quot;操作成功&quot;</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -13517,7 +13547,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -15326,7 +15356,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -16287,7 +16317,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例4_外判员工打卡_经理验收未通过_查看打卡工资" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例4_外判员工打卡_经理验收未通过_查看打卡工资" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -17115,7 +17145,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -18924,7 +18954,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -20438,16 +20468,28 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="216464514">接口测试数据初始化</stringProp>
-            <stringProp name="-1951285335">JDBC Request清理数据</stringProp>
-          </collectionProp>
-        </ModuleController>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
+
+/*删除接口测试绩效数据，用于场景5、6*/
+DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
+
+DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
+
+DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+        </JDBCSampler>
         <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_绩效导入" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="869052411">测试计划</stringProp>
             <stringProp name="869052411">测试计划</stringProp>
@@ -20459,7 +20501,7 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
           </collectionProp>
         </ModuleController>
         <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_绩效确认" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="869052411">测试计划</stringProp>
             <stringProp name="869052411">测试计划</stringProp>
@@ -21301,16 +21343,28 @@ ${__setProperty(hID,${hID},)}</stringProp>
           </BeanShellSampler>
           <hashTree/>
         </hashTree>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="216464514">接口测试数据初始化</stringProp>
-            <stringProp name="-1951285335">JDBC Request清理数据</stringProp>
-          </collectionProp>
-        </ModuleController>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
+
+/*删除接口测试绩效数据，用于场景5、6*/
+DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
+
+DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
+
+DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+        </JDBCSampler>
         <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_绩效管理" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="869052411">测试计划</stringProp>
             <stringProp name="869052411">测试计划</stringProp>
@@ -21337,7 +21391,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例7_后台_外判公司_手动同步BPM公司信息_编辑合作对接人/合作对接人电话_查看详情" enabled="true"/>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_外派公司列表" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
@@ -21366,16 +21420,28 @@ ${__setProperty(hID,${hID},)}</stringProp>
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例8_后台_外派组织_添加外派组织_列表展示_合生活APP自动关联外判角色_我的钱包展示收益" enabled="true"/>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_JDBC Request清理数据" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="216464514">接口测试数据初始化</stringProp>
-              <stringProp name="-1951285335">JDBC Request清理数据</stringProp>
-            </collectionProp>
-          </ModuleController>
+          <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+            <stringProp name="dataSource">${projectName}</stringProp>
+            <stringProp name="queryType">Callable Statement</stringProp>
+            <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
+
+/*删除接口测试绩效数据，用于场景5、6*/
+DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
+
+DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
+
+DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
+            <stringProp name="queryArguments"></stringProp>
+            <stringProp name="queryArgumentsTypes"></stringProp>
+            <stringProp name="variableNames"></stringProp>
+            <stringProp name="resultVariable"></stringProp>
+            <stringProp name="queryTimeout"></stringProp>
+            <stringProp name="resultSetHandler">Store as String</stringProp>
+            <stringProp name="resultSetMaxRows"></stringProp>
+          </JDBCSampler>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_" enabled="true">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_外派公司列表" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
@@ -21387,7 +21453,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器" enabled="true">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_外派组织管理" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
@@ -21535,12 +21601,12 @@ ${__setProperty(hID,${hID},)}</stringProp>
                   <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1382949693">&quot;pName&quot;:&quot;张喜富&quot;</stringProp>
+                      <stringProp name="-133697392">${communityID}</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
+                    <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
@@ -21572,12 +21638,12 @@ ${__setProperty(hID,${hID},)}</stringProp>
                   <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1382949693">&quot;pName&quot;:&quot;张喜富&quot;</stringProp>
+                      <stringProp name="1216364763">${name}</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
+                    <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
@@ -21611,12 +21677,12 @@ ${__setProperty(hID,${hID},)}</stringProp>
                   <hashTree/>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-278589787">&quot;cName&quot;:&quot;合生活家园&quot;</stringProp>
+                      <stringProp name="-133697392">${communityID}</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                     <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">16</intProp>
+                    <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
@@ -21641,7 +21707,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
                 <hashTree>
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
-                      <stringProp name="641274002">&quot;mID&quot;:&quot;7529587449837404604&quot;</stringProp>
+                      <stringProp name="-161783867">&quot;status&quot;:1</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -22407,7 +22473,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -22688,7 +22754,7 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="断言结果" enabled="true">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
@@ -22722,7 +22788,6 @@ ${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
           </value>
         </objProp>
         <stringProp name="filename"></stringProp>
-        <boolProp name="ResultCollector.success_only_logging">true</boolProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="聚合报告" enabled="true">
