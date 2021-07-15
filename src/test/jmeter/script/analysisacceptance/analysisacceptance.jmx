@@ -9121,7 +9121,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例2_自营员工打卡_经理验收未通过_查看打卡工资" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例2_自营员工打卡_经理验收未通过_查看打卡工资" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -9949,7 +9949,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -10220,7 +10220,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                 </hashTree>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看员工打卡信息" enabled="true">
+            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看员工打卡信息" enabled="false">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">true</boolProp>
             </TransactionController>
@@ -12029,7 +12029,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
                 </hashTree>
               </hashTree>
             </hashTree>
-            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看经理打卡信息" enabled="true">
+            <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="两算后台查看经理打卡信息" enabled="false">
               <boolProp name="TransactionController.includeTimers">false</boolProp>
               <boolProp name="TransactionController.parent">true</boolProp>
             </TransactionController>
@@ -14495,7 +14495,7 @@ ${__setProperty(hID,${hID},)}</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="经理打卡_经理登录合生活自查_两算后台管理员查" enabled="false">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="经理打卡_经理登录合生活自查_两算后台管理员查" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
           <boolProp name="TransactionController.parent">true</boolProp>
         </TransactionController>
@@ -15356,7 +15356,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -17145,7 +17145,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询员工打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -18954,7 +18954,7 @@ ${__setProperty(organId,${organId},)}</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="查询经理验收打卡信息" enabled="false">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">true</boolProp>
           </TransactionController>
@@ -20468,14 +20468,26 @@ ${__setProperty(agentID,${agentID},)};     //蚂蚁ID？$</stringProp>
             </hashTree>
           </hashTree>
         </hashTree>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_JDBC Request清理数据" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="216464514">接口测试数据初始化</stringProp>
-            <stringProp name="-1951285335">JDBC Request清理数据</stringProp>
-          </collectionProp>
-        </ModuleController>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
+
+/*删除接口测试绩效数据，用于场景5、6*/
+DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
+
+DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
+
+DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+        </JDBCSampler>
         <hashTree/>
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_绩效导入" enabled="true">
           <collectionProp name="ModuleController.node_path">
@@ -21331,14 +21343,26 @@ ${__setProperty(hID,${hID},)}</stringProp>
           </BeanShellSampler>
           <hashTree/>
         </hashTree>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_JDBC Request清理数据" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="216464514">接口测试数据初始化</stringProp>
-            <stringProp name="-1951285335">JDBC Request清理数据</stringProp>
-          </collectionProp>
-        </ModuleController>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
+
+/*删除接口测试绩效数据，用于场景5、6*/
+DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
+
+DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
+
+DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+        </JDBCSampler>
         <hashTree/>
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_绩效管理" enabled="true">
           <collectionProp name="ModuleController.node_path">
@@ -21396,14 +21420,26 @@ ${__setProperty(hID,${hID},)}</stringProp>
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景用例8_后台_外派组织_添加外派组织_列表展示_合生活APP自动关联外判角色_我的钱包展示收益" enabled="true"/>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_JDBC Request清理数据" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="216464514">接口测试数据初始化</stringProp>
-              <stringProp name="-1951285335">JDBC Request清理数据</stringProp>
-            </collectionProp>
-          </ModuleController>
+          <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request清理数据" enabled="true">
+            <stringProp name="dataSource">${projectName}</stringProp>
+            <stringProp name="queryType">Callable Statement</stringProp>
+            <stringProp name="query">/*DELETE FROM task_accept_info WHERE maintain_item LIKE &apos;%接口测试%&apos;;
+DELETE FROM task_info WHERE title LIKE &apos;%接口测试%&apos;;*/
+
+/*删除接口测试绩效数据，用于场景5、6*/
+DELETE FROM employee_performance_detail WHERE staff_code =545005 ;
+
+DELETE FROM export_record_employee_realtion WHERE staff_code =545005 ;
+
+DELETE FROM third_part_company_relation_job WHERE sige_job_name=&apos;接口测试_外判员工岗&apos;</stringProp>
+            <stringProp name="queryArguments"></stringProp>
+            <stringProp name="queryArgumentsTypes"></stringProp>
+            <stringProp name="variableNames"></stringProp>
+            <stringProp name="resultVariable"></stringProp>
+            <stringProp name="queryTimeout"></stringProp>
+            <stringProp name="resultSetHandler">Store as String</stringProp>
+            <stringProp name="resultSetMaxRows"></stringProp>
+          </JDBCSampler>
           <hashTree/>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_两算一控后台_外派公司列表" enabled="true">
             <collectionProp name="ModuleController.node_path">
