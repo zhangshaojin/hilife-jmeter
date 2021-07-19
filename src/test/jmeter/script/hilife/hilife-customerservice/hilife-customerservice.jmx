@@ -135,7 +135,7 @@
           <elementProp name="type" elementType="Argument">
             <stringProp name="Argument.name">type</stringProp>
             <stringProp name="Argument.value">SMARTTOWN</stringProp>
-            <stringProp name="Argument.desc">SMARTTOWN：壹镇通创建群---HILIFE：合生活创建群</stringProp>
+            <stringProp name="Argument.desc">SMARTTOWN：壹镇通创建群       HILIFE：合生活创建群</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -197,6 +197,30 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="${projectName}-健康检查" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/customerservice/diagnosis/health</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResultAction guiclass="ResultActionGui" testclass="ResultAction" testname="结果状态处理器" enabled="true">
+            <intProp name="OnError.action">3</intProp>
+          </ResultAction>
+          <hashTree/>
+        </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request" enabled="false">
           <stringProp name="dataSource">${projectName}</stringProp>
           <stringProp name="query">DELETE  FROM library WHERE business_id = 48 and  operator_id = 544015976526466296;
@@ -1102,9 +1126,9 @@ ${__setProperty(id,${id},)};     //群聊ID？$</stringProp>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景1_群管理_平台群管理_后台新增群聊_APP端查看群聊列表" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景1_群管理_平台群管理_群聊管理_后台新增群聊_APP端查看群聊列表" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_后台新增群聊" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群聊管理_新增群聊" enabled="true"/>
           <hashTree>
             <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="随机生成群聊名称" enabled="true">
               <stringProp name="BeanShellSampler.query">public class Random_str {
@@ -1141,7 +1165,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
             </BeanShellSampler>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取所有成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_获取所有成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -1177,7 +1201,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_新增群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_新增群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1216,61 +1240,61 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取新增群聊id" enabled="true">
-              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;currentPage&quot;:1,&quot;pageMaxSize&quot;:10,&quot;orderColumn&quot;:&quot;&quot;,&quot;groupChatName&quot;:&quot;&quot;,&quot;groupMasterNickName&quot;:&quot;&quot;,&quot;groupMasterPhone&quot;:&quot;${username}&quot;,&quot;showStatus&quot;:&quot;&quot;,&quot;groupNo&quot;:&quot;&quot;,&quot;queryType&quot;:true}</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/customerservice/groupChat/pageList</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">16</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_groupId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">groupId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[?(@.name ==&quot;${content_post}&quot;)].id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
-                <stringProp name="filename"></stringProp>
-                <stringProp name="parameters">${groupId}</stringProp>
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="script">${__setProperty(groupId,${groupId},)};     //群聊ID</stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
-            </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_APP端查看群聊列表" enabled="true"/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_获取新增群聊id" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;currentPage&quot;:1,&quot;pageMaxSize&quot;:10,&quot;orderColumn&quot;:&quot;&quot;,&quot;groupChatName&quot;:&quot;&quot;,&quot;groupMasterNickName&quot;:&quot;&quot;,&quot;groupMasterPhone&quot;:&quot;${username}&quot;,&quot;showStatus&quot;:&quot;&quot;,&quot;groupNo&quot;:&quot;&quot;,&quot;queryType&quot;:true}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/customerservice/groupChat/pageList</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_查看群聊列表" enabled="true">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_groupId" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">groupId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[?(@.name ==&quot;${content_post}&quot;)].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters">${groupId}</stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">${__setProperty(groupId,${groupId},)};     //群聊ID</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_APP端查看群聊列表" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_查看群聊列表" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="bizVersion" elementType="HTTPArgument">
@@ -1367,7 +1391,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景2_群管理_平台群管理_后台群聊新增成员_APP端查看群成员" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景2_群管理_平台群管理_群聊管理_后台群聊新增成员_APP端查看群成员" enabled="true"/>
         <hashTree>
           <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
             <collectionProp name="CookieManager.cookies">
@@ -1474,9 +1498,9 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
             <boolProp name="CookieManager.clearEachIteration">true</boolProp>
           </CookieManager>
           <hashTree/>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_后台群聊新增成员" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群聊管理_后台群聊新增成员" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_搜索平台用户" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_搜索平台用户" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
@@ -1556,7 +1580,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_新增群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_新增群成员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1593,7 +1617,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_查看群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_查看群成员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -1631,7 +1655,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_APP端查看群成员" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_查看群成员" enabled="true"/>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="false">
               <collectionProp name="HeaderManager.headers">
@@ -1642,7 +1666,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_查看群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_查看群成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="groupChatId" elementType="HTTPArgument">
@@ -1843,11 +1867,11 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景3_APP群聊_创建群聊_群成员管理（加成员）_查看群成员" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景3_APP_群聊_创建群聊_群成员管理（加成员）_查看群成员" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_创建群聊" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_创建群聊" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_当前用户是否可创建群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_当前用户是否可创建群聊" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="bizVersion" elementType="HTTPArgument">
@@ -1927,7 +1951,7 @@ vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_搜索群员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_搜索群员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="pageSize" elementType="HTTPArgument">
@@ -2070,7 +2094,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
             </BeanShellSampler>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_添加群员_创建群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_添加群员_创建群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2115,9 +2139,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_群成员管理_新增群成员" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_群成员管理_新增群成员" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_搜索新增成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_搜索新增成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="pageSize" elementType="HTTPArgument">
@@ -2225,7 +2249,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_群新增群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_群新增群成员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2280,7 +2304,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景4_APP群聊_允许群成员互加好友_申请加好友_通讯查看好友" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理允许加好友" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_群管理允许加好友" enabled="true"/>
           <hashTree>
             <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
               <collectionProp name="CookieManager.cookies">
@@ -2387,7 +2411,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <boolProp name="CookieManager.clearEachIteration">true</boolProp>
             </CookieManager>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理允许加入群" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_群管理允许加入群" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -2425,9 +2449,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="申请加好友_好友同意" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_申请加好友_好友同意" enabled="true"/>
           <hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="申请加好友" enabled="true"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_申请加好友" enabled="true"/>
             <hashTree>
               <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
                 <collectionProp name="CookieManager.cookies">
@@ -2534,7 +2558,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 <boolProp name="CookieManager.clearEachIteration">true</boolProp>
               </CookieManager>
               <hashTree/>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取群成员" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_获取群成员" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="groupChatId" elementType="HTTPArgument">
@@ -2635,7 +2659,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="申请加好友" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_申请加好友" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -2673,7 +2697,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="被加好友同意申请" enabled="true"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_被加好友同意申请" enabled="true"/>
             <hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="登录好友账号" enabled="true"/>
               <hashTree>
@@ -2868,7 +2892,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                   </hashTree>
                 </hashTree>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="好友获取申请消息列表" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_好友获取申请消息列表" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="pageSize" elementType="HTTPArgument">
@@ -2969,7 +2993,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 </JSONPostProcessor>
                 <hashTree/>
               </hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="通过好友申请" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_通过好友申请" enabled="true">
                 <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                   <collectionProp name="Arguments.arguments">
@@ -3112,9 +3136,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="通讯录查看好友" enabled="true"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_通讯录查看好友" enabled="true"/>
             <hashTree>
-              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="通讯录查看好友" enabled="true">
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_通讯录查看好友" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="bizVersion" elementType="HTTPArgument">
@@ -3318,7 +3342,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景5_APP群聊_不允许群成员互加好友_申请无法加好友" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理不允许加入群" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_群管理不允许加入群" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -3355,9 +3379,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="申请加好友" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_申请加好友" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_获取群成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="groupChatId" elementType="HTTPArgument">
@@ -3458,7 +3482,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="申请加好友" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_申请加好友" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -3618,9 +3642,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景6_APP群聊_删除好友" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="删除好友" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_群聊_删除好友" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取通讯录" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_获取通讯录" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="bizVersion" elementType="HTTPArgument">
@@ -3707,7 +3731,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="删除好友" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_删除好友" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -3858,7 +3882,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_创建群聊" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_当前用户是否可创建群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_当前用户是否可创建群聊" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="bizVersion" elementType="HTTPArgument">
@@ -3938,7 +3962,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_搜索群员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_搜索群员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="pageSize" elementType="HTTPArgument">
@@ -4046,7 +4070,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="随机生成群聊名称" enabled="true">
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="APP_群聊_随机生成群聊名称" enabled="true">
               <stringProp name="BeanShellSampler.query">public class Random_str {
     public static String RandomJianHan(int len) {
         String ret = &quot;&quot;;
@@ -4081,7 +4105,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
             </BeanShellSampler>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_添加群员_创建群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_添加群员_创建群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4128,7 +4152,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP群聊_群成员管理_踢出群成员" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_获取群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_获取群成员" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="bizVersion" elementType="HTTPArgument">
@@ -4222,7 +4246,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP群聊_踢出群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_群聊_踢出群成员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4262,7 +4286,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景8_群管理_平台群管理_后台群成员管理_APP端查看群成员列表" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景8_群管理_平台群管理_群聊管理_后台群成员管理_APP端查看群成员列表" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -4380,11 +4404,11 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景8_群管理_平台群管理_后台群管理" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景8_群管理_平台群管理_群聊管理_后台群管理" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群成员管理_设置管理员" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群聊管理_群成员管理_设置管理员" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_获取群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4428,7 +4452,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_获取群成员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4472,7 +4496,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_成员设置为管理员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_成员设置为管理员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4510,9 +4534,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群成员管理_群成员踢出群聊" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群聊管理_群成员管理_群成员踢出群聊" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_获取群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4556,7 +4580,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_获取群成员" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_获取群成员" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4600,7 +4624,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_成员踢出群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_成员踢出群聊" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -4631,9 +4655,9 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_关闭/打开群" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="群管理_平台群管理_群聊管理_关闭/打开群" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="开启群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_开启群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -4670,7 +4694,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="关闭群聊" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="群管理_平台群管理_群聊管理_关闭群聊" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
