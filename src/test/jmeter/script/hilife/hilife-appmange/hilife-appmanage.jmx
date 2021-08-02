@@ -16,7 +16,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="projectName" elementType="Argument">
             <stringProp name="Argument.name">projectName</stringProp>
-            <stringProp name="Argument.value">hilife-stock</stringProp>
+            <stringProp name="Argument.value">hilife-appmanage</stringProp>
             <stringProp name="Argument.desc">项目名称</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -277,7 +277,15 @@
           <stringProp name="dataSource">${projectName}</stringProp>
           <stringProp name="query"> DELETE FROM appmanage.multiple_recommend WHERE title = &apos;接口资讯&apos;;
  DELETE FROM appmanage.multiple_recommend WHERE title = &apos;接口商品&apos;;
- DELETE FROM appmanage.search_key_word WHERE title = &apos;%接口测试-&apos;</stringProp>
+  DELETE FROM appmanage.search_key_word WHERE title like &apos;接口测试%&apos;;
+
+/*删除接口测试appmanage创建标题*/
+DELETE a,b FROM vshop.company_service_second a 
+LEFT join vshop.service_second_category_sub b on a.id =b.service_second_id 
+WHERE a.title LIKE &apos;%接口测试%&apos;;
+
+DELETE a FROM vshop.company_service_first a  WHERE a.title LIKE &apos;%接口测试%&apos;;
+</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -2666,7 +2674,7 @@ vars.put(&quot;content_two&quot;,&quot;接口测试_&quot;+content1);
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取二级标题下的分类" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_app样式管理_社区服务_获取二级标题下的分类" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -2695,34 +2703,12 @@ vars.put(&quot;content_two&quot;,&quot;接口测试_&quot;+content1);
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取分类列表" enabled="false">
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="script">import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-String jsonContent = prev.getResponseDataAsString();
-JSONObject response = new JSONObject(jsonContent);
-JSONArray groups = response.getJSONArray(&quot;dataList&quot;);
-
-String strGroups = groups.toString();
-vars.put(&quot;hhhhhhhhhhhhhh&quot;,strGroups);
-
-//遍历groups
-//for(int i=0;i&lt;groups.size();i++){
-//	if(groups.getJSONObject().get(i).get(&quot;categoryId&quot;)==&quot;4568770097597531380&quot;){
-//		JSONArray secondCategoryList=groups.getJSONObject().get(i).getJSONArray(&quot;secondCategoryList&quot;);
-//	}
-//}
-//String strGroups = groups.toString();
-// vars.put(&quot;groups&quot;,strGroups);
-
-
-
-</stringProp>
-              </BeanShellPostProcessor>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_categoryId" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">categoryId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.dataList[*].secondCategoryList[*].categoryId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="调试取样器" enabled="false">
@@ -2737,7 +2723,7 @@ vars.put(&quot;hhhhhhhhhhhhhh&quot;,strGroups);
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;status&quot;:1,&quot;title&quot;:&quot;${content_one}&quot;,&quot;companyServiceSeconds&quot;:[{&quot;title&quot;:&quot;${content_two}&quot;,&quot;logoUrl&quot;:&quot;${path8}&quot;,&quot;serviceSecondCategorySubList&quot;:[{&quot;levelCode&quot;:2,&quot;categoryId&quot;:&quot;categoryId_1&quot;},{&quot;levelCode&quot;:2,&quot;categoryId&quot;:&quot;categoryId_2&quot;},{&quot;levelCode&quot;:2,&quot;categoryId&quot;:&quot;categoryId_3&quot;},{&quot;levelCode&quot;:2,&quot;categoryId&quot;:&quot;categoryId_4&quot;}]}]}</stringProp>
+                    <stringProp name="Argument.value">{&quot;status&quot;:1,&quot;title&quot;:&quot;${content_one}&quot;,&quot;companyServiceSeconds&quot;:[{&quot;title&quot;:&quot;${content_two}&quot;,&quot;logoUrl&quot;:&quot;${path8}&quot;,&quot;serviceSecondCategorySubList&quot;:[{&quot;levelCode&quot;:2,&quot;categoryId&quot;:&quot;${categoryId}&quot;}]}]}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
