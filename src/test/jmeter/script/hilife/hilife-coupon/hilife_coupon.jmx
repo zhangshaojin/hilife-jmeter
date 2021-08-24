@@ -9422,7 +9422,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="领取优惠券" enabled="true"/>
         <hashTree>
           <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="固定定时器" enabled="true">
-            <stringProp name="ConstantTimer.delay">1000</stringProp>
+            <stringProp name="ConstantTimer.delay">3000</stringProp>
           </ConstantTimer>
           <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券_领券中心列表" enabled="true">
@@ -9482,6 +9482,12 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
               <stringProp name="JSONPostProcessor.jsonPathExprs">$..dataList[?(@.name=~ /.*接口测试_线下优惠券.*?/)].couponTemplateID</stringProp>
               <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_name" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">name</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs"></stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
@@ -13774,7 +13780,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -13834,6 +13840,43 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
             <assertionsResultsToSave>0</assertionsResultsToSave>
             <bytes>true</bytes>
             <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>true</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
             <threadCounts>true</threadCounts>
             <idleTime>true</idleTime>
             <connectTime>true</connectTime>
