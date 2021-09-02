@@ -3737,7 +3737,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-cashOutID（提现单号）" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">cashOutID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.list[*].cashOutId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.list[?(@.status ==1)].cashOutId</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
@@ -10264,11 +10264,12 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-299026547">&quot;提现申请成功&quot;</stringProp>
+                <stringProp name="499194444">&quot;本月最后一天,系统进行维护，无法进行提现&quot;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.custom_message"></stringProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">16</intProp>
+              <intProp name="Assertion.test_type">34</intProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
