@@ -45,7 +45,7 @@
           </elementProp>
           <elementProp name="username" elementType="Argument">
             <stringProp name="Argument.name">username</stringProp>
-            <stringProp name="Argument.value">13837200200</stringProp>
+            <stringProp name="Argument.value">15210212873</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">App账号</stringProp>
           </elementProp>
@@ -63,7 +63,7 @@
           </elementProp>
           <elementProp name="back_username" elementType="Argument">
             <stringProp name="Argument.name">back_username</stringProp>
-            <stringProp name="Argument.value">13837200200</stringProp>
+            <stringProp name="Argument.value">15210212873</stringProp>
             <stringProp name="Argument.desc">后台账号</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -3737,8 +3737,8 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-cashOutID（提现单号）" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">cashOutID</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.list[*].cashOutId</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.list[?(@.agentRoleId==&quot;2&quot;)].cashOutId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -3950,6 +3950,13 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_orderId" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.list[0].orderId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_收益统计_收益订单(导出)" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -3957,7 +3964,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;proceedType&quot;:1,&quot;orderFormId&quot;:&quot;&quot;,&quot;orderCreateId&quot;:&quot;&quot;,&quot;agentPersonId&quot;:&quot;&quot;,&quot;headPersonId&quot;:&quot;&quot;,&quot;shopName&quot;:&quot;&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;proceedType&quot;:1,&quot;orderFormId&quot;:&quot;${orderId}&quot;,&quot;orderCreateId&quot;:&quot;&quot;,&quot;agentPersonId&quot;:&quot;&quot;,&quot;headPersonId&quot;:&quot;&quot;,&quot;shopName&quot;:&quot;&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -3982,11 +3989,12 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-1094674944">&quot;code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;</stringProp>
+                  <stringProp name="-325940195">&quot;message&quot;:&quot;导出结果数据大于1000条，请添加限制条件！&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">16</intProp>
+                <intProp name="Assertion.test_type">48</intProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
@@ -7883,7 +7891,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="我是合伙人主页" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="我是合伙人主页" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="token" elementType="HTTPArgument">
@@ -7895,7 +7903,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
                   </elementProp>
                   <elementProp name="partnerId" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">1606518131389058849</stringProp>
+                    <stringProp name="Argument.value"></stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">partnerId</stringProp>
@@ -7906,7 +7914,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/agent/co-partner/getHhrHshProceedsByPartnerId</stringProp>
+              <stringProp name="HTTPSampler.path">/smarttown/index/goToTransferForRouter</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -8088,7 +8096,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -8309,7 +8317,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
           <hashTree/>
         </hashTree>
       </hashTree>
-      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="测试片段_合伙人系统_基础功能模块" enabled="false"/>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="测试片段_合伙人系统_基础功能模块" enabled="true"/>
       <hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_购买商品并支付" enabled="true"/>
         <hashTree>
@@ -8500,7 +8508,7 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
               </JSONPostProcessor>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_商品详情_获取优惠卷" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_商品详情_获取优惠卷" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="productID" elementType="HTTPArgument">
