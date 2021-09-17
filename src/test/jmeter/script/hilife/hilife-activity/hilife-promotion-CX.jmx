@@ -97,6 +97,12 @@
             <stringProp name="Argument.desc">j基础路径</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="supplierName" elementType="Argument">
+            <stringProp name="Argument.name">supplierName</stringProp>
+            <stringProp name="Argument.value">供应商测试</stringProp>
+            <stringProp name="Argument.desc">测试供应商</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -498,7 +504,7 @@ vars.put(&quot;username&quot;, &quot;13837200200&quot;); //主用户账号名称
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_促销管理_拼团商品管理_获取商品SKU详情" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_促销管理_拼团商品管理_获取商品SKU详情" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="activityId" elementType="HTTPArgument">
@@ -1037,7 +1043,7 @@ vars.put(&quot;username&quot;, &quot;13837200200&quot;); //主用户账号名称
                   <stringProp name="filename"></stringProp>
                   <stringProp name="parameters"></stringProp>
                   <boolProp name="resetInterpreter">false</boolProp>
-                  <stringProp name="script">vars.put(&quot;supplierName&quot;, &quot;DY-1113社区旅游（抽佣）T+3&quot;); //供应商名称
+                  <stringProp name="script">vars.put(&quot;supplierName&quot;, &quot;${supplierName}&quot;); //供应商名称
 </stringProp>
                 </BeanShellPreProcessor>
                 <hashTree/>
@@ -2132,7 +2138,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                   <stringProp name="filename"></stringProp>
                   <stringProp name="parameters"></stringProp>
                   <boolProp name="resetInterpreter">false</boolProp>
-                  <stringProp name="script">vars.put(&quot;supplierName&quot;, &quot;DY-1113社区旅游（抽佣）T+3&quot;); //供应商名称
+                  <stringProp name="script">vars.put(&quot;supplierName&quot;, &quot;${supplierName}&quot;); //供应商名称
 vars.put(&quot;cityIds&quot;, &quot;52&quot;); //活动区域ID</stringProp>
                 </BeanShellPreProcessor>
                 <hashTree/>
@@ -2510,7 +2516,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                   <hashTree/>
                   <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_shopID" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">shopID</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[?(@.shopName =~ /.*接口基础数据.*?/)].shopId</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[?(@.shopName =~ /.*测试促销T恤（男装）.*?/)].shopId</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
                     <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -3080,7 +3086,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP" enabled="true"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_促销活动_砍价" enabled="true"/>
           <hashTree>
@@ -6897,7 +6903,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_促销活动（参加拼团）_获取你喜欢列表" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_促销活动（参加拼团）_获取你喜欢列表" enabled="false">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                     <collectionProp name="Arguments.arguments"/>
                   </elementProp>
@@ -8476,6 +8482,111 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="用户2_参与砍价" enabled="true"/>
         <hashTree>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+            <collectionProp name="CookieManager.cookies">
+              <elementProp name="JSESSIONID" elementType="Cookie" testname="JSESSIONID">
+                <stringProp name="Cookie.value">${__P(JSESSIONID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="hID" elementType="Cookie" testname="hID">
+                <stringProp name="Cookie.value">${__P(hID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="admin_APPLET_SESSION_ID" elementType="Cookie" testname="admin_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(admin_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="basemanage_web_APPLET_SESSION_ID" elementType="Cookie" testname="basemanage_web_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(basemanage_web_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/basemanage/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="review_APPLET_SESSION_ID" elementType="Cookie" testname="review_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(review_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/review/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="accesscontrol_APPLET_SESSION_ID" elementType="Cookie" testname="accesscontrol_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(accesscontrol_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/accesscontrol/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="vshop_APPLET_SESSION_ID" elementType="Cookie" testname="vshop_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(vshop_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/vshop/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="agent_APPLET_SESSION_ID" elementType="Cookie" testname="agent_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(agent_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/agent/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="coupon_APPLET_SESSION_ID" elementType="Cookie" testname="coupon_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(coupon_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/coupon/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="promotion_APPLET_SESSION_ID" elementType="Cookie" testname="promotion_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(promotion_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/promotion/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="decoration_APPLET_SESSION_ID" elementType="Cookie" testname="decoration_APPLET_SESSION_ID">
+                <stringProp name="Cookie.value">${__P(decoration_APPLET_SESSION_ID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/decoration/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+            </collectionProp>
+            <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+          </CookieManager>
+          <hashTree/>
           <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_参与砍价" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="869052411">测试计划</stringProp>

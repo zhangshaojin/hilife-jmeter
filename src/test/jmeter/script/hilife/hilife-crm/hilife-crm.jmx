@@ -178,6 +178,1468 @@
           <hashTree/>
         </hashTree>
       </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="后台_业务员列表__添加下级业务员_查看客户_搜索_编辑_删除下级业务员" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景一后台_业务员列表__添加下级业务员_查看客户_搜索_编辑" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理_业务员列表" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;pageNum&quot;:1,&#xd;
+	&quot;pageSize&quot;:10&#xd;
+	}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">crm/backend/businessManager/queryBusinessManagerInfoList</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="TestPlan.comments">获取业务员id</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">userid</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[&apos;records&apos;][0][&apos;businessManagerId&apos;]</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="TestPlan.comments">获取手机号搜索条件</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">phone</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[&apos;records&apos;][0][&apos;mobile&apos;]</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理·添加下级业务员_下级业务员列表_获取可成为下级的业务员列表" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="currentManageId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${userid}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">currentManageId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/getLowerLevel</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="TestPlan.comments">获取下级业务员的id</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">subordinateid</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[0][&apos;businessManagerId&apos;]</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理_添加下级业务员" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="currentManageId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${userid}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">currentManageId</stringProp>
+                </elementProp>
+                <elementProp name="lowerManageId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${subordinateid}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">lowerManageId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/insertLowerLevel</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理_添加下级业务员_删除下级业务员" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="businessManageId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${subordinateid}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">businessManageId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/deleteLowerLevel</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理业务员查看客户" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;businessManagerId&quot;:${userid},&quot;pageNum&quot;:1,&quot;pageSize&quot;:10}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/getCustomerListByBusinessId</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理_搜索业务员" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;mobile&quot;:${phone},&quot;pageNum&quot;:1,&quot;pageSize&quot;:10}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/queryBusinessManagerInfoList</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">phone</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[&apos;records&apos;][0][&apos;contactNum&apos;]</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理_编辑业务员" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;名称&quot;,&quot;mobile&quot;:&quot;13051252121&quot;,&quot;jobNumber&quot;:&quot;563115&quot;,&quot;businessManagerId&quot;:${userid}}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/updateBusinessInfo</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_业务员管理_编辑业务员后重置名称" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;name&quot;:&quot;展1&quot;,&quot;mobile&quot;:&quot;13051252121&quot;,&quot;jobNumber&quot;:&quot;563115&quot;,&quot;businessManagerId&quot;:${userid}}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/updateBusinessInfo</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="APP_客户管理_新增客户_后台_列表_搜索_查看_编辑_更换业务员" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_客户管理_新增客户" enabled="true"/>
+        <hashTree>
+          <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="用户参数" enabled="true">
+            <collectionProp name="UserParameters.names">
+              <stringProp name="84">T</stringProp>
+            </collectionProp>
+            <collectionProp name="UserParameters.thread_values">
+              <collectionProp name="1197850219">
+                <stringProp name="-762753733">${token}</stringProp>
+              </collectionProp>
+            </collectionProp>
+            <boolProp name="UserParameters.per_iteration">false</boolProp>
+          </UserParameters>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取token" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backapi//weChatWork/getToken?userId=zz</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.data</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_客户管理_新增用户" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;longitude&quot;: 113.211408,&#xd;
+  &quot;latitude&quot;: 23.071582,&#xd;
+  &quot;customType&quot;: &quot;0&quot;,&#xd;
+  &quot;storeType&quot;: 0,&#xd;
+  &quot;storeName&quot;: &quot;dsdf&quot;,&#xd;
+  &quot;customerBusinessLisence&quot;: [&#xd;
+    &#xd;
+  ],&#xd;
+  &quot;customerStorePhoto&quot;: [&#xd;
+    &quot;https://cdns4.91helife.com/crmWeb/crmWeb/1629268059275/u=198694001,3310445560&amp;fm=26&amp;fmt=auto&amp;gp=0.png&quot;&#xd;
+  ],&#xd;
+  &quot;vipIndustryType&quot;: 1,&#xd;
+  &quot;vipIndustryCatelog&quot;: &quot;2105220000000496&quot;,&#xd;
+  &quot;vipIndustryTypeName&quot;: &quot;餐饮店&quot;,&#xd;
+  &quot;vipIndustryCatalogName&quot;: &quot;餐饮店&quot;,&#xd;
+  &quot;contacts&quot;: &quot;13556&quot;,&#xd;
+  &quot;contactNum&quot;: ${__time(${__time(/100,)} ,)},&#xd;
+  &quot;detailedAddress&quot;: &quot;龙溪大道&quot;,&#xd;
+  &quot;provinceName&quot;: &quot;北京&quot;,&#xd;
+  &quot;provinceId&quot;: &quot;110000&quot;,&#xd;
+  &quot;cityName&quot;: &quot;北京市&quot;,&#xd;
+  &quot;cityId&quot;: &quot;110100&quot;,&#xd;
+  &quot;areaName&quot;: &quot;东城区&quot;,&#xd;
+  &quot;areaId&quot;: &quot;110101&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">//crm/backapi/customer-info/addCustomerBD</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Authorization" elementType="Header">
+                  <stringProp name="Header.name">Authorization</stringProp>
+                  <stringProp name="Header.value">bearer ${T}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_列表_搜索_查看_编辑_更换业务员" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_客户管理_后台列表" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;pageNum&quot;:1,&quot;pageSize&quot;:10}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">https://test.91hiwork.com/crm/backend/customer-info/queryCustomerInfoPage</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="获取搜索条件_手机号" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">phone</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.records[0].contactNum</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_客户管理_后台列表_搜索业务员" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;pageNum&quot;:1,&quot;pageSize&quot;:10,&quot;contactPhoneNum&quot;:${phone}}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/customer-info/queryCustomerInfoPage</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="获取查看业务员的id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.records[0].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_客户管理_后台列表_查看业务员" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="customerId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">customerId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/customer-info/getCustomerDataInfo</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_客户管理_后台列表_编辑业务员" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;id&quot;:${id},&quot;businessManagerId&quot;:&quot;587560400097714176&quot;,&quot;customType&quot;:0,&quot;storeType&quot;:0,&quot;storeName&quot;:&quot;喜洋洋1&quot;,&quot;vipIndustryType&quot;:18,&quot;vipIndustryTypeName&quot;:&quot;其他&quot;,&quot;vipIndustryCatelog&quot;:2105220000000513,&quot;vipIndustryCatalogName&quot;:&quot;其他&quot;,&quot;contacts&quot;:&quot;喜洋洋&quot;,&quot;contactNum&quot;:&quot;13049680398&quot;,&quot;detailedAddress&quot;:&quot;同和石握路32号&quot;,&quot;longitude&quot;:&quot;114.538961&quot;,&quot;latitude&quot;:&quot;36.625657&quot;,&quot;createPersonId&quot;:null,&quot;updatePersonId&quot;:null,&quot;createTime&quot;:null,&quot;updateTime&quot;:null,&quot;cooperateStatus&quot;:4,&quot;registerType&quot;:0,&quot;provinceName&quot;:&quot;河北省&quot;,&quot;provinceId&quot;:&quot;130000&quot;,&quot;cityName&quot;:&quot;邯郸市&quot;,&quot;cityId&quot;:&quot;130400&quot;,&quot;areaName&quot;:&quot;峰峰矿区&quot;,&quot;areaId&quot;:&quot;130406&quot;,&quot;hlPersonId&quot;:&quot;2107300000045176&quot;,&quot;spot&quot;:null,&quot;businessManageName&quot;:&quot;曾宁&quot;,&quot;customLevel&quot;:5,&quot;proCityArea&quot;:[&quot;130000&quot;,&quot;130400&quot;,&quot;130406&quot;],&quot;proCityAreaInfo&quot;:[{&quot;code&quot;:&quot;130000&quot;,&quot;text&quot;:&quot;河北省&quot;,&quot;level&quot;:1,&quot;parentCode&quot;:&quot;100000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130100&quot;,&quot;text&quot;:&quot;石家庄市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130102&quot;,&quot;text&quot;:&quot;长安区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130103&quot;,&quot;text&quot;:&quot;桥东区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130104&quot;,&quot;text&quot;:&quot;桥西区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130105&quot;,&quot;text&quot;:&quot;新华区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130107&quot;,&quot;text&quot;:&quot;井陉矿区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130108&quot;,&quot;text&quot;:&quot;裕华区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130121&quot;,&quot;text&quot;:&quot;井陉县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130123&quot;,&quot;text&quot;:&quot;正定县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130124&quot;,&quot;text&quot;:&quot;栾城区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130125&quot;,&quot;text&quot;:&quot;行唐县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130126&quot;,&quot;text&quot;:&quot;灵寿县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130127&quot;,&quot;text&quot;:&quot;高邑县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130128&quot;,&quot;text&quot;:&quot;深泽县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130129&quot;,&quot;text&quot;:&quot;赞皇县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130130&quot;,&quot;text&quot;:&quot;无极县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130131&quot;,&quot;text&quot;:&quot;平山县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130132&quot;,&quot;text&quot;:&quot;元氏县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130133&quot;,&quot;text&quot;:&quot;赵县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130181&quot;,&quot;text&quot;:&quot;辛集市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130182&quot;,&quot;text&quot;:&quot;藁城区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130183&quot;,&quot;text&quot;:&quot;晋州市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130184&quot;,&quot;text&quot;:&quot;新乐市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130185&quot;,&quot;text&quot;:&quot;鹿泉区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;},{&quot;code&quot;:&quot;130186&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130100&quot;}]},{&quot;code&quot;:&quot;130200&quot;,&quot;text&quot;:&quot;唐山市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130202&quot;,&quot;text&quot;:&quot;路南区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130203&quot;,&quot;text&quot;:&quot;路北区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130204&quot;,&quot;text&quot;:&quot;古冶区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130205&quot;,&quot;text&quot;:&quot;开平区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130207&quot;,&quot;text&quot;:&quot;丰南区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130208&quot;,&quot;text&quot;:&quot;丰润区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130223&quot;,&quot;text&quot;:&quot;滦县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130224&quot;,&quot;text&quot;:&quot;滦南县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130225&quot;,&quot;text&quot;:&quot;乐亭县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130227&quot;,&quot;text&quot;:&quot;迁西县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130229&quot;,&quot;text&quot;:&quot;玉田县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130230&quot;,&quot;text&quot;:&quot;曹妃甸区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130281&quot;,&quot;text&quot;:&quot;遵化市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130283&quot;,&quot;text&quot;:&quot;迁安市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;},{&quot;code&quot;:&quot;130284&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130200&quot;}]},{&quot;code&quot;:&quot;130300&quot;,&quot;text&quot;:&quot;秦皇岛市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130302&quot;,&quot;text&quot;:&quot;海港区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130303&quot;,&quot;text&quot;:&quot;山海关区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130304&quot;,&quot;text&quot;:&quot;北戴河区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130321&quot;,&quot;text&quot;:&quot;青龙满族自治县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130322&quot;,&quot;text&quot;:&quot;昌黎县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130323&quot;,&quot;text&quot;:&quot;抚宁区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130324&quot;,&quot;text&quot;:&quot;卢龙县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130398&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;},{&quot;code&quot;:&quot;130399&quot;,&quot;text&quot;:&quot;经济技术开发区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130300&quot;}]},{&quot;code&quot;:&quot;130400&quot;,&quot;text&quot;:&quot;邯郸市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130402&quot;,&quot;text&quot;:&quot;邯山区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130403&quot;,&quot;text&quot;:&quot;丛台区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130404&quot;,&quot;text&quot;:&quot;复兴区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130406&quot;,&quot;text&quot;:&quot;峰峰矿区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130421&quot;,&quot;text&quot;:&quot;邯郸县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130423&quot;,&quot;text&quot;:&quot;临漳县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130424&quot;,&quot;text&quot;:&quot;成安县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130425&quot;,&quot;text&quot;:&quot;大名县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130426&quot;,&quot;text&quot;:&quot;涉县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130427&quot;,&quot;text&quot;:&quot;磁县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130428&quot;,&quot;text&quot;:&quot;肥乡区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130429&quot;,&quot;text&quot;:&quot;永年区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130430&quot;,&quot;text&quot;:&quot;邱县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130431&quot;,&quot;text&quot;:&quot;鸡泽县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130432&quot;,&quot;text&quot;:&quot;广平县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130433&quot;,&quot;text&quot;:&quot;馆陶县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130434&quot;,&quot;text&quot;:&quot;魏县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130435&quot;,&quot;text&quot;:&quot;曲周县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130481&quot;,&quot;text&quot;:&quot;武安市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130482&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;}]},{&quot;code&quot;:&quot;130500&quot;,&quot;text&quot;:&quot;邢台市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130502&quot;,&quot;text&quot;:&quot;桥东区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130503&quot;,&quot;text&quot;:&quot;桥西区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130521&quot;,&quot;text&quot;:&quot;邢台县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130522&quot;,&quot;text&quot;:&quot;临城县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130523&quot;,&quot;text&quot;:&quot;内丘县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130524&quot;,&quot;text&quot;:&quot;柏乡县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130525&quot;,&quot;text&quot;:&quot;隆尧县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130526&quot;,&quot;text&quot;:&quot;任县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130527&quot;,&quot;text&quot;:&quot;南和县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130528&quot;,&quot;text&quot;:&quot;宁晋县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130529&quot;,&quot;text&quot;:&quot;巨鹿县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130530&quot;,&quot;text&quot;:&quot;新河县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130531&quot;,&quot;text&quot;:&quot;广宗县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130532&quot;,&quot;text&quot;:&quot;平乡县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130533&quot;,&quot;text&quot;:&quot;威县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130534&quot;,&quot;text&quot;:&quot;清河县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130535&quot;,&quot;text&quot;:&quot;临西县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130581&quot;,&quot;text&quot;:&quot;南宫市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130582&quot;,&quot;text&quot;:&quot;沙河市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;},{&quot;code&quot;:&quot;130583&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130500&quot;}]},{&quot;code&quot;:&quot;130600&quot;,&quot;text&quot;:&quot;保定市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130602&quot;,&quot;text&quot;:&quot;竞秀区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130603&quot;,&quot;text&quot;:&quot;莲池区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130604&quot;,&quot;text&quot;:&quot;南市区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130621&quot;,&quot;text&quot;:&quot;满城区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130622&quot;,&quot;text&quot;:&quot;清苑区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130623&quot;,&quot;text&quot;:&quot;涞水县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130624&quot;,&quot;text&quot;:&quot;阜平县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130625&quot;,&quot;text&quot;:&quot;徐水区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130626&quot;,&quot;text&quot;:&quot;定兴县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130627&quot;,&quot;text&quot;:&quot;唐县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130628&quot;,&quot;text&quot;:&quot;高阳县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130629&quot;,&quot;text&quot;:&quot;容城县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130630&quot;,&quot;text&quot;:&quot;涞源县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130631&quot;,&quot;text&quot;:&quot;望都县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130632&quot;,&quot;text&quot;:&quot;安新县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130633&quot;,&quot;text&quot;:&quot;易县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130634&quot;,&quot;text&quot;:&quot;曲阳县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130635&quot;,&quot;text&quot;:&quot;蠡县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130636&quot;,&quot;text&quot;:&quot;顺平县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130637&quot;,&quot;text&quot;:&quot;博野县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130638&quot;,&quot;text&quot;:&quot;雄县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130681&quot;,&quot;text&quot;:&quot;涿州市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130682&quot;,&quot;text&quot;:&quot;定州市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130683&quot;,&quot;text&quot;:&quot;安国市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130684&quot;,&quot;text&quot;:&quot;高碑店市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130698&quot;,&quot;text&quot;:&quot;高开区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;},{&quot;code&quot;:&quot;130699&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130600&quot;}]},{&quot;code&quot;:&quot;130700&quot;,&quot;text&quot;:&quot;张家口市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130702&quot;,&quot;text&quot;:&quot;桥东区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130703&quot;,&quot;text&quot;:&quot;桥西区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130705&quot;,&quot;text&quot;:&quot;宣化区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130706&quot;,&quot;text&quot;:&quot;下花园区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130721&quot;,&quot;text&quot;:&quot;宣化县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130722&quot;,&quot;text&quot;:&quot;张北县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130723&quot;,&quot;text&quot;:&quot;康保县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130724&quot;,&quot;text&quot;:&quot;沽源县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130725&quot;,&quot;text&quot;:&quot;尚义县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130726&quot;,&quot;text&quot;:&quot;蔚县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130727&quot;,&quot;text&quot;:&quot;阳原县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130728&quot;,&quot;text&quot;:&quot;怀安县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130729&quot;,&quot;text&quot;:&quot;万全区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130730&quot;,&quot;text&quot;:&quot;怀来县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130731&quot;,&quot;text&quot;:&quot;涿鹿县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130732&quot;,&quot;text&quot;:&quot;赤城县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130733&quot;,&quot;text&quot;:&quot;崇礼区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;},{&quot;code&quot;:&quot;130734&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130700&quot;}]},{&quot;code&quot;:&quot;130800&quot;,&quot;text&quot;:&quot;承德市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130802&quot;,&quot;text&quot;:&quot;双桥区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130803&quot;,&quot;text&quot;:&quot;双滦区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130804&quot;,&quot;text&quot;:&quot;鹰手营子矿区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130821&quot;,&quot;text&quot;:&quot;承德县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130822&quot;,&quot;text&quot;:&quot;兴隆县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130823&quot;,&quot;text&quot;:&quot;平泉市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130824&quot;,&quot;text&quot;:&quot;滦平县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130825&quot;,&quot;text&quot;:&quot;隆化县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130826&quot;,&quot;text&quot;:&quot;丰宁满族自治县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130827&quot;,&quot;text&quot;:&quot;宽城满族自治县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130828&quot;,&quot;text&quot;:&quot;围场满族蒙古族自治县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;},{&quot;code&quot;:&quot;130829&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130800&quot;}]},{&quot;code&quot;:&quot;130900&quot;,&quot;text&quot;:&quot;沧州市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130902&quot;,&quot;text&quot;:&quot;新华区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130903&quot;,&quot;text&quot;:&quot;运河区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130921&quot;,&quot;text&quot;:&quot;沧县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130922&quot;,&quot;text&quot;:&quot;青县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130923&quot;,&quot;text&quot;:&quot;东光县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130924&quot;,&quot;text&quot;:&quot;海兴县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130925&quot;,&quot;text&quot;:&quot;盐山县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130926&quot;,&quot;text&quot;:&quot;肃宁县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130927&quot;,&quot;text&quot;:&quot;南皮县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130928&quot;,&quot;text&quot;:&quot;吴桥县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130929&quot;,&quot;text&quot;:&quot;献县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130930&quot;,&quot;text&quot;:&quot;孟村回族自治县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130981&quot;,&quot;text&quot;:&quot;泊头市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130982&quot;,&quot;text&quot;:&quot;任丘市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130983&quot;,&quot;text&quot;:&quot;黄骅市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130984&quot;,&quot;text&quot;:&quot;河间市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;},{&quot;code&quot;:&quot;130985&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130900&quot;}]},{&quot;code&quot;:&quot;131000&quot;,&quot;text&quot;:&quot;廊坊市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;131002&quot;,&quot;text&quot;:&quot;安次区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131003&quot;,&quot;text&quot;:&quot;广阳区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131022&quot;,&quot;text&quot;:&quot;固安县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131023&quot;,&quot;text&quot;:&quot;永清县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131024&quot;,&quot;text&quot;:&quot;香河县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131025&quot;,&quot;text&quot;:&quot;大城县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131026&quot;,&quot;text&quot;:&quot;文安县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131028&quot;,&quot;text&quot;:&quot;大厂回族自治县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131051&quot;,&quot;text&quot;:&quot;开发区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131052&quot;,&quot;text&quot;:&quot;燕郊经济技术开发区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131081&quot;,&quot;text&quot;:&quot;霸州市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131082&quot;,&quot;text&quot;:&quot;三河市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;},{&quot;code&quot;:&quot;131083&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131000&quot;}]},{&quot;code&quot;:&quot;131100&quot;,&quot;text&quot;:&quot;衡水市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;131102&quot;,&quot;text&quot;:&quot;桃城区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131121&quot;,&quot;text&quot;:&quot;枣强县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131122&quot;,&quot;text&quot;:&quot;武邑县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131123&quot;,&quot;text&quot;:&quot;武强县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131124&quot;,&quot;text&quot;:&quot;饶阳县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131125&quot;,&quot;text&quot;:&quot;安平县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131126&quot;,&quot;text&quot;:&quot;故城县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131127&quot;,&quot;text&quot;:&quot;景县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131128&quot;,&quot;text&quot;:&quot;阜城县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131181&quot;,&quot;text&quot;:&quot;冀州区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131182&quot;,&quot;text&quot;:&quot;深州市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;},{&quot;code&quot;:&quot;131183&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;131100&quot;}]}]},{&quot;code&quot;:&quot;130400&quot;,&quot;text&quot;:&quot;邯郸市&quot;,&quot;level&quot;:2,&quot;parentCode&quot;:&quot;130000&quot;,&quot;children&quot;:[{&quot;code&quot;:&quot;130402&quot;,&quot;text&quot;:&quot;邯山区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130403&quot;,&quot;text&quot;:&quot;丛台区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130404&quot;,&quot;text&quot;:&quot;复兴区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130406&quot;,&quot;text&quot;:&quot;峰峰矿区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130421&quot;,&quot;text&quot;:&quot;邯郸县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130423&quot;,&quot;text&quot;:&quot;临漳县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130424&quot;,&quot;text&quot;:&quot;成安县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130425&quot;,&quot;text&quot;:&quot;大名县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130426&quot;,&quot;text&quot;:&quot;涉县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130427&quot;,&quot;text&quot;:&quot;磁县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130428&quot;,&quot;text&quot;:&quot;肥乡区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130429&quot;,&quot;text&quot;:&quot;永年区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130430&quot;,&quot;text&quot;:&quot;邱县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130431&quot;,&quot;text&quot;:&quot;鸡泽县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130432&quot;,&quot;text&quot;:&quot;广平县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130433&quot;,&quot;text&quot;:&quot;馆陶县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130434&quot;,&quot;text&quot;:&quot;魏县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130435&quot;,&quot;text&quot;:&quot;曲周县&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130481&quot;,&quot;text&quot;:&quot;武安市&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;},{&quot;code&quot;:&quot;130482&quot;,&quot;text&quot;:&quot;其它区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;}]},{&quot;code&quot;:&quot;130406&quot;,&quot;text&quot;:&quot;峰峰矿区&quot;,&quot;level&quot;:3,&quot;parentCode&quot;:&quot;130400&quot;}],&quot;customerBusinessLisence&quot;:[&quot;https://cdns4.91helife.com/review/other/2021/08/18/e6d43cda-c509-4d01-a7ec-980ac5103ed4.jpg&quot;],&quot;customerStorePhoto&quot;:[&quot;https://cdns4.91helife.com/review/other/2021/08/18/3f27aba3-ed97-42c2-bb4b-c87a0deaea45.png&quot;]}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/customer-info/updateCustomer</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_客户管理_后台列表_获取可更换业务员列表" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/businessManager/queryBusinessManagerByName?name=</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="获取可更换业务员id" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">businessManagerId</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[0].businessManagerId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_客户管理_后台列表_更换业务员" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="businessManagerId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${businessManagerId}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">businessManagerId</stringProp>
+                </elementProp>
+                <elementProp name="customerId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">customerId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/customer-info/editCustomerInfoBusinessManager</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="App_拜访客户__`添加拜访记录_后台_列表_搜索_查看`" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_拜访客户__`添加拜访记录" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="获取token" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="userId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">zz</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">userId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backapi//weChatWork/getToken?userId=zz</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_拜访管理_拜访客户名称_获取可拜访用户列表" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">//crm/backapi/visitRecord/getAllCustomerInfo</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Authorization" elementType="Header">
+                  <stringProp name="Header.name">Authorization</stringProp>
+                  <stringProp name="Header.value">bearer ${token}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_拜访管理_添加拜访记录" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+    &quot;visitTime&quot;: &quot;2021-08-18 15:49:00&quot;,&#xd;
+    &quot;visitContactPerson&quot;: &quot;456&quot;,&#xd;
+    &quot;visitTel&quot;: &quot;13614702547&quot;,&#xd;
+    &quot;visitTheme&quot;: &quot;DD&quot;,&#xd;
+    &quot;visitMettingSummary&quot;: &quot;SVGERDGS&quot;,&#xd;
+    &quot;realPosition&quot;: &quot;北京市朝阳区劲松街道珠江帝景B区朝阳合生财富广场写字楼&quot;,&#xd;
+    &quot;longitude&quot;: 116.47808,&#xd;
+    &quot;latitude&quot;: 39.89044,&#xd;
+    &quot;createTime&quot;: &quot;2021-08-18 15:50:14&quot;,&#xd;
+    &quot;visitAttachmentPath&quot;: &quot;&quot;,&#xd;
+    &quot;clockInPath&quot;: &quot;https://cdns4.91helife.com/crmWeb/crmWeb/1629272991944/u=198694001,3310445560&amp;fm=26&amp;fmt=auto&amp;gp=0.png&quot;,&#xd;
+    &quot;customerId&quot;: &quot;2105220000000496&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">//crm/backapi/visitRecord/insertVisitRecord</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="Authorization" elementType="Header">
+                  <stringProp name="Header.name">Authorization</stringProp>
+                  <stringProp name="Header.value">bearer ${token}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_列表_搜索_查看`" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_拜访信息管理_拜访列表" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;size&quot;:10,&quot;current&quot;:1,&quot;visitTimeStart&quot;:&quot;&quot;,&quot;visitTimeEnd&quot;:&quot;&quot;}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">crm/backend/visitRecord/getVisitRecordList</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="TestPlan.comments">获取搜索条件_手机号</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">phone</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.records[0].visitTel</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_拜访信息管理_搜索拜访列表" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;size&quot;:10,&quot;current&quot;:1,&quot;visitTimeStart&quot;:&quot;&quot;,&quot;visitTimeEnd&quot;:&quot;&quot;,&quot;visitTel&quot;:${phone}}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/visitRecord/getVisitRecordList</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.records[0].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_拜访信息管理_查看拜访信息" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${id}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">id</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/visitRecord/viewVisitRecord</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="帮助中心管理_后台_帮助中心管理_分类管理_新建分类_新增问题_查看问题_删除" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="场景一后台_帮助中心管理_分类管理_新建分类_新增问题_查看问题_删除" enabled="true"/>
+        <hashTree>
+          <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="name" elementType="Argument">
+                <stringProp name="Argument.name">name</stringProp>
+                <stringProp name="Argument.value">21</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </Arguments>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_帮助中心管理_分类管理_新增分类" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="name" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${name}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">name</stringProp>
+                </elementProp>
+                <elementProp name="createUserName" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">%25E4%25BA%25BA%25E5%258A%259B%25E4%25BA%25BA%25E5%2591%2598</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">createUserName</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/questionCategory/addCategory</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_帮助中心管理_分类管理_分类列表" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pageNum" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageNum</stringProp>
+                </elementProp>
+                <elementProp name="pageSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageSize</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/questionCategory/queryCategoryPage</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">deletsid</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[&apos;records&apos;][?(@.questionCategoryName==${name})].id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_帮助中心管理_问题管理_新增问题" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;questionName&quot;:&quot;11&quot;,&#xd;
+	&quot;questionCategoryId&quot;:${deletsid},&#xd;
+	&quot;questionAnswer&quot;:&quot;edwd&quot;,&#xd;
+	&quot;createUserName&quot;:&quot;%E4%BA%BA%E5%8A%9B%E4%BA%BA%E5%91%98&quot;,&#xd;
+	&quot;questionId&quot;:&quot;&quot;&#xd;
+	&#xd;
+	}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/questionManageInfo/addQuestionManageInfo</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_帮助中心管理_问题管理_查看问题" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pageNum" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageNum</stringProp>
+                </elementProp>
+                <elementProp name="pageSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageSize</stringProp>
+                </elementProp>
+                <elementProp name="id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${deletsid}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">id</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/questionCategory/queryCategoryQuestionPage</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_帮助中心管理_分类管理_删除分类" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${deletsid}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">id</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/crm/backend/questionCategory/deleteCategory</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="精准推荐" enabled="false">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="App_精准推荐主页_查看更多_搜索" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="app_j精准推荐入口_高佣排行榜" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pageNum" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageNum</stringProp>
+                </elementProp>
+                <elementProp name="pageSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageSize</stringProp>
+                </elementProp>
+                <elementProp name="partnerId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">7068337924272638270</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">partnerId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/recommend/hhrRecomendPartner/queryCommissionTopPage</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="app_j精准推荐入口_热销爆品" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pageNum" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageNum</stringProp>
+                </elementProp>
+                <elementProp name="pageSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageSize</stringProp>
+                </elementProp>
+                <elementProp name="partnerId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">7068337924272638270</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">partnerId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/recommend/hhrRecomendPartner/queryHotsaleTopPage</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="app_j精准推荐入口_精准推荐搜索" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="queryParam" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">%25E9%25B8%25A1%25E8%259B%258B</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">queryParam</stringProp>
+                </elementProp>
+                <elementProp name="pageNum" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageNum</stringProp>
+                </elementProp>
+                <elementProp name="pageSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageSize</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/recommend/hhrRecomendPartner/querySearchProductSalesView</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="app_j精准推荐入口_综合排序查看更多" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pageNum" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageNum</stringProp>
+                </elementProp>
+                <elementProp name="pageSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageSize</stringProp>
+                </elementProp>
+                <elementProp name="partnerId" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">7068337924272638270</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">partnerId</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/recommend/hhrRecomendPartner/queryComprehensiveTopAllPage</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+              <stringProp name="JSON_PATH">$.code</stringProp>
+              <stringProp name="EXPECTED_VALUE">200</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">true</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="数据驱动" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
