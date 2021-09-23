@@ -52,7 +52,7 @@
           </elementProp>
           <elementProp name="password" elementType="Argument">
             <stringProp name="Argument.name">password</stringProp>
-            <stringProp name="Argument.value">123456</stringProp>
+            <stringProp name="Argument.value">128888</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">App密码</stringProp>
           </elementProp>
@@ -70,7 +70,7 @@
           </elementProp>
           <elementProp name="back_password" elementType="Argument">
             <stringProp name="Argument.name">back_password</stringProp>
-            <stringProp name="Argument.value">kHi2YuuvF9iWgTFM9M4mMA==</stringProp>
+            <stringProp name="Argument.value">huvAAYWg9KP6UobseDFb7A==</stringProp>
             <stringProp name="Argument.desc">后台密码</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -102,6 +102,18 @@
             <stringProp name="Argument.name">searchTitle</stringProp>
             <stringProp name="Argument.value">哇哈哈抽佣商品</stringProp>
             <stringProp name="Argument.desc">优惠活动搜索商品</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="companyId" elementType="Argument">
+            <stringProp name="Argument.name">companyId</stringProp>
+            <stringProp name="Argument.value">182464380499763598680530</stringProp>
+            <stringProp name="Argument.desc">社区id</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="shopName" elementType="Argument">
+            <stringProp name="Argument.name">shopName</stringProp>
+            <stringProp name="Argument.value">休闲零食-确认模式0916</stringProp>
+            <stringProp name="Argument.desc">第三方抽佣门店名称</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -1236,6 +1248,15 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                     <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
                   </JSONPostProcessor>
                   <hashTree/>
+                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量_couponTemplateID" enabled="true">
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="parameters">${couponTemplateID}</stringProp>
+                    <boolProp name="resetInterpreter">false</boolProp>
+                    <stringProp name="script">
+${__setProperty(couponTemplateID,${couponTemplateID},)};     //企业ID
+</stringProp>
+                  </BeanShellPostProcessor>
+                  <hashTree/>
                 </hashTree>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_优惠券管理_线下优惠券_复制优惠券(html)" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1303,7 +1324,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_优惠券管理_线下优惠券_优惠券管理_复制优惠券_获取微信ApiTicket" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_优惠券管理_线下优惠券_优惠券管理_复制优惠券_获取微信ApiTicket" enabled="false">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="companyID" elementType="HTTPArgument">
@@ -1738,7 +1759,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="店铺券新建/审核(第三方抽佣/电商服务)" enabled="true"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="店铺券新建/审核(第三方抽佣/电商服务)" enabled="false"/>
             <hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="新建店铺优惠券" enabled="true"/>
               <hashTree>
@@ -1761,7 +1782,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                       </elementProp>
                       <elementProp name="companyID" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                        <stringProp name="Argument.value">${companyId}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">companyID</stringProp>
@@ -1782,7 +1803,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                       </elementProp>
                       <elementProp name="shopName" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">接口基础数据</stringProp>
+                        <stringProp name="Argument.value">${shopName}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">shopName</stringProp>
@@ -2228,7 +2249,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                   <stringProp name="HTTPSampler.port"></stringProp>
                   <stringProp name="HTTPSampler.protocol"></stringProp>
                   <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">/coupon//shopCouponReview/updateShopCouponReview</stringProp>
+                  <stringProp name="HTTPSampler.path">/coupon/shopCouponReview/updateShopCouponReview</stringProp>
                   <stringProp name="HTTPSampler.method">POST</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2552,7 +2573,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                       <collectionProp name="Arguments.arguments">
                         <elementProp name="" elementType="HTTPArgument">
                           <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                          <stringProp name="Argument.value">companyID=${__P(companyID)}&amp;couponTemplateID=${couponTemplateID}&amp;_hidden_currentPageNumber=1&amp;pageMaxSize=20&amp;searchType=all&amp;searchKey=&amp;orderKey=receiveTime&amp;orderType=descending</stringProp>
+                          <stringProp name="Argument.value">companyID=${__P(companyID)}&amp;couponTemplateID=${__P(couponTemplateID)}&amp;_hidden_currentPageNumber=1&amp;pageMaxSize=20&amp;searchType=all&amp;searchKey=&amp;orderKey=receiveTime&amp;orderType=descending</stringProp>
                           <stringProp name="Argument.metadata">=</stringProp>
                         </elementProp>
                       </collectionProp>
@@ -2616,7 +2637,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                         </elementProp>
                         <elementProp name="couponTemplateID" elementType="HTTPArgument">
                           <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                          <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                          <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                           <stringProp name="Argument.metadata">=</stringProp>
                           <boolProp name="HTTPArgument.use_equals">true</boolProp>
                           <stringProp name="Argument.name">couponTemplateID</stringProp>
@@ -2675,7 +2696,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                         </elementProp>
                         <elementProp name="couponTemplateID" elementType="HTTPArgument">
                           <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                          <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                          <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                           <stringProp name="Argument.metadata">=</stringProp>
                           <boolProp name="HTTPArgument.use_equals">true</boolProp>
                           <stringProp name="Argument.name">couponTemplateID</stringProp>
@@ -2763,7 +2784,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                         </elementProp>
                         <elementProp name="couponTemplateID" elementType="HTTPArgument">
                           <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                          <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                          <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                           <stringProp name="Argument.metadata">=</stringProp>
                           <boolProp name="HTTPArgument.use_equals">true</boolProp>
                           <stringProp name="Argument.name">couponTemplateID</stringProp>
@@ -2839,7 +2860,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                     </ResponseAssertion>
                     <hashTree/>
                   </hashTree>
-                  <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_电商服务_门店设置_优惠券管理_使用记录_导出(最近15天有使用记录才会导出成功))" enabled="false">
+                  <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_电商服务_门店设置_优惠券管理_使用记录_导出(最近15天有使用记录才会导出成功))" enabled="true">
                     <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                       <collectionProp name="Arguments.arguments">
                         <elementProp name="bObjectID" elementType="HTTPArgument">
@@ -2872,7 +2893,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                         </elementProp>
                         <elementProp name="couponTemplateID" elementType="HTTPArgument">
                           <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                          <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                          <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                           <stringProp name="Argument.metadata">=</stringProp>
                           <boolProp name="HTTPArgument.use_equals">true</boolProp>
                           <stringProp name="Argument.name">couponTemplateID</stringProp>
@@ -2905,11 +2926,12 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                     <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                       <collectionProp name="Asserion.test_strings">
                         <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
+                        <stringProp name="1272267716">&quot;message&quot;:null</stringProp>
                       </collectionProp>
                       <stringProp name="Assertion.custom_message"></stringProp>
                       <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
                       <boolProp name="Assertion.assume_success">false</boolProp>
-                      <intProp name="Assertion.test_type">2</intProp>
+                      <intProp name="Assertion.test_type">34</intProp>
                     </ResponseAssertion>
                     <hashTree/>
                   </hashTree>
@@ -2919,7 +2941,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="couponTemplateID" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                        <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">couponTemplateID</stringProp>
@@ -5478,7 +5500,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="couponID" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                      <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">couponID</stringProp>
@@ -5523,7 +5545,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="couponTemplateID" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                      <stringProp name="Argument.value">${__P(couponTemplateID)}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">couponTemplateID</stringProp>
@@ -8176,7 +8198,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                   </elementProp>
                   <elementProp name="searchTitle" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${searchTitle}</stringProp>
+                    <stringProp name="Argument.value"></stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">searchTitle</stringProp>
@@ -10524,19 +10546,6 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
           </collectionProp>
         </ModuleController>
         <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_使用记录" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="701486441">基础用例</stringProp>
-            <stringProp name="662703527">后台管理</stringProp>
-            <stringProp name="-2015328523">优惠券管理</stringProp>
-            <stringProp name="1453037782">店铺券新建/审核(第三方抽佣/电商服务)</stringProp>
-            <stringProp name="258933386">电商管理_店铺优惠券_操作</stringProp>
-            <stringProp name="636231918">使用记录</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例3_新建店铺券-领取优惠券-使用优惠券-核对使用记录" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -10772,19 +10781,6 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
             <stringProp name="869052411">测试计划</stringProp>
             <stringProp name="868857784">测试片段</stringProp>
             <stringProp name="792321750">支付页面</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_使用记录" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="701486441">基础用例</stringProp>
-            <stringProp name="662703527">后台管理</stringProp>
-            <stringProp name="-2015328523">优惠券管理</stringProp>
-            <stringProp name="1453037782">店铺券新建/审核(第三方抽佣/电商服务)</stringProp>
-            <stringProp name="258933386">电商管理_店铺优惠券_操作</stringProp>
-            <stringProp name="636231918">使用记录</stringProp>
           </collectionProp>
         </ModuleController>
         <hashTree/>
@@ -13651,12 +13647,13 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
             <hashTree/>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-214043206">,&quot;messageTitle&quot;:&quot;页面过期&quot;</stringProp>
+                <stringProp name="-733879706">&quot;messageTitle&quot;:&quot;页面过期&quot;</stringProp>
+                <stringProp name="1704516489">&quot;result&quot;:&quot;true&quot;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.custom_message"></stringProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">6</intProp>
+              <intProp name="Assertion.test_type">34</intProp>
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
