@@ -96,6 +96,21 @@
             <stringProp name="Argument.value">118</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="access_token" elementType="Argument">
+            <stringProp name="Argument.name">access_token</stringProp>
+            <stringProp name="Argument.value">7b6b1abd-6089-45d9-aad2-8c0197ab6f5b</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="personID" elementType="Argument">
+            <stringProp name="Argument.name">personID</stringProp>
+            <stringProp name="Argument.value">4809869564185495993</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="companyID" elementType="Argument">
+            <stringProp name="Argument.name">companyID</stringProp>
+            <stringProp name="Argument.value">269931278217394676665406</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
         </collectionProp>
       </Arguments>
       <hashTree/>
@@ -342,102 +357,6 @@ ${__setProperty(admin_APPLET_SESSION_ID,${admin_APPLET_SESSION_ID},)};         /
 ${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
 ${__setProperty(basemanage_web_APPLET_SESSION_ID,${basemanage_web_APPLET_SESSION_ID},)};
 ${__setProperty(appmanage_APPLET_SESSION_ID,${appmanage_APPLET_SESSION_ID},)};</stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="小程序" enabled="true">
-            <boolProp name="TransactionController.includeTimers">false</boolProp>
-            <boolProp name="TransactionController.parent">true</boolProp>
-          </TransactionController>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="小程序_用户登录_获取手机号" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="access_token" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">7b6b1abd-6089-45d9-aad2-8c0197ab6f5b</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">access_token</stringProp>
-                  </elementProp>
-                  <elementProp name="personID" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">4809869564185495993</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">personID</stringProp>
-                  </elementProp>
-                  <elementProp name="companyID" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">269931278217394676665406</stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                    <stringProp name="Argument.name">companyID</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port">443</stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/wxapplet//login/loginCompany</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-1376434230">&quot;msg&quot;:&quot;success&quot;</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取access_token、refresh_token、token_type" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">access_token;refresh_token;token_type</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..authInfo.access_token;$..authInfo.refresh_token;$.authInfo.token_type</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">error;error;error</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取customId、expires_in、openId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">customId;expires_in;openId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..authInfo.customID;$..authInfo.expires_in;$..authInfo.openID</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">error;error;error</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取phone" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">phone</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$data.phone</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取companyInfoId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">companyInfoId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$data.companyInfoID</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
-                <stringProp name="filename"></stringProp>
-                <stringProp name="parameters">${access_token}</stringProp>
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="script">${__setProperty(access_token,${access_token},)};   
-${__setProperty(companyInfoId,${companyInfoId},)};  
-${__setProperty(customId ,${customId },)};
-</stringProp>
               </BeanShellPostProcessor>
               <hashTree/>
             </hashTree>
@@ -3059,7 +2978,7 @@ ${__setProperty(customId ,${customId },)};
                     </elementProp>
                     <elementProp name="companyInfoID" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(companyInfoId)}</stringProp>
+                      <stringProp name="Argument.value">${companyID}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">companyInfoID</stringProp>
@@ -3179,7 +3098,7 @@ ${__setProperty(customId ,${customId },)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="access_token" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                    <stringProp name="Argument.value">${access_token}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">access_token</stringProp>
@@ -3231,7 +3150,7 @@ ${__setProperty(customId ,${customId },)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="access_token" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                    <stringProp name="Argument.value">${access_token}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">access_token</stringProp>
@@ -3292,7 +3211,7 @@ ${__setProperty(customId ,${customId },)};
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -3469,7 +3388,7 @@ ${__setProperty(customId ,${customId },)};
                     </elementProp>
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -3503,62 +3422,6 @@ ${__setProperty(customId ,${customId },)};
                 <hashTree/>
               </hashTree>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_商品详情" enabled="false">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path"></stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings"/>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">16</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_首页_店铺详情" enabled="false">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain"></stringProp>
-              <stringProp name="HTTPSampler.port"></stringProp>
-              <stringProp name="HTTPSampler.protocol"></stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path"></stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                <collectionProp name="Asserion.test_strings"/>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">16</intProp>
-              </ResponseAssertion>
-              <hashTree/>
-            </hashTree>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="资讯" enabled="true"/>
           <hashTree>
@@ -3567,7 +3430,7 @@ ${__setProperty(customId ,${customId },)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="access_token" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                    <stringProp name="Argument.value">${access_token}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">access_token</stringProp>
@@ -3633,7 +3496,7 @@ ${__setProperty(customId ,${customId },)};
                   </elementProp>
                   <elementProp name="access_token" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                    <stringProp name="Argument.value">${access_token}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">access_token</stringProp>
@@ -3694,7 +3557,7 @@ ${__setProperty(customId ,${customId },)};
                     </elementProp>
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -3757,7 +3620,7 @@ ${__setProperty(customId ,${customId },)};
                       <stringProp name="Argument.value">{&#xd;
     &quot;feedId&quot;:&quot;${feedId}&quot;,&#xd;
     &quot;type&quot;:&quot;insert&quot;,&#xd;
-    &quot;access_token&quot;:&quot;${__P(access_token)}&quot;&#xd;
+    &quot;access_token&quot;:&quot;${access_token}&quot;&#xd;
 }</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
@@ -3798,7 +3661,7 @@ ${__setProperty(customId ,${customId },)};
                       <stringProp name="Argument.value">{&#xd;
     &quot;feedId&quot;:&quot;${feedId}&quot;,&#xd;
     &quot;type&quot;:&quot;delete&quot;,&#xd;
-    &quot;access_token&quot;:&quot;${__P(access_token)}&quot;&#xd;
+    &quot;access_token&quot;:&quot;${access_token}&quot;&#xd;
 }</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
@@ -3845,7 +3708,7 @@ ${__setProperty(customId ,${customId },)};
     &quot;objtype&quot;:&quot;feed&quot;,&#xd;
     &quot;toAuthorId&quot;:&quot;${AuthorId}&quot;,&#xd;
     &quot;toauthorName&quot;:&quot;${authorName}&quot;,&#xd;
-    &quot;access_token&quot;:&quot;${__P(access_token)}&quot;&#xd;
+    &quot;access_token&quot;:&quot;${access_token}&quot;&#xd;
 }</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                     </elementProp>
@@ -3910,7 +3773,7 @@ ${__setProperty(customId ,${customId },)};
                     </elementProp>
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -3952,7 +3815,7 @@ ${__setProperty(customId ,${customId },)};
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="access_token" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                    <stringProp name="Argument.value">${access_token}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">access_token</stringProp>
@@ -3999,7 +3862,7 @@ ${__setProperty(customId ,${customId },)};
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -4051,7 +3914,7 @@ ${__setProperty(customId ,${customId },)};
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -4411,7 +4274,7 @@ ${__setProperty(customId ,${customId },)};
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
@@ -4425,7 +4288,7 @@ ${__setProperty(customId ,${customId },)};
                     </elementProp>
                     <elementProp name="customID" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(customId)}</stringProp>
+                      <stringProp name="Argument.value">${personID}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">customID</stringProp>
@@ -4472,7 +4335,7 @@ ${__setProperty(customId ,${customId },)};
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="access_token" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                        <stringProp name="Argument.value">${access_token}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">access_token</stringProp>
@@ -4486,7 +4349,7 @@ ${__setProperty(customId ,${customId },)};
                       </elementProp>
                       <elementProp name="customID" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${__P(customId)}</stringProp>
+                        <stringProp name="Argument.value">${personID}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">customID</stringProp>
@@ -4545,7 +4408,7 @@ ${__setProperty(customId ,${customId },)};
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="access_token" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                        <stringProp name="Argument.value">${access_token}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">access_token</stringProp>
@@ -4603,14 +4466,14 @@ ${__setProperty(customId ,${customId },)};
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="access_token" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                        <stringProp name="Argument.value">${access_token}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">access_token</stringProp>
                       </elementProp>
                       <elementProp name="personID" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${personId}</stringProp>
+                        <stringProp name="Argument.value">${personID}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">personID</stringProp>
@@ -4650,7 +4513,7 @@ ${__setProperty(customId ,${customId },)};
                       <elementProp name="" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
                         <stringProp name="Argument.value">{&#xd;
-    &quot;personID&quot;:&quot;${personId}&quot;,&#xd;
+    &quot;personID&quot;:&quot;${personID}&quot;,&#xd;
     &quot;name&quot;:&quot;${nickName}&quot;,&#xd;
     &quot;gender&quot;:2,&#xd;
     &quot;birthday&quot;:&quot;849398400000&quot;&#xd;
@@ -5050,7 +4913,7 @@ ${__setProperty(customId ,${customId },)};
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="access_token" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                        <stringProp name="Argument.value">${access_token}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
                         <stringProp name="Argument.name">access_token</stringProp>
@@ -5163,7 +5026,7 @@ ${__setProperty(customId ,${customId },)};
                   <collectionProp name="Arguments.arguments">
                     <elementProp name="access_token" elementType="HTTPArgument">
                       <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                      <stringProp name="Argument.value">${__P(access_token)}</stringProp>
+                      <stringProp name="Argument.value">${access_token}</stringProp>
                       <stringProp name="Argument.metadata">=</stringProp>
                       <boolProp name="HTTPArgument.use_equals">true</boolProp>
                       <stringProp name="Argument.name">access_token</stringProp>
