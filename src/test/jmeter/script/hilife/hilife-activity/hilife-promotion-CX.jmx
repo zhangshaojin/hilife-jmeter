@@ -2309,7 +2309,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                     <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
-                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_cityIds" enabled="false">
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_cityIds" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">cityIds</stringProp>
                     <stringProp name="JSONPostProcessor.jsonPathExprs">$..children[*].children[*].children[:10].id</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
@@ -2317,7 +2317,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                     <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
                   </JSONPostProcessor>
                   <hashTree/>
-                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_treeNodeId" enabled="false">
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_treeNodeId" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">treeNodeId</stringProp>
                     <stringProp name="JSONPostProcessor.jsonPathExprs">$..treeNodeId</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">-1</stringProp>
@@ -2431,6 +2431,13 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                     <intProp name="Assertion.test_type">2</intProp>
                   </ResponseAssertion>
                   <hashTree/>
+                  <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_supplierID" enabled="false">
+                    <stringProp name="JSONPostProcessor.referenceNames">supplierID</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[?(@.supplierName=~ /.*接口测试.*?/))].supplierId</stringProp>
+                    <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                    <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+                  </JSONPostProcessor>
+                  <hashTree/>
                   <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_supplierID" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">supplierID</stringProp>
                     <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[?(@.supplierName == &quot;${supplierName}&quot;)].supplierId</stringProp>
@@ -2516,7 +2523,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                   <hashTree/>
                   <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_shopID" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">shopID</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[?(@.shopName =~ /.*测试促销T恤（男装）.*?/)].shopId</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$.data[?(@.shopName =~ /.*K12抽佣商品080701（老-新-新）.*?/)].shopId</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
                     <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -2622,7 +2629,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                   </JSONPostProcessor>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_促销管理_发布促销活动_活动生成(拼团)1" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_促销管理_发布促销活动_活动生成(拼团)1" enabled="false">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -2658,6 +2665,52 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
         &quot;orderableAmount&quot;: &quot;10&quot;&#xd;
     }]&#xd;
 }</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/promotion/promotionActivity/insertGroupActivity</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">2</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="" elementType="Header">
+                        <stringProp name="Header.name">Content-Type</stringProp>
+                        <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_促销管理_发布促销活动_活动生成(拼团)1" enabled="true">
+                  <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value">{&quot;activityName&quot;:&quot;接口测试-活动名称-拼团&quot;,&quot;activityDescription&quot;:&quot;&quot;,&quot;tagId&quot;:&quot;${tagID}&quot;,&quot;activityStartTime&quot;: &quot;${activityStartTime}T16:00:00.000Z&quot;,&quot;activityEndTime&quot;: &quot;${activityEndTime}T15:59:59.000Z&quot;,&quot;activityType&quot;:&quot;2&quot;,&quot;platformBudgetThreshold&quot;:&quot;123333&quot;,&quot;activitySupplierSubList&quot;:[{&quot;supplierId&quot;:&quot;4771801048805756380&quot;,&quot;supplierName&quot;:&quot;K12教育抽佣供应商0605&quot;,&quot;supplierProportion&quot;:&quot;10&quot;,&quot;threshold&quot;:&quot;200000&quot;}],&quot;activityCompanySubList&quot;:[{&quot;companyId&quot;:&quot;269931278217394676669638&quot;},{&quot;companyId&quot;:&quot;269931278217394676633991&quot;},{&quot;companyId&quot;:&quot;269931278217394676664177&quot;},{&quot;companyId&quot;:&quot;269931278217394676600287&quot;},{&quot;companyId&quot;:&quot;269931278217394676677874&quot;},{&quot;companyId&quot;:&quot;269931278217394676672278&quot;},{&quot;companyId&quot;:&quot;269931278217394676677190&quot;},{&quot;companyId&quot;:&quot;269931278217394676656328&quot;},{&quot;companyId&quot;:&quot;269931278217394676625616&quot;},{&quot;companyId&quot;:&quot;269931278217394676689996&quot;},{&quot;companyId&quot;:&quot;269931278217394676699449&quot;},{&quot;companyId&quot;:&quot;269931278217394676600584&quot;},{&quot;companyId&quot;:&quot;269931278217394676657092&quot;},{&quot;companyId&quot;:&quot;269931278217394676683684&quot;},{&quot;companyId&quot;:&quot;269931278217394676694837&quot;},{&quot;companyId&quot;:&quot;269931278217394676609028&quot;},{&quot;companyId&quot;:&quot;269931278217394676671642&quot;},{&quot;companyId&quot;:&quot;269931278217394676668150&quot;},{&quot;companyId&quot;:&quot;269931278217394676603741&quot;},{&quot;companyId&quot;:&quot;269931278217394676616591&quot;},{&quot;companyId&quot;:&quot;269931278217394676675315&quot;},{&quot;companyId&quot;:&quot;269931278217394676655889&quot;},{&quot;companyId&quot;:&quot;269931278217394676667390&quot;},{&quot;companyId&quot;:&quot;269931278217394676656264&quot;},{&quot;companyId&quot;:&quot;269931278217394676621735&quot;},{&quot;companyId&quot;:&quot;269931278217394676643545&quot;},{&quot;companyId&quot;:&quot;269931278217394676669558&quot;},{&quot;companyId&quot;:&quot;269931278217394676636804&quot;},{&quot;companyId&quot;:&quot;269931278217394676619595&quot;},{&quot;companyId&quot;:&quot;269931278217394676697468&quot;},{&quot;companyId&quot;:&quot;269931278217394676613334&quot;},{&quot;companyId&quot;:&quot;269931278217394676658304&quot;},{&quot;companyId&quot;:&quot;269931278217394676625706&quot;},{&quot;companyId&quot;:&quot;269931278217394676669174&quot;},{&quot;companyId&quot;:&quot;269931278217394676654651&quot;},{&quot;companyId&quot;:&quot;269931278217394676605586&quot;},{&quot;companyId&quot;:&quot;269931278217394676651066&quot;},{&quot;companyId&quot;:&quot;269931278217394676667361&quot;},{&quot;companyId&quot;:&quot;269931278217394676685962&quot;},{&quot;companyId&quot;:&quot;269931278217394676653051&quot;},{&quot;companyId&quot;:&quot;269931278217394676676399&quot;},{&quot;companyId&quot;:&quot;269931278217394676629097&quot;},{&quot;companyId&quot;:&quot;269931278217394676691481&quot;},{&quot;companyId&quot;:&quot;269931278217394676614899&quot;},{&quot;companyId&quot;:&quot;269931278217394676651267&quot;},{&quot;companyId&quot;:&quot;269931278217394676668241&quot;},{&quot;companyId&quot;:&quot;269931278217394676670114&quot;},{&quot;companyId&quot;:&quot;269931278217394676620105&quot;},{&quot;companyId&quot;:&quot;269931278217394676619658&quot;},{&quot;companyId&quot;:&quot;269931278217394676670724&quot;},{&quot;companyId&quot;:&quot;269931278217394676657325&quot;},{&quot;companyId&quot;:&quot;269931278217394676699009&quot;},{&quot;companyId&quot;:&quot;269931278217394676668435&quot;},{&quot;companyId&quot;:&quot;269931278217394676661442&quot;},{&quot;companyId&quot;:&quot;269931278217394676662037&quot;},{&quot;companyId&quot;:&quot;269931278217394676679588&quot;},{&quot;companyId&quot;:&quot;269931278217394676687944&quot;},{&quot;companyId&quot;:&quot;269931278217394676616106&quot;},{&quot;companyId&quot;:&quot;269931278217394676666886&quot;},{&quot;companyId&quot;:&quot;269931278217394676685186&quot;},{&quot;companyId&quot;:&quot;269931278217394676618653&quot;},{&quot;companyId&quot;:&quot;269931278217394676688083&quot;},{&quot;companyId&quot;:&quot;269931278217394676635343&quot;},{&quot;companyId&quot;:&quot;269931278217394676607516&quot;},{&quot;companyId&quot;:&quot;269931278217394676650342&quot;},{&quot;companyId&quot;:&quot;269931278217394676613354&quot;},{&quot;companyId&quot;:&quot;269931278217394676624444&quot;},{&quot;companyId&quot;:&quot;269931278217394676604173&quot;},{&quot;companyId&quot;:&quot;269931278217394676665406&quot;},{&quot;companyId&quot;:&quot;269931278217394676639121&quot;},{&quot;companyId&quot;:&quot;269931278217394676623752&quot;},{&quot;companyId&quot;:&quot;269931278217394676654221&quot;},{&quot;companyId&quot;:&quot;269931278217394676670064&quot;},{&quot;companyId&quot;:&quot;269931278217394676698420&quot;},{&quot;companyId&quot;:&quot;269931278217394676645514&quot;},{&quot;companyId&quot;:&quot;269931278217394676639445&quot;},{&quot;companyId&quot;:&quot;269931278217394676619298&quot;},{&quot;companyId&quot;:&quot;269931278217394676609204&quot;},{&quot;companyId&quot;:&quot;269931278217394676681943&quot;},{&quot;companyId&quot;:&quot;269931278217394676603610&quot;},{&quot;companyId&quot;:&quot;269931278217394676664405&quot;},{&quot;companyId&quot;:&quot;269931278217394676678363&quot;},{&quot;companyId&quot;:&quot;269931278217394676657986&quot;},{&quot;companyId&quot;:&quot;269931278217394676667302&quot;},{&quot;companyId&quot;:&quot;269931278217394676634547&quot;},{&quot;companyId&quot;:&quot;269931278217394676600740&quot;},{&quot;companyId&quot;:&quot;269931278217394676669654&quot;},{&quot;companyId&quot;:&quot;269931278217394676699733&quot;},{&quot;companyId&quot;:&quot;269931278217394676611828&quot;},{&quot;companyId&quot;:&quot;269931278217394676654613&quot;},{&quot;companyId&quot;:&quot;269931278217394676653640&quot;},{&quot;companyId&quot;:&quot;269931278217394676601780&quot;},{&quot;companyId&quot;:&quot;269931278217394676691891&quot;},{&quot;companyId&quot;:&quot;269931278217394676634792&quot;},{&quot;companyId&quot;:&quot;269931278217394676666991&quot;},{&quot;companyId&quot;:&quot;269931278217394676632667&quot;},{&quot;companyId&quot;:&quot;269931278217394676607163&quot;},{&quot;companyId&quot;:&quot;269931278217394676636509&quot;}],&quot;ruler&quot;:&quot;{\&quot;groupValidateTime\&quot;:1440,\&quot;payTime\&quot;:30,\&quot;groupType\&quot;:\&quot;1\&quot;,\&quot;purchaseLimit\&quot;:\&quot;1\&quot;,\&quot;purchaseLimitNum\&quot;:\&quot;\&quot;,\&quot;joinTogetherType\&quot;:1,\&quot;simulationGroupType\&quot;:0,\&quot;startGroupUserType\&quot;:\&quot;2\&quot;,\&quot;joinGroupUserType\&quot;:\&quot;2\&quot;}&quot;,&quot;activityProductSubList&quot;:[{&quot;supplierId&quot;:&quot;4771801048805756380&quot;,&quot;productId&quot;:&quot;3420847321930680910&quot;,&quot;storeName&quot;:&quot;K12抽佣门店080701（老-新-新）&quot;,&quot;productName&quot;:&quot;K12抽佣商品080701（老-新-新）&quot;,&quot;shopId&quot;:&quot;8508166951544834113&quot;,&quot;skuId&quot;:&quot;3502006227316393213&quot;,&quot;activityProductName&quot;:&quot;K12抽佣商品080701（老-新-新）&quot;,&quot;totalGroupNum&quot;:2,&quot;orderableAmount&quot;:&quot;500&quot;}]}</stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
                     </collectionProp>
@@ -6797,7 +6850,7 @@ DELETE FROM param_update_log WHERE update_desc LIKE &apos;%接口测试%&apos;;
                 <stringProp name="filename"></stringProp>
                 <stringProp name="parameters"></stringProp>
                 <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="script">vars.put(&quot;username&quot;,&quot;18518472358&quot;);    //用户2用户名称</stringProp>
+                <stringProp name="script">vars.put(&quot;username&quot;,&quot;18210269520&quot;);    //用户2用户名称</stringProp>
               </BeanShellPreProcessor>
               <hashTree/>
               <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_获取人员信息" enabled="true">
