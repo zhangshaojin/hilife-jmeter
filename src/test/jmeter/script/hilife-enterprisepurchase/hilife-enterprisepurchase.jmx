@@ -56,6 +56,12 @@
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">前端登录密码</stringProp>
           </elementProp>
+          <elementProp name="back_phone" elementType="Argument">
+            <stringProp name="Argument.name">back_phone</stringProp>
+            <stringProp name="Argument.value">13254542354</stringProp>
+            <stringProp name="Argument.desc">后台超管手机号</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="back_accountName" elementType="Argument">
             <stringProp name="Argument.name">back_accountName</stringProp>
             <stringProp name="Argument.value">yognhu01100</stringProp>
@@ -271,14 +277,14 @@ DELETE purchase_plan_info,purchase_order_info FROM purchase_plan_info LEFT JOIN 
                 <stringProp name="parameters">${access_token}</stringProp>
                 <boolProp name="resetInterpreter">false</boolProp>
                 <stringProp name="script">${__setProperty(token,${token},)};
-${__setProperty(purchaseId,${purchaseId},)};</stringProp>
+${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </BeanShellPostProcessor>
               <hashTree/>
             </hashTree>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台登录" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_账户密码登录" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_账户密码登录" enabled="false">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -315,25 +321,113 @@ ${__setProperty(purchaseId,${purchaseId},)};</stringProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取back_token" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">back_token</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..access_token</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
-              </JSONPostProcessor>
-              <hashTree/>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
-                <stringProp name="filename"></stringProp>
-                <stringProp name="parameters">${access_token}</stringProp>
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="script">${__setProperty(back_token,${back_token},)};</stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_手机号登录" enabled="true"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_手机号登录_获取验证码" enabled="true">
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="phone" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${back_phone}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">phone</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain">${domain}</stringProp>
+                <stringProp name="HTTPSampler.port">443</stringProp>
+                <stringProp name="HTTPSampler.protocol">https</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/enterprise/manage/vshop/sign/sendVerificationCode</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                <stringProp name="TestPlan.comments">合生活token变量设置为access_token   其他服务toke命名为 服务_token</stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-671696245">&quot;code&quot;:&quot;200&quot;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取verificationCode" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">verificationCode</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$.result</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
+                  <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+                </JSONPostProcessor>
+                <hashTree/>
+              </hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_手机号登录_进行登录" enabled="true">
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">{&quot;userType&quot;:1,&quot;phone&quot;:&quot;${back_phone}&quot;,&quot;verificationCode&quot;:&quot;${verificationCode}&quot;}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain">${domain}</stringProp>
+                <stringProp name="HTTPSampler.port">443</stringProp>
+                <stringProp name="HTTPSampler.protocol">https</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding">utf-8</stringProp>
+                <stringProp name="HTTPSampler.path">/enterprise/manage/vshop/sign/inByPhone</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                <stringProp name="TestPlan.comments">合生活token变量设置为access_token   其他服务toke命名为 服务_token</stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-671696245">&quot;code&quot;:&quot;200&quot;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">2</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+                <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取back_token" enabled="true">
+                  <stringProp name="JSONPostProcessor.referenceNames">back_token</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$..access_token</stringProp>
+                  <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                  <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
+                </JSONPostProcessor>
+                <hashTree/>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters">${access_token}</stringProp>
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="script">${__setProperty(back_token,${back_token},)};</stringProp>
+                </BeanShellPostProcessor>
+                <hashTree/>
+              </hashTree>
             </hashTree>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础接口" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -347,6 +441,7 @@ ${__setProperty(purchaseId,${purchaseId},)};</stringProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="TestPlan.comments">和场景只能打开一个</stringProp>
       </ThreadGroup>
       <hashTree>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
@@ -2724,7 +2819,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
-                    <stringProp name="-111817599">availableAmount</stringProp>
+                    <stringProp name="1175227293">&quot;result&quot;:&quot;请求成功&quot;</stringProp>
                   </collectionProp>
                   <stringProp name="Assertion.custom_message"></stringProp>
                   <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -6637,7 +6732,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景1_合链企业购_采购商注册流程" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景1_合链企业购_采购商注册流程" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6669,7 +6764,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <collectionProp name="ModuleController.node_path">
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="701486441">基础用例</stringProp>
+              <stringProp name="701348580">基础接口</stringProp>
               <stringProp name="365981457">合链企业购-前端</stringProp>
               <stringProp name="1764334843">注册（17638617999）</stringProp>
             </collectionProp>
@@ -6736,7 +6831,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <collectionProp name="ModuleController.node_path">
                 <stringProp name="869052411">测试计划</stringProp>
                 <stringProp name="869052411">测试计划</stringProp>
-                <stringProp name="701486441">基础用例</stringProp>
+                <stringProp name="701348580">基础接口</stringProp>
                 <stringProp name="365985393">合链企业购-后台</stringProp>
                 <stringProp name="1203807813">采购商管理</stringProp>
                 <stringProp name="1203483377">采购商列表</stringProp>
@@ -6823,17 +6918,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </hashTree>
             </hashTree>
           </hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_前端_采购商新建审批用户（调用系统管理）" enabled="true">
-            <collectionProp name="ModuleController.node_path">
-              <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="701486441">基础用例</stringProp>
-              <stringProp name="365981457">合链企业购-前端</stringProp>
-              <stringProp name="-448213668">系统管理（主账号）</stringProp>
-            </collectionProp>
-          </ModuleController>
-          <hashTree/>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="前端_采购商创建审批用户" enabled="false"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="前端_采购商创建审批用户" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="前端_账户密码登录" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -6895,10 +6980,20 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </BeanShellPostProcessor>
               <hashTree/>
             </hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_前端_采购商新建审批用户（调用系统管理）" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="701348580">基础接口</stringProp>
+                <stringProp name="365981457">合链企业购-前端</stringProp>
+                <stringProp name="-448213668">系统管理（主账号）</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景2_合链企业购_采购商申请账期流程" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景2_合链企业购_采购商申请账期流程" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -7048,6 +7143,44 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="前端_账期管理_账期申请_查看账期" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/enterprise/manage/accountApplyRecord/getPurchaseAccountApply</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="1175227293">&quot;result&quot;:&quot;请求成功&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_获取accountApplyId（账期申请编号）、purchaseName" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">accountApplyId;purchaseId</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..id;$..purchaseId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">error;error</stringProp>
+                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_超管登录_审核并设置审批人员进行审核" enabled="true"/>
           <hashTree>
@@ -7099,27 +7232,6 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="Accept" elementType="Header">
-                    <stringProp name="Header.name">Accept</stringProp>
-                    <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Encoding" elementType="Header">
-                    <stringProp name="Header.name">Accept-Encoding</stringProp>
-                    <stringProp name="Header.value">gzip, deflate, br</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Language" elementType="Header">
-                    <stringProp name="Header.name">Accept-Language</stringProp>
-                    <stringProp name="Header.value">zh-CN,zh;q=0.9</stringProp>
-                  </elementProp>
-                  <elementProp name="Authorization" elementType="Header">
-                    <stringProp name="Header.name">Authorization</stringProp>
-                    <stringProp name="Header.value">bearer ${__property(back_token)}</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1175227293">&quot;result&quot;:&quot;请求成功&quot;</stringProp>
@@ -7129,14 +7241,6 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
                 <boolProp name="Assertion.assume_success">false</boolProp>
                 <intProp name="Assertion.test_type">2</intProp>
               </ResponseAssertion>
-              <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_获取accountApplyId（账期申请编号）" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">accountApplyId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..records[0].id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-                <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
-                <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
-              </JSONPostProcessor>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商账期管理_账期申请_获取账期详情" enabled="true">
@@ -7707,11 +7811,11 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </hashTree>
             </hashTree>
           </hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_前端_采购商_账期管理_账期申请_查看账期额度" enabled="true">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_前端_采购商_查看额度" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="869052411">测试计划</stringProp>
               <stringProp name="869052411">测试计划</stringProp>
-              <stringProp name="701486441">基础用例</stringProp>
+              <stringProp name="701348580">基础接口</stringProp>
               <stringProp name="365981457">合链企业购-前端</stringProp>
               <stringProp name="-271723961">账期管理（主账号）</stringProp>
               <stringProp name="-1046607891">账期申请（申请通过）</stringProp>
@@ -7720,7 +7824,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景3_合链企业购_采购商预付金充值流程" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景3_合链企业购_采购商预付金充值流程" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -7961,31 +8065,6 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
                 <stringProp name="TestPlan.comments">test.91hiwork.com</stringProp>
               </HTTPSamplerProxy>
               <hashTree>
-                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                  <collectionProp name="HeaderManager.headers">
-                    <elementProp name="Accept" elementType="Header">
-                      <stringProp name="Header.name">Accept</stringProp>
-                      <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
-                    </elementProp>
-                    <elementProp name="Accept-Encoding" elementType="Header">
-                      <stringProp name="Header.name">Accept-Encoding</stringProp>
-                      <stringProp name="Header.value">gzip, deflate, br</stringProp>
-                    </elementProp>
-                    <elementProp name="Accept-Language" elementType="Header">
-                      <stringProp name="Header.name">Accept-Language</stringProp>
-                      <stringProp name="Header.value">zh-CN,zh;q=0.9</stringProp>
-                    </elementProp>
-                    <elementProp name="Content-Type" elementType="Header">
-                      <stringProp name="Header.name">Content-Type</stringProp>
-                      <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
-                    </elementProp>
-                    <elementProp name="Authorization" elementType="Header">
-                      <stringProp name="Header.name">Authorization</stringProp>
-                      <stringProp name="Header.value">bearer ${token}</stringProp>
-                    </elementProp>
-                  </collectionProp>
-                </HeaderManager>
-                <hashTree/>
                 <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                   <collectionProp name="Asserion.test_strings">
                     <stringProp name="1175227293">&quot;result&quot;:&quot;请求成功&quot;</stringProp>
@@ -8269,7 +8348,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_采购商预付金管理_预付金充值_审核（第一节点）" enabled="true"/>
               <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商预付金管理_预付金充值_查看列表" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商预付金管理_预付金充值_查看列表" enabled="false">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -8488,7 +8567,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_采购商预付金管理_预付金充值_审核（第二节点）" enabled="true"/>
               <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商预付金管理_预付金充值_查看列表" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商预付金管理_预付金充值_查看列表" enabled="false">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -8707,7 +8786,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
               </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_采购商预付金管理_预付金充值_审核（第三节点）" enabled="true"/>
               <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商预付金管理_预付金充值_查看列表" enabled="true">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_采购商预付金管理_预付金充值_查看列表" enabled="false">
                   <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                     <collectionProp name="Arguments.arguments">
@@ -8881,7 +8960,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="前端_采购商_查看预付金余额" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="前端_预付金管理_预付金_预付金管理 _列表" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="前端_预付金管理_预付金_预付金管理 _列表" enabled="false">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
@@ -8946,7 +9025,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
           </hashTree>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景4_合链企业购_采购商采购流程" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景4_合链企业购_采购商采购流程" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -9662,7 +9741,7 @@ ${__setProperty(purchaseId,${purchaseId},)}</stringProp>
         <stringProp name="script">prev.setDataEncoding(&quot;utf-8&quot;);</stringProp>
       </BeanShellPostProcessor>
       <hashTree/>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
