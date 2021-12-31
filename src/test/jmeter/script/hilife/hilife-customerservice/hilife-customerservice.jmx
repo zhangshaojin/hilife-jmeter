@@ -1284,6 +1284,41 @@ ${__setProperty(id,${id},)};     //群聊ID？$</stringProp>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台_群管理_平台群管理_群聊管理" enabled="true"/>
           <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="随机生成群聊名称" enabled="true">
+              <stringProp name="BeanShellSampler.query">public class Random_str {
+    public static String RandomJianHan(int len) {
+        String ret = &quot;&quot;;
+
+        for (int i = 0; i &lt; len; i++) {
+            String str = null;
+            int hightPos; // 定义高低位
+            int lowPos; // 定义高低位
+            Random random = new Random();
+            hightPos = (176 + Math.abs(random.nextInt(39))); // 获取高位值
+            lowPos = (161 + Math.abs(random.nextInt(93))); // 获取低位值
+            byte[] b = new byte[2];
+            b[0] = (new Integer(hightPos).byteValue());
+            b[1] = (new Integer(lowPos).byteValue());
+            try {
+                str = new String(b, &quot;GBk&quot;); // 转成中文
+            } catch (UnsupportedEncodingException ex) {
+                ex.printStackTrace();
+            }
+            ret += str;
+        }
+        return ret;
+    }
+}
+
+Random_str ran = new Random_str();
+String content1 = ran.RandomJianHan(1);
+vars.put(&quot;content_post&quot;,&quot;接口测试-&quot;+content1);
+</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_群管理_平台群管理_获取平台群列表" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -1320,12 +1355,19 @@ ${__setProperty(id,${id},)};     //群聊ID？$</stringProp>
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_groupId" enabled="true">
-                <stringProp name="JSONPostProcessor.referenceNames">groupId</stringProp>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_back_groupId" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">back_groupId</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[?(@.name ==&quot;${content_post}&quot;)].id</stringProp>
                 <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
+              <hashTree/>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters">${groupId}</stringProp>
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="script">${__setProperty(back_groupId,${back_groupId},)};     //群聊ID</stringProp>
+              </BeanShellPostProcessor>
               <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_群管理_平台群管理_按群主手机号搜索" enabled="true">
@@ -1487,7 +1529,7 @@ ${__setProperty(id,${id},)};     //群聊ID？$</stringProp>
                     <collectionProp name="Arguments.arguments">
                       <elementProp name="" elementType="HTTPArgument">
                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                        <stringProp name="Argument.value">{&quot;currentPage&quot;:1,&quot;pageMaxSize&quot;:10,&quot;groupChatId&quot;:&quot;${__P(groupId)}&quot;,&quot;nickName&quot;:&quot;&quot;,&quot;phone&quot;:&quot;&quot;,&quot;isMaster&quot;:&quot;&quot;,&quot;orderColumn&quot;:&quot;&quot;}&#xd;
+                        <stringProp name="Argument.value">{&quot;currentPage&quot;:1,&quot;pageMaxSize&quot;:10,&quot;groupChatId&quot;:&quot;${__P(back_groupId)}&quot;,&quot;nickName&quot;:&quot;&quot;,&quot;phone&quot;:&quot;&quot;,&quot;isMaster&quot;:&quot;&quot;,&quot;orderColumn&quot;:&quot;&quot;}&#xd;
 </stringProp>
                         <stringProp name="Argument.metadata">=</stringProp>
                       </elementProp>
@@ -3143,7 +3185,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;groupName&quot;:&quot;${app_content_post}&quot;,&quot;memberIds&quot;:&quot;${personId}&quot;}</stringProp>
+                    <stringProp name="Argument.value">{&quot;groupName&quot;:&quot;${app_content_post}&quot;,&quot;memberIds&quot;:&quot;&quot;}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -3585,7 +3627,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;groupChatId&quot;:&quot;${__P(groupId)}&quot;,&quot;remark&quot;:null}</stringProp>
+                  <stringProp name="Argument.value">{&quot;groupChatId&quot;:&quot;${groupChatId}&quot;,&quot;remark&quot;:null}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
