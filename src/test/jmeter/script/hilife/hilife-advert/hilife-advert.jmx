@@ -1539,7 +1539,7 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                   <intProp name="InterleaveControl.style">1</intProp>
                 </RandomController>
                 <hashTree>
-                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="(固定日期)" enabled="true"/>
+                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="(固定日期)" enabled="false"/>
                   <hashTree>
                     <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_获取时间内未投放的社区" enabled="true">
                       <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1603,126 +1603,13 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                     <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="新增广告(固定日期)" enabled="true"/>
                     <hashTree>
                       <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期)" enabled="true">
-                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                           <collectionProp name="Arguments.arguments">
-                            <elementProp name="createSequence" elementType="HTTPArgument">
+                            <elementProp name="" elementType="HTTPArgument">
                               <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
+                              <stringProp name="Argument.value">{&quot;displayCount&quot;:1,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/不跳转/免费)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;0&quot;,&quot;skipUrl&quot;:&quot;&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
                               <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">createSequence</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">-1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementType</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">4</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementPosition</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">接口测试-广告名称(固定日期/不跳转/免费)</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementName</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserID}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserName}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserName</stringProp>
-                            </elementProp>
-                            <elementProp name="skipType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipType</stringProp>
-                            </elementProp>
-                            <elementProp name="skipUrl" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipUrl</stringProp>
-                            </elementProp>
-                            <elementProp name="costType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costType</stringProp>
-                            </elementProp>
-                            <elementProp name="costWay" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costWay</stringProp>
-                            </elementProp>
-                            <elementProp name="costValue" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costValue</stringProp>
-                            </elementProp>
-                            <elementProp name="minTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">minTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">maxTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${companyIDs}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="fileListStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">fileListStr</stringProp>
                             </elementProp>
                           </collectionProp>
                         </elementProp>
@@ -1737,10 +1624,21 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
                         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
+                        <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
                         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                         <stringProp name="HTTPSampler.response_timeout"></stringProp>
                       </HTTPSamplerProxy>
                       <hashTree>
+                        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                          <collectionProp name="HeaderManager.headers">
+                            <elementProp name="Content-Type" elementType="Header">
+                              <stringProp name="Header.name">Content-Type</stringProp>
+                              <stringProp name="Header.value">application/json</stringProp>
+                            </elementProp>
+                          </collectionProp>
+                        </HeaderManager>
+                        <hashTree/>
                         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                           <collectionProp name="Asserion.test_strings">
                             <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
@@ -1752,127 +1650,14 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         </ResponseAssertion>
                         <hashTree/>
                       </hashTree>
-                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期跳转内链/免费)" enabled="true">
-                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期跳转内链/免费)" enabled="false">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                           <collectionProp name="Arguments.arguments">
-                            <elementProp name="createSequence" elementType="HTTPArgument">
+                            <elementProp name="" elementType="HTTPArgument">
                               <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
+                              <stringProp name="Argument.value">{&quot;displayCount&quot;:1,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转内链/免费)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
                               <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">createSequence</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertisementPositionType}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementType</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertisementPosition}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementPosition</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转内链/免费)</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementName</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserID}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserName}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserName</stringProp>
-                            </elementProp>
-                            <elementProp name="skipType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipType</stringProp>
-                            </elementProp>
-                            <elementProp name="skipUrl" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">https://test.91hiwork.com/admin//index</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipUrl</stringProp>
-                            </elementProp>
-                            <elementProp name="costType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costType</stringProp>
-                            </elementProp>
-                            <elementProp name="costWay" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costWay</stringProp>
-                            </elementProp>
-                            <elementProp name="costValue" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costValue</stringProp>
-                            </elementProp>
-                            <elementProp name="minTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">minTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">maxTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${companyIDs}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="fileListStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;1165=272.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:40113,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2021/03/29/61883622-0838-4328-a0f2-c69412db3a36.jpg&quot;}]</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">fileListStr</stringProp>
                             </elementProp>
                           </collectionProp>
                         </elementProp>
@@ -1887,10 +1672,21 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
                         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
+                        <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
                         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                         <stringProp name="HTTPSampler.response_timeout"></stringProp>
                       </HTTPSamplerProxy>
                       <hashTree>
+                        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                          <collectionProp name="HeaderManager.headers">
+                            <elementProp name="Content-Type" elementType="Header">
+                              <stringProp name="Header.name">Content-Type</stringProp>
+                              <stringProp name="Header.value">application/json</stringProp>
+                            </elementProp>
+                          </collectionProp>
+                        </HeaderManager>
+                        <hashTree/>
                         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                           <collectionProp name="Asserion.test_strings">
                             <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
@@ -1902,127 +1698,14 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         </ResponseAssertion>
                         <hashTree/>
                       </hashTree>
-                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/按天收费10元)" enabled="true">
-                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/按天收费10元)" enabled="false">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                           <collectionProp name="Arguments.arguments">
-                            <elementProp name="createSequence" elementType="HTTPArgument">
+                            <elementProp name="" elementType="HTTPArgument">
                               <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
+                              <stringProp name="Argument.value">{&quot;displayCount&quot;:0,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转外链/按天收费)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;1000&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
                               <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">createSequence</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">-1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementType</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">4</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementPosition</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转外链/按天收费)</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementName</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserID}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserName}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserName</stringProp>
-                            </elementProp>
-                            <elementProp name="skipType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">2</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipType</stringProp>
-                            </elementProp>
-                            <elementProp name="skipUrl" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">https://www.baidu.com/</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipUrl</stringProp>
-                            </elementProp>
-                            <elementProp name="costType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costType</stringProp>
-                            </elementProp>
-                            <elementProp name="costWay" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costWay</stringProp>
-                            </elementProp>
-                            <elementProp name="costValue" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">1000</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costValue</stringProp>
-                            </elementProp>
-                            <elementProp name="minTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">minTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">maxTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${companyIDs}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="fileListStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">fileListStr</stringProp>
                             </elementProp>
                           </collectionProp>
                         </elementProp>
@@ -2037,10 +1720,21 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
                         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
+                        <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
                         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                         <stringProp name="HTTPSampler.response_timeout"></stringProp>
                       </HTTPSamplerProxy>
                       <hashTree>
+                        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                          <collectionProp name="HeaderManager.headers">
+                            <elementProp name="Content-Type" elementType="Header">
+                              <stringProp name="Header.name">Content-Type</stringProp>
+                              <stringProp name="Header.value">application/json</stringProp>
+                            </elementProp>
+                          </collectionProp>
+                        </HeaderManager>
+                        <hashTree/>
                         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                           <collectionProp name="Asserion.test_strings">
                             <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
@@ -2052,127 +1746,14 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         </ResponseAssertion>
                         <hashTree/>
                       </hashTree>
-                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/曝光量0.5)" enabled="true">
-                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/曝光量0.5)" enabled="false">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                           <collectionProp name="Arguments.arguments">
-                            <elementProp name="createSequence" elementType="HTTPArgument">
+                            <elementProp name="" elementType="HTTPArgument">
                               <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
+                              <stringProp name="Argument.value">{&quot;displayCount&quot;:0,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转外链/曝光量0.5)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;50&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
                               <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">createSequence</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">-1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementType</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">4</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementPosition</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转外链/曝光量0.5)</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementName</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserID}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserName}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserName</stringProp>
-                            </elementProp>
-                            <elementProp name="skipType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">2</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipType</stringProp>
-                            </elementProp>
-                            <elementProp name="skipUrl" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">https://www.baidu.com/</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipUrl</stringProp>
-                            </elementProp>
-                            <elementProp name="costType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costType</stringProp>
-                            </elementProp>
-                            <elementProp name="costWay" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costWay</stringProp>
-                            </elementProp>
-                            <elementProp name="costValue" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">50</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costValue</stringProp>
-                            </elementProp>
-                            <elementProp name="minTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">minTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">maxTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${companyIDs}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="fileListStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">fileListStr</stringProp>
                             </elementProp>
                           </collectionProp>
                         </elementProp>
@@ -2187,10 +1768,21 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
                         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
+                        <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
                         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                         <stringProp name="HTTPSampler.response_timeout"></stringProp>
                       </HTTPSamplerProxy>
                       <hashTree>
+                        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                          <collectionProp name="HeaderManager.headers">
+                            <elementProp name="Content-Type" elementType="Header">
+                              <stringProp name="Header.name">Content-Type</stringProp>
+                              <stringProp name="Header.value">application/json</stringProp>
+                            </elementProp>
+                          </collectionProp>
+                        </HeaderManager>
+                        <hashTree/>
                         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                           <collectionProp name="Asserion.test_strings">
                             <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
@@ -2202,127 +1794,14 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         </ResponseAssertion>
                         <hashTree/>
                       </hashTree>
-                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/点击量0.1)" enabled="true">
-                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/点击量0.1)" enabled="false">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                           <collectionProp name="Arguments.arguments">
-                            <elementProp name="createSequence" elementType="HTTPArgument">
+                            <elementProp name="" elementType="HTTPArgument">
                               <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">0</stringProp>
+                              <stringProp name="Argument.value">{&quot;displayCount&quot;:0,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转外链/曝光量0.5)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;50&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
                               <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">createSequence</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value"></stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">-1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementType</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">4</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementPosition</stringProp>
-                            </elementProp>
-                            <elementProp name="advertisementName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转外链/点击量0.1)</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertisementName</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserId" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserID}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserId</stringProp>
-                            </elementProp>
-                            <elementProp name="advertiserName" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${advertiserName}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">advertiserName</stringProp>
-                            </elementProp>
-                            <elementProp name="skipType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">2</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipType</stringProp>
-                            </elementProp>
-                            <elementProp name="skipUrl" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">https://www.baidu.com/</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">skipUrl</stringProp>
-                            </elementProp>
-                            <elementProp name="costType" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">1</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costType</stringProp>
-                            </elementProp>
-                            <elementProp name="costWay" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">2</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costWay</stringProp>
-                            </elementProp>
-                            <elementProp name="costValue" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">10</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">costValue</stringProp>
-                            </elementProp>
-                            <elementProp name="minTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">minTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">maxTimeStr</stringProp>
-                            </elementProp>
-                            <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${companyIDs}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                              <stringProp name="Argument.value">${newtime}</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                            </elementProp>
-                            <elementProp name="fileListStr" elementType="HTTPArgument">
-                              <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                              <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                              <stringProp name="Argument.metadata">=</stringProp>
-                              <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                              <stringProp name="Argument.name">fileListStr</stringProp>
                             </elementProp>
                           </collectionProp>
                         </elementProp>
@@ -2337,10 +1816,21 @@ DELETE FROM advertiser WHERE name LIKE &apos;%接口测试%&apos;;
                         <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
                         <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
                         <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
+                        <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
                         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
                         <stringProp name="HTTPSampler.response_timeout"></stringProp>
                       </HTTPSamplerProxy>
                       <hashTree>
+                        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+                          <collectionProp name="HeaderManager.headers">
+                            <elementProp name="Content-Type" elementType="Header">
+                              <stringProp name="Header.name">Content-Type</stringProp>
+                              <stringProp name="Header.value">application/json</stringProp>
+                            </elementProp>
+                          </collectionProp>
+                        </HeaderManager>
+                        <hashTree/>
                         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                           <collectionProp name="Asserion.test_strings">
                             <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
@@ -5531,7 +5021,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <intProp name="InterleaveControl.style">1</intProp>
               </RandomController>
               <hashTree>
-                <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="(固定日期)" enabled="true"/>
+                <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="(固定日期)" enabled="false"/>
                 <hashTree>
                   <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_获取时间内未投放的社区" enabled="true">
                     <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -5591,699 +5081,6 @@ if(resPonseCode.equals(&quot;200&quot;)){
                       <stringProp name="JSONPostProcessor.defaultValues">269931278217394676665406</stringProp>
                     </JSONPostProcessor>
                     <hashTree/>
-                  </hashTree>
-                  <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="新增广告(固定日期)" enabled="true"/>
-                  <hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期)" enabled="true">
-                      <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">{&quot;displayCount&quot;:1,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/不跳转/免费)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;0&quot;,&quot;skipUrl&quot;:&quot;&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
-                      <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                        <collectionProp name="HeaderManager.headers">
-                          <elementProp name="Content-Type" elementType="Header">
-                            <stringProp name="Header.name">Content-Type</stringProp>
-                            <stringProp name="Header.value">application/json</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </HeaderManager>
-                      <hashTree/>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期跳转内链/免费)" enabled="true">
-                      <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">{&quot;displayCount&quot;:1,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转内链/免费)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
-                      <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                        <collectionProp name="HeaderManager.headers">
-                          <elementProp name="Content-Type" elementType="Header">
-                            <stringProp name="Header.name">Content-Type</stringProp>
-                            <stringProp name="Header.value">application/json</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </HeaderManager>
-                      <hashTree/>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/按天收费10元)" enabled="true">
-                      <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">{&quot;displayCount&quot;:0,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转外链/按天收费)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;1000&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
-                      <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                        <collectionProp name="HeaderManager.headers">
-                          <elementProp name="Content-Type" elementType="Header">
-                            <stringProp name="Header.name">Content-Type</stringProp>
-                            <stringProp name="Header.value">application/json</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </HeaderManager>
-                      <hashTree/>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/按天收费10元)" enabled="false">
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="createSequence" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">0</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">createSequence</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementId" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value"></stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementId</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">-1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementType</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">4</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementPosition</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementName" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                            <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转外链/按天收费)</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementName</stringProp>
-                          </elementProp>
-                          <elementProp name="advertiserId" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${advertiserID}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertiserId</stringProp>
-                          </elementProp>
-                          <elementProp name="advertiserName" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${advertiserName}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertiserName</stringProp>
-                          </elementProp>
-                          <elementProp name="skipType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">2</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">skipType</stringProp>
-                          </elementProp>
-                          <elementProp name="skipUrl" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">https://www.baidu.com/</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">skipUrl</stringProp>
-                          </elementProp>
-                          <elementProp name="costType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costType</stringProp>
-                          </elementProp>
-                          <elementProp name="costWay" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">0</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costWay</stringProp>
-                          </elementProp>
-                          <elementProp name="costValue" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">1000</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costValue</stringProp>
-                          </elementProp>
-                          <elementProp name="minTimeStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">minTimeStr</stringProp>
-                          </elementProp>
-                          <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">maxTimeStr</stringProp>
-                          </elementProp>
-                          <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${__P(companyID)}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                          </elementProp>
-                          <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                          </elementProp>
-                          <elementProp name="fileListStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                            <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">fileListStr</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/曝光量0.5)" enabled="true">
-                      <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">{&quot;displayCount&quot;:0,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转外链/曝光量0.5)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;50&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
-                      <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                        <collectionProp name="HeaderManager.headers">
-                          <elementProp name="Content-Type" elementType="Header">
-                            <stringProp name="Header.name">Content-Type</stringProp>
-                            <stringProp name="Header.value">application/json</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </HeaderManager>
-                      <hashTree/>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/曝光量0.5)" enabled="false">
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="createSequence" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">0</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">createSequence</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementId" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value"></stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementId</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">-1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementType</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">4</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementPosition</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementName" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                            <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转外链/曝光量0.5)</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementName</stringProp>
-                          </elementProp>
-                          <elementProp name="advertiserId" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${advertiserID}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertiserId</stringProp>
-                          </elementProp>
-                          <elementProp name="advertiserName" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${advertiserName}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertiserName</stringProp>
-                          </elementProp>
-                          <elementProp name="skipType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">2</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">skipType</stringProp>
-                          </elementProp>
-                          <elementProp name="skipUrl" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">https://www.baidu.com/</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">skipUrl</stringProp>
-                          </elementProp>
-                          <elementProp name="costType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costType</stringProp>
-                          </elementProp>
-                          <elementProp name="costWay" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costWay</stringProp>
-                          </elementProp>
-                          <elementProp name="costValue" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">50</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costValue</stringProp>
-                          </elementProp>
-                          <elementProp name="minTimeStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">minTimeStr</stringProp>
-                          </elementProp>
-                          <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">maxTimeStr</stringProp>
-                          </elementProp>
-                          <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${__P(companyID)}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                          </elementProp>
-                          <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                          </elementProp>
-                          <elementProp name="fileListStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                            <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">fileListStr</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/点击量0.1)" enabled="true">
-                      <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">{&quot;displayCount&quot;:0,&quot;secondCount&quot;:3,&quot;advertisementId&quot;:&quot;&quot;,&quot;advertisementType&quot;:0,&quot;advertisementPosition&quot;:&quot;1&quot;,&quot;advertisementName&quot;:&quot;接口测试-广告名称(固定日期/跳转外链/曝光量0.5)&quot;,&quot;advertiserId&quot;:&quot;${advertiserID}&quot;,&quot;advertiserName&quot;:&quot;${advertiserName}&quot;,&quot;skipType&quot;:&quot;1&quot;,&quot;skipUrl&quot;:&quot;https://test.91hiwork.com/admin//index&quot;,&quot;costType&quot;:&quot;0&quot;,&quot;costWay&quot;:&quot;&quot;,&quot;costValue&quot;:&quot;50&quot;,&quot;minTimeStr&quot;:&quot;${newtime}&quot;,&quot;maxTimeStr&quot;:&quot;${newtime}&quot;,&quot;companyIDs&quot;:[&quot;${__P(companyID)}&quot;],&quot;dateListStr&quot;:[&quot;${newtime}&quot;],&quot;fileListStr&quot;:&quot;[{\&quot;fileName\&quot;:\&quot;无标题.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:46268,\&quot;picWidth\&quot;:1080,\&quot;picHeight\&quot;:1920,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/4c8d375d-70de-4f29-905f-01c3dad863e5.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:69882,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2688,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/aee26a8a-5c03-47dd-be00-3df70a6fc84f.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:55175,\&quot;picWidth\&quot;:1242,\&quot;picHeight\&quot;:2208,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/5d0cb99d-eff5-4ef4-9ff1-397eb8db7459.png\&quot;},{\&quot;fileName\&quot;:\&quot;无标题1.png\&quot;,\&quot;fileType\&quot;:1,\&quot;fileSuffix\&quot;:\&quot;png\&quot;,\&quot;fileSize\&quot;:16737,\&quot;picWidth\&quot;:640,\&quot;picHeight\&quot;:960,\&quot;cdnDomainHttps\&quot;:\&quot;https://cdns4.91hilife.com/\&quot;,\&quot;originalCdnAddr\&quot;:\&quot;advertisement/other/2021/12/21/df93bb90-5e83-40af-883f-4d331e6a0f2d.png\&quot;}]&quot;}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.proxyHost">10.46.132.128</stringProp>
-                      <stringProp name="HTTPSampler.proxyPort">8888</stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
-                        <collectionProp name="HeaderManager.headers">
-                          <elementProp name="Content-Type" elementType="Header">
-                            <stringProp name="Header.name">Content-Type</stringProp>
-                            <stringProp name="Header.value">application/json</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </HeaderManager>
-                      <hashTree/>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
-                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_广告管理_广告投放_新增广告_新增(固定日期/跳转外链/点击量0.1)" enabled="false">
-                      <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                        <collectionProp name="Arguments.arguments">
-                          <elementProp name="createSequence" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">0</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">createSequence</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementId" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value"></stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementId</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">-1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementType</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementPosition" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">4</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementPosition</stringProp>
-                          </elementProp>
-                          <elementProp name="advertisementName" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                            <stringProp name="Argument.value">接口测试-广告名称(固定日期/跳转外链/点击量0.1)</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertisementName</stringProp>
-                          </elementProp>
-                          <elementProp name="advertiserId" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${advertiserID}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertiserId</stringProp>
-                          </elementProp>
-                          <elementProp name="advertiserName" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${advertiserName}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">advertiserName</stringProp>
-                          </elementProp>
-                          <elementProp name="skipType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">2</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">skipType</stringProp>
-                          </elementProp>
-                          <elementProp name="skipUrl" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">https://www.baidu.com/</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">skipUrl</stringProp>
-                          </elementProp>
-                          <elementProp name="costType" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">1</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costType</stringProp>
-                          </elementProp>
-                          <elementProp name="costWay" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">2</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costWay</stringProp>
-                          </elementProp>
-                          <elementProp name="costValue" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">10</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">costValue</stringProp>
-                          </elementProp>
-                          <elementProp name="minTimeStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">minTimeStr</stringProp>
-                          </elementProp>
-                          <elementProp name="maxTimeStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">maxTimeStr</stringProp>
-                          </elementProp>
-                          <elementProp name="companyIDs[0]" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${__P(companyID)}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">companyIDs[0]</stringProp>
-                          </elementProp>
-                          <elementProp name="dateListStr[0]" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                            <stringProp name="Argument.value">${newtime}</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">dateListStr[0]</stringProp>
-                          </elementProp>
-                          <elementProp name="fileListStr" elementType="HTTPArgument">
-                            <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                            <stringProp name="Argument.value">[{&quot;fileName&quot;:&quot;接口测试750-300.jpg&quot;,&quot;fileType&quot;:1,&quot;fileSuffix&quot;:&quot;jpg&quot;,&quot;fileSize&quot;:16864,&quot;picWidth&quot;:0,&quot;picHeight&quot;:0,&quot;cdnDomainHttps&quot;:&quot;https://cdns4.91hilife.com/&quot;,&quot;originalCdnAddr&quot;:&quot;advertisement/other/2020/10/26/bcc58869-0963-46ef-8bdf-05121c55288d.jpg&quot;}]</stringProp>
-                            <stringProp name="Argument.metadata">=</stringProp>
-                            <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                            <stringProp name="Argument.name">fileListStr</stringProp>
-                          </elementProp>
-                        </collectionProp>
-                      </elementProp>
-                      <stringProp name="HTTPSampler.domain"></stringProp>
-                      <stringProp name="HTTPSampler.port"></stringProp>
-                      <stringProp name="HTTPSampler.protocol"></stringProp>
-                      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                      <stringProp name="HTTPSampler.path">/advert/advertisementPC/insertAdvertisement</stringProp>
-                      <stringProp name="HTTPSampler.method">POST</stringProp>
-                      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                      <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                    </HTTPSamplerProxy>
-                    <hashTree>
-                      <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                        <collectionProp name="Asserion.test_strings">
-                          <stringProp name="563261478">&quot;result&quot;:&quot;success&quot;,&quot;code&quot;:&quot;1000&quot;</stringProp>
-                        </collectionProp>
-                        <stringProp name="Assertion.custom_message"></stringProp>
-                        <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                        <boolProp name="Assertion.assume_success">false</boolProp>
-                        <intProp name="Assertion.test_type">2</intProp>
-                      </ResponseAssertion>
-                      <hashTree/>
-                    </hashTree>
                   </hashTree>
                 </hashTree>
                 <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="(固定社区)" enabled="true"/>
@@ -6563,7 +5360,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页_得到减去广告和" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页_得到减去广告和" enabled="false">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
