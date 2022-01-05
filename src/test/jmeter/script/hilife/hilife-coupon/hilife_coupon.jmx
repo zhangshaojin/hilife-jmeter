@@ -12167,43 +12167,297 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
           </collectionProp>
         </ModuleController>
         <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_领取优惠券" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="701486441">基础用例</stringProp>
-            <stringProp name="65025">APP</stringProp>
-            <stringProp name="1184091432">领券中心</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_商品详情" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="868857784">测试片段</stringProp>
-            <stringProp name="499650308">进入商品详情</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_下单页面" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="868857784">测试片段</stringProp>
-            <stringProp name="616944055">下单页面</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_支付页面" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="868857784">测试片段</stringProp>
-            <stringProp name="792321750">支付页面</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="领券中心_领取优惠券" enabled="true"/>
+        <hashTree>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="固定定时器" enabled="true">
+            <stringProp name="ConstantTimer.delay">1000</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券_领券中心(html)" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/coupon//mcc/bringStock?companyID=${__P(companyID)}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings"/>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券_领券中心列表" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="pageMaxSize" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">10</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">pageMaxSize</stringProp>
+                </elementProp>
+                <elementProp name="_hidden_currentPageNumber" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_hidden_currentPageNumber</stringProp>
+                </elementProp>
+                <elementProp name="companyID" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">companyID</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/coupon//coupon/core/list</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_couponTemplateID" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">couponTemplateID</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..couponTemplateID</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="判断领券中心列表为空不执行下面脚本" enabled="true">
+            <stringProp name="IfController.condition">${__jexl3(${couponTemplateID}!=not,)}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券_领取优惠券" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="getWay" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">0</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">getWay</stringProp>
+                  </elementProp>
+                  <elementProp name="couponTemplateID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">couponTemplateID</stringProp>
+                  </elementProp>
+                  <elementProp name="companyID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">companyID</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/coupon//mcc/getOneCoupon</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1883360997">{&quot;result&quot;:&quot;success&quot;,&quot;</stringProp>
+                  <stringProp name="1010646183">&quot;message&quot;:&quot;您领取此优惠券已超过单用户最大限制数量&quot;</stringProp>
+                  <stringProp name="170231327">&quot;message&quot;:&quot;此优惠券已领取数量超过最大限制数量，不能再领取。&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">34</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_优惠券活动_进入优惠券活动页面(html)" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/vshop/mobileproduct/goToCouponActivityPage?couponTemplateID=${couponTemplateID}&amp;companyID=${__P(companyID)}</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings"/>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="APP_我的_我的优惠券_优惠活动" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="pageMaxSize" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">10</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">pageMaxSize</stringProp>
+                  </elementProp>
+                  <elementProp name="couponTemplateID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${couponTemplateID}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">couponTemplateID</stringProp>
+                  </elementProp>
+                  <elementProp name="searchTitle" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value"></stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">searchTitle</stringProp>
+                  </elementProp>
+                  <elementProp name="companyID" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">${__P(companyID)}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">companyID</stringProp>
+                  </elementProp>
+                  <elementProp name="_hidden_currentPageNumber" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">1</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">_hidden_currentPageNumber</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/vshop/mobileproduct/findAllProductByCouponTemplateID</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings"/>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_productID;productName;shopName;shopID;productTemplateID;templateID" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">productID;productName;shopName;shopID;productTemplateID;templateID</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..productId;$..title;$..shopName;$..shopId;$..productTemplateID;$..templateId</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1;1;1</stringProp>
+                <stringProp name="JSONPostProcessor.defaultValues">not;not;not;not;not;not</stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
+            </hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_领取优惠券" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="701486441">基础用例</stringProp>
+                <stringProp name="65025">APP</stringProp>
+                <stringProp name="1184091432">领券中心</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_商品详情" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="868857784">测试片段</stringProp>
+                <stringProp name="499650308">进入商品详情</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_下单页面" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="868857784">测试片段</stringProp>
+                <stringProp name="616944055">下单页面</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="模块控制器_支付页面" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="869052411">测试计划</stringProp>
+                <stringProp name="868857784">测试片段</stringProp>
+                <stringProp name="792321750">支付页面</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景用例4_新建优惠券(平台券)-新建发券计划(发到优惠券包)--(使用优惠券-核对使用记录)" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -15310,7 +15564,7 @@ WHERE a.description LIKE &apos;%接口测试%&apos;;  /*
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
