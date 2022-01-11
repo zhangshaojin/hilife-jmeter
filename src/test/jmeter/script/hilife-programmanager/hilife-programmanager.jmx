@@ -170,10 +170,11 @@ DELETE a,b,c FROM tb_demand a LEFT JOIN tb_demand_team b ON a.demand_id = b.dema
 DELETE FROM tb_demand_apply_enclosure WHERE enclosure_name LIKE &apos;接口测试%&apos;;
 DELETE b FROM tb_property a LEFT JOIN tb_property_combat_team b ON a.property_id = b.property_id WHERE a.property_name LIKE &apos;接口测试%&apos;;
 DELETE a,b FROM tb_property a LEFT JOIN tb_property_system b ON a.property_id = b.property_id WHERE a.property_name LIKE &apos;接口测试%&apos;;
-DELETE FROM tb_system_function WHERE `name` LIKE &apos;接口测试%&apos;;
+DELETE a,b FROM tb_system_function a LEFT JOIN tb_property_system b ON a.system_function_id = b.system_function_id WHERE `name` LIKE &apos;接口测试%&apos;;
 DELETE FROM tb_combat_team WHERE team_name LIKE &apos;接口测试%&apos;;
 DELETE a,b FROM tb_technology_person a LEFT JOIN tb_team_person b ON a.technology_person_id =b.technology_person_id WHERE a.technology_person_name LIKE &apos;接口测试%&apos;;
-DELETE FROM tb_technology_person WHERE technology_person_name = &apos;jkcs&apos;;</stringProp>
+DELETE FROM tb_technology_person WHERE technology_person_name = &apos;jkcs&apos;;
+UPDATE tb_combat_team a SET a.person_numbers = a.person_numbers + 1 WHERE team_name = &apos;测试勿动组&apos;;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="variableNames"></stringProp>
@@ -259,42 +260,12 @@ DELETE FROM tb_technology_person WHERE technology_person_name = &apos;jkcs&apos;
               <stringProp name="RegexExtractor.match_number">1</stringProp>
             </RegexExtractor>
             <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_admin_APPLET_SESSION_ID" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-              <stringProp name="RegexExtractor.refname">admin_APPLET_SESSION_ID</stringProp>
-              <stringProp name="RegexExtractor.regex">admin_APPLET_SESSION_ID=(.+?);</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default">default</stringProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_basemanage_web_APPLET_SESSION_ID" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-              <stringProp name="RegexExtractor.refname">basemanage_web_APPLET_SESSION_ID</stringProp>
-              <stringProp name="RegexExtractor.regex">basemanage_web_APPLET_SESSION_ID=(.+?);</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default">default</stringProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_programmanager_web_APPLET_SESSION_ID" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-              <stringProp name="RegexExtractor.refname">programmanager_web_APPLET_SESSION_ID</stringProp>
-              <stringProp name="RegexExtractor.regex">programmanager_web_APPLET_SESSION_ID=(.+?);</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default">default</stringProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
             <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
               <boolProp name="resetInterpreter">false</boolProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="script">${__setProperty(hID,${hID},)};
-${__setProperty(JSESSIONID,${JSESSIONID},)};
-${__setProperty(admin_APPLET_SESSION_ID,${admin_APPLET_SESSION_ID},)};
-${__setProperty(basemanage_web_APPLET_SESSION_ID,${basemanage_web_APPLET_SESSION_ID},)}
-${__setProperty(programmanager_web_APPLET_SESSION_ID,${programmanager_web_APPLET_SESSION_ID},)}</stringProp>
+${__setProperty(JSESSIONID,${JSESSIONID},)};</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
@@ -328,33 +299,6 @@ ${__setProperty(programmanager_web_APPLET_SESSION_ID,${programmanager_web_APPLET
               <stringProp name="Cookie.value">${__P(JSESSIONID)}</stringProp>
               <stringProp name="Cookie.domain">${domain}</stringProp>
               <stringProp name="Cookie.path">/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="admin_APPLET_SESSION_ID" elementType="Cookie" testname="admin_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(admin_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/admin/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="basemanage_web_APPLET_SESSION_ID" elementType="Cookie" testname="basemanage_web_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(basemanage_web_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/basemanage/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="programmanager_web_APPLET_SESSION_ID" elementType="Cookie" testname="programmanager_web_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(programmanager_web_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/programmanager/</stringProp>
               <boolProp name="Cookie.secure">false</boolProp>
               <longProp name="Cookie.expires">0</longProp>
               <boolProp name="Cookie.path_specified">true</boolProp>
@@ -2229,7 +2173,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <hashTree/>
                 <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_提取chargePersonId（负责人Id）、chargePersonName（负责人姓名）、chargePersonPhone（负责人手机号）" enabled="true">
                   <stringProp name="JSONPostProcessor.referenceNames">chargePersonId;chargePersonName;chargePersonPhone</stringProp>
-                  <stringProp name="JSONPostProcessor.jsonPathExprs">$..personId;$..personName;phone</stringProp>
+                  <stringProp name="JSONPostProcessor.jsonPathExprs">$..personId;$..personName;$..phone</stringProp>
                   <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
                   <stringProp name="JSONPostProcessor.defaultValues">error;error;error</stringProp>
                   <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
@@ -8750,33 +8694,6 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <boolProp name="Cookie.path_specified">true</boolProp>
               <boolProp name="Cookie.domain_specified">true</boolProp>
             </elementProp>
-            <elementProp name="admin_APPLET_SESSION_ID" elementType="Cookie" testname="admin_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(admin_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/admin/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="basemanage_web_APPLET_SESSION_ID" elementType="Cookie" testname="basemanage_web_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(basemanage_web_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/basemanage/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="programmanager_web_APPLET_SESSION_ID" elementType="Cookie" testname="programmanager_web_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(programmanager_web_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/programmanager/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
           </collectionProp>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
@@ -9125,33 +9042,6 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <stringProp name="Cookie.value">${__P(JSESSIONID)}</stringProp>
               <stringProp name="Cookie.domain">${domain}</stringProp>
               <stringProp name="Cookie.path">/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="admin_APPLET_SESSION_ID" elementType="Cookie" testname="admin_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(admin_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/admin/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="basemanage_web_APPLET_SESSION_ID" elementType="Cookie" testname="basemanage_web_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(basemanage_web_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/basemanage/</stringProp>
-              <boolProp name="Cookie.secure">false</boolProp>
-              <longProp name="Cookie.expires">0</longProp>
-              <boolProp name="Cookie.path_specified">true</boolProp>
-              <boolProp name="Cookie.domain_specified">true</boolProp>
-            </elementProp>
-            <elementProp name="programmanager_web_APPLET_SESSION_ID" elementType="Cookie" testname="programmanager_web_APPLET_SESSION_ID">
-              <stringProp name="Cookie.value">${__P(programmanager_web_APPLET_SESSION_ID)}</stringProp>
-              <stringProp name="Cookie.domain">${domain}</stringProp>
-              <stringProp name="Cookie.path">/programmanager/</stringProp>
               <boolProp name="Cookie.secure">false</boolProp>
               <longProp name="Cookie.expires">0</longProp>
               <boolProp name="Cookie.path_specified">true</boolProp>
