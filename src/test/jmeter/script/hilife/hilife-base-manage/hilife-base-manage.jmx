@@ -16,7 +16,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="projectName" elementType="Argument">
             <stringProp name="Argument.name">projectName</stringProp>
-            <stringProp name="Argument.value">hilife-householdve2</stringProp>
+            <stringProp name="Argument.value">hilife-base-manage</stringProp>
             <stringProp name="Argument.desc">项目名称</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -117,12 +117,31 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
-      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection finance" enabled="true">
+      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection base-manage" enabled="true">
         <boolProp name="autocommit">true</boolProp>
         <stringProp name="checkQuery">select 1</stringProp>
         <stringProp name="connectionAge">5000</stringProp>
         <stringProp name="dataSource">${projectName}</stringProp>
         <stringProp name="dbUrl">jdbc:mysql://rm-2zeh7r5s96nge1014.mysql.rds.aliyuncs.com:3306/finance?allowMultiQueries=true</stringProp>
+        <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
+        <stringProp name="initQuery"></stringProp>
+        <boolProp name="keepAlive">true</boolProp>
+        <stringProp name="password">Hilife2018</stringProp>
+        <stringProp name="poolMax">0</stringProp>
+        <stringProp name="timeout">10000</stringProp>
+        <stringProp name="transactionIsolation">DEFAULT</stringProp>
+        <stringProp name="trimInterval">60000</stringProp>
+        <stringProp name="username">main</stringProp>
+        <boolProp name="preinit">false</boolProp>
+        <stringProp name="connectionProperties"></stringProp>
+      </JDBCDataSource>
+      <hashTree/>
+      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection jeez" enabled="true">
+        <boolProp name="autocommit">true</boolProp>
+        <stringProp name="checkQuery">select 1</stringProp>
+        <stringProp name="connectionAge">5000</stringProp>
+        <stringProp name="dataSource">jeez</stringProp>
+        <stringProp name="dbUrl">jdbc:mysql://rm-2zeh7r5s96nge1014.mysql.rds.aliyuncs.com:3306/jeez?allowMultiQueries=true</stringProp>
         <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
         <stringProp name="initQuery"></stringProp>
         <boolProp name="keepAlive">true</boolProp>
@@ -180,15 +199,9 @@
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Reques_清理数据" enabled="true">
-          <stringProp name="dataSource">${projectName}</stringProp>
+          <stringProp name="dataSource">jeez</stringProp>
           <stringProp name="queryType">Callable Statement</stringProp>
-          <stringProp name="query">/*删除产品管理接口数据*/
-DELETE FROM credit_card WHERE product_name LIKE &apos;%接口测试_产品名称编辑%&apos;;
-/*删除贷款产品管理接口数据*/
-DELETE FROM loan_product WHERE inner_name LIKE &apos;%接口测试_内部名称%&apos;;
-/*删除保险产品管理*/
-DELETE FROM insurance_product WHERE insurance_name LIKE &apos;%接口测试_内部名称%&apos;;
-
+          <stringProp name="query">delete  FROM hh_object_district WHERE districtName LIKE &apos;%接口测试%&apos;
 </stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
@@ -205,7 +218,7 @@ DELETE FROM insurance_product WHERE insurance_name LIKE &apos;%接口测试_内�
         </IncludeController>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础接口" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础接口" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -315,7 +328,7 @@ DELETE FROM insurance_product WHERE insurance_name LIKE &apos;%接口测试_内�
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="社区功能" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="社区功能" enabled="false"/>
         <hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="账号管理" enabled="true"/>
           <hashTree>
@@ -1474,8 +1487,8 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
               <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_propertyCompanyId" enabled="true">
                 <stringProp name="JSONPostProcessor.referenceNames">propertyCompanyId</stringProp>
-                <stringProp name="JSONPostProcessor.jsonPathExprs">$..list[*].id</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">4</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$..list[?(@.objectName==&quot;杨凤娟1&quot;)].id</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -1486,7 +1499,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.value">{&quot;propertyCompanyId&quot;:&quot;${propertyCompanyId}&quot;,&quot;districtName&quot;:&quot;接口测试_区域名称&quot;}&#xd;
+                    <stringProp name="Argument.value">{&quot;propertyCompanyId&quot;:&quot;${propertyCompanyId}&quot;,&quot;districtName&quot;:&quot;接口测试_新增区域&quot;}&#xd;
 </stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
@@ -1560,7 +1573,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <stringProp name="TestPlan.comments">5个</stringProp>
                 <stringProp name="JSONPostProcessor.referenceNames">contactPersonName;contactPersonPhone;organizeId;propertyCompanyId;propertyCompanyName</stringProp>
                 <stringProp name="JSONPostProcessor.jsonPathExprs">$..contactPersonName;$..contactPersonPhone;$..organizeId;$..propertyCompanyId;$..propertyCompanyName</stringProp>
-                <stringProp name="JSONPostProcessor.match_numbers">-1;-1;-1;-1;-1</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers">1;1;1;1;1</stringProp>
                 <stringProp name="JSONPostProcessor.defaultValues">not;not;not;not;not</stringProp>
               </JSONPostProcessor>
               <hashTree/>
@@ -1602,7 +1615,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-组织机构管理-开启" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-组织机构管理-开启" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="propertyCompanyId" elementType="HTTPArgument">
@@ -1649,7 +1662,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-组织机构管理-关闭" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-组织机构管理-关闭" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="propertyCompanyId" elementType="HTTPArgument">
@@ -1697,7 +1710,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="管理人员" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="管理人员" enabled="false"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-管理人员-页面(html)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -1891,7 +1904,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="管理社区" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="管理社区" enabled="false"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-管理社区-页面(html)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -2696,7 +2709,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </hashTree>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="创建社区" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="创建社区" enabled="false"/>
           <hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台管理-企业管理-管理社区-删除社区" enabled="true"/>
             <hashTree>
@@ -3289,7 +3302,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="企业信息" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="企业信息" enabled="false"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-企业管理-企业信息-页面(html)" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3405,7 +3418,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             </hashTree>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="消息通知" enabled="true"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="消息通知" enabled="false"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理-消息通知-页面(html)" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
@@ -3677,7 +3690,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
