@@ -771,7 +771,7 @@
                 <stringProp name="HTTPSampler.protocol">https</stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
                 <stringProp name="HTTPSampler.path">/householdv2/carport/getCarPortMessage</stringProp>
-                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
                 <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -864,13 +864,35 @@
               </hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_物业楼户管理_楼户管理_获取楼户信息通过用户" enabled="true">
                 <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                  <collectionProp name="Arguments.arguments"/>
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="pageMaxSize" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">20</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">pageMaxSize</stringProp>
+                    </elementProp>
+                    <elementProp name="objectId" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${__P(personID)}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">objectId</stringProp>
+                    </elementProp>
+                    <elementProp name="companyId" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">${__P(communityID)}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                      <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                      <stringProp name="Argument.name">companyId</stringProp>
+                    </elementProp>
+                  </collectionProp>
                 </elementProp>
                 <stringProp name="HTTPSampler.domain"></stringProp>
                 <stringProp name="HTTPSampler.port"></stringProp>
                 <stringProp name="HTTPSampler.protocol"></stringProp>
                 <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                <stringProp name="HTTPSampler.path">/householdv2/house/hhInfoByPage?_hidden_currentPageNumber=1&amp;pageMaxSize=20&amp;objectId=5719134856949219916&amp;companyId=269931278217394676665406</stringProp>
+                <stringProp name="HTTPSampler.path">/householdv2/house/hhInfoByPage</stringProp>
                 <stringProp name="HTTPSampler.method">GET</stringProp>
                 <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                 <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -890,6 +912,15 @@
                   <boolProp name="Assertion.assume_success">false</boolProp>
                   <intProp name="Assertion.test_type">2</intProp>
                 </ResponseAssertion>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="false">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="Cookie" elementType="Header">
+                      <stringProp name="Header.name">Cookie</stringProp>
+                      <stringProp name="Header.value">_ga=GA1.2.1781357687.1600653999; hUser=&quot;[{\&quot;password\&quot;:\&quot;huvAAYWg9KP6UobseDFb7A==\&quot;,\&quot;username\&quot;:\&quot;18518472358\&quot;}]&quot;; TY_SESSION_ID=e4efb3d3-81ae-4903-b414-2020ad760d7a; imageID=6977820976687500058; dajiaID=2554648706615034529_1637044999308; hID=3299079625297576793; UM_distinctid=17d2d88b1590-003aef8907a-57b1a33-e1000-17d2d88b15c12c; CNZZDATA1278274866=222160837-1637138379-https%253A%252F%252Ftest.91hiwork.com%252F%7C1637310371; hilife_token=eyJhbGciOiJSUzI1NiJ9.eyJpZCI6NzYsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NzM4NjA4NjZ9.SW6ebQsaV4mPMVRCHj3ybpCg4oR29VktnAb1sUnVpdl2M14-l-dOiiAZFCGto0-AEwawGUmd6SJNdIU0BCW6dIyyM17peSVt1P_WD8BzlbpSEJarIlZnpWTSZy8xvQPp9PJJwppeS5i6mjZ_W3dymaD8YDgSRZhoJZLvQJB1xrU; basemanage_web_APPLET_SESSION_ID=5120306156035131691; householdv2_APPLET_SESSION_ID=4317064218808765534; JSESSIONID=C2778A3F5DA4FB5C7F7964A4A6C0F38D</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
                 <hashTree/>
               </hashTree>
             </hashTree>
@@ -1295,11 +1326,11 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">10.1.1.143</stringProp>
-              <stringProp name="HTTPSampler.port">20032</stringProp>
-              <stringProp name="HTTPSampler.protocol">http</stringProp>
+              <stringProp name="HTTPSampler.domain">sms.91hiwork.com</stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/message/paginate?limit=20&amp;offset=0&amp;search=&amp;_=1600242716227</stringProp>
+              <stringProp name="HTTPSampler.path">/message/paginate?limit=20&amp;offset=0&amp;search=&amp;_=1636024276120</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
