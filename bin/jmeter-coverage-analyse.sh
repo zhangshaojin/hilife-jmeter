@@ -38,17 +38,6 @@ sort ../out/interfacelist12 | uniq > ../out/interfacelist13
 
 
 # 按项目处理jmeter接口中多余的部分
-# echo 去掉agent项目的uri前缀"/agent/"
-# sed 's/^\/agent\//\//g' ../out/interfacelist13 > ../out/interfacelist14
-# echo 去掉agent项目的uri前缀"/wxapplet/"
-# sed 's/^\/wxapplet\//\//g' ../out/interfacelist14 > ../out/interfacelist15
-# echo 去掉agent项目的uri前缀"/yhbill/"
-# sed 's/^\/yhbill\//\//g' ../out/interfacelist15 > ../out/interfacelist16
-# echo 去掉agent项目的uri前缀"/wxoperatingtools/"
-# sed 's/^\/wxoperatingtools\//\//g' ../out/interfacelist16 > ../out/interfacelist17
-# echo 去掉agent项目的uri前缀"/vshop/"
-# sed 's/^\/vshop\//\//g' ../out/interfacelist17 > ../out/interfacelist18
-
 my_array=(
     accesscontrol
     admin
