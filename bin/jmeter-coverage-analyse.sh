@@ -70,6 +70,7 @@ my_array=(
     appmanage
     base-manage
     api
+    analysisacceptance
     appCode
     client
     clothWeChat
@@ -151,7 +152,7 @@ sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
 #######################################################################################################################
 
 echo 开始处理yapi接口导出文件
-grep "        \"path\": \"" ../yapi/api.json > ../out/tmp/yapi-interfacelist0
+grep "        \"path\": \"" ../yapi/api20220308.json > ../out/tmp/yapi-interfacelist0
 echo 去头尾空格
 sed 's/[[:space:]]//g' ../out/tmp/yapi-interfacelist0 > ../out/tmp/yapi-interfacelist1
 echo 去重
