@@ -60,7 +60,9 @@ sed 's/\/\//\//g' ../out/tmp/interfacelist11 > ../out/tmp/interfacelist12
 echo 去重
 sort ../out/tmp/interfacelist12 | uniq > ../out/tmp/interfacelist13
 
-
+echo 去掉结尾的.json
+sed 's/\.json$//g' ../out/tmp/interfacelist13 > ../out/tmp/interfacelist14
+sed 's/\.action$//g' ../out/tmp/interfacelist14 > ../out/tmp/interfacelist15
 # 按项目处理jmeter接口中多余的部分
 my_array=(
     accesscontrol
@@ -136,23 +138,20 @@ my_array=(
 )
 
 for(( i=0;i<${#my_array[@]};i++)) do
-    let interfacelistsource=i+13
-    let interfacelistresult=i+14
-    # echo ../out/interfacelist${interfacelistsource}
-    # echo ../out/interfacelist${interfacelistresult}
+    let interfacelistsource=i+15
+    let interfacelistresult=i+16
     keystr=${my_array[$i]}
-    # echo ${keystr}
-    # echo ${my_array[$i]}
-    # echo 's/^\/'${keystr}'\//\//g'
     sed 's/^\/'${keystr}'\//\//g' ../out/tmp/interfacelist${interfacelistsource} > ../out/tmp/interfacelist${interfacelistresult}
 done;
-let latestIndex=${#my_array[*]}+13
+
+
+let latestIndex=${#my_array[*]}+15
 echo ${latestIndex}
 sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
 #######################################################################################################################
 
 echo 开始处理yapi接口导出文件
-grep "        \"path\": \"" ../yapi/api20220308.json > ../out/tmp/yapi-interfacelist0
+grep "        \"path\": \"" ../yapi/api20220309.json > ../out/tmp/yapi-interfacelist0
 echo 去头尾空格
 sed 's/[[:space:]]//g' ../out/tmp/yapi-interfacelist0 > ../out/tmp/yapi-interfacelist1
 echo 去重
