@@ -19,4 +19,7 @@ public class CommonPermissionController {
 ```
 导入到yapi是接口变成了"/CommonPermissionisPermission"，而Jmeter中是"/CommonPermission/isPermission"
 解决思路：修改导入Yapi的插件，解决注解不规范的问题，后续代码规范里面添加响应的规范
-2.
+状态：已解决
+2.导入插件对@RequestMapping({"/demo","/example"})语法的支撑有问题，导致生成的接口会变成[/demo,/example]/...，在Yapi导入中会被遗弃掉，导致部分接口无法导入到yapi中
+解决思路：修改导入Yapi插件
+状态：解决了一部分，@RequestMapping({"/demo"})类的已经解决，但是@RequestMapping({"/demo","/example"})导入时还是导入不进去，需要再次优化
