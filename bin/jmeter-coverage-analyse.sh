@@ -118,7 +118,6 @@ my_array=(
     portalmanage
     programmanager
     promotion
-    recommend
     review
     sc-authority
     sc-crm
@@ -135,6 +134,8 @@ my_array=(
     wxapplet
     wxoperatingtools
     yhbill
+    backend
+    backapi
 )
 
 for(( i=0;i<${#my_array[@]};i++)) do
@@ -151,7 +152,7 @@ sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
 #######################################################################################################################
 
 echo 开始处理yapi接口导出文件
-grep "        \"path\": \"" ../yapi/api20220309.json > ../out/tmp/yapi-interfacelist0
+grep "        \"path\": \"" ../yapi/api20220310.json > ../out/tmp/yapi-interfacelist0
 echo 去头尾空格
 sed 's/[[:space:]]//g' ../out/tmp/yapi-interfacelist0 > ../out/tmp/yapi-interfacelist1
 echo 去重
