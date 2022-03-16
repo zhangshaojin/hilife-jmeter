@@ -7857,8 +7857,8 @@
                     <hashTree/>
                     <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_oneid" enabled="true">
                       <stringProp name="JSONPostProcessor.referenceNames">oneid</stringProp>
-                      <stringProp name="JSONPostProcessor.jsonPathExprs">$[?(@.title=~ /.*课程分类.*?/)]id</stringProp>
-                      <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+                      <stringProp name="JSONPostProcessor.jsonPathExprs">$[?(@.title=~ /.*接口测试-课程分类编辑后.*?/)]id</stringProp>
+                      <stringProp name="JSONPostProcessor.match_numbers">2</stringProp>
                       <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
                     </JSONPostProcessor>
                     <hashTree/>
@@ -8361,37 +8361,6 @@
                   <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                     <collectionProp name="Asserion.test_strings">
                       <stringProp name="-1488724973">&quot;success&quot; : true</stringProp>
-                    </collectionProp>
-                    <stringProp name="Assertion.custom_message"></stringProp>
-                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                    <boolProp name="Assertion.assume_success">false</boolProp>
-                    <intProp name="Assertion.test_type">2</intProp>
-                  </ResponseAssertion>
-                  <hashTree/>
-                </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理 _ 课程管理 _推荐/不推荐2" enabled="true">
-                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-                    <collectionProp name="Arguments.arguments"/>
-                  </elementProp>
-                  <stringProp name="HTTPSampler.domain"></stringProp>
-                  <stringProp name="HTTPSampler.port"></stringProp>
-                  <stringProp name="HTTPSampler.protocol"></stringProp>
-                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-                  <stringProp name="HTTPSampler.path">/sys/course/catalog/switchRecommand/${ID}</stringProp>
-                  <stringProp name="HTTPSampler.method">GET</stringProp>
-                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                  <stringProp name="TestPlan.comments">推荐后不支持取消</stringProp>
-                </HTTPSamplerProxy>
-                <hashTree>
-                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-                    <collectionProp name="Asserion.test_strings">
-                      <stringProp name="-1132487629"> &quot;success&quot; : true</stringProp>
                     </collectionProp>
                     <stringProp name="Assertion.custom_message"></stringProp>
                     <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -36184,6 +36153,80 @@ if(resPonseCode.equals(&quot;200&quot;)){
             </hashTree>
             <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台管理_ 员工内训" enabled="true"/>
             <hashTree>
+              <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="后台登陆" enabled="true"/>
+              <hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理 _ 登陆页面 _ 登陆页面" enabled="true">
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="verifycode" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value"></stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                        <stringProp name="Argument.name">verifycode</stringProp>
+                      </elementProp>
+                      <elementProp name="username" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value">${backUserName}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                        <stringProp name="Argument.name">username</stringProp>
+                      </elementProp>
+                      <elementProp name="password" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value">${backPassword}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                        <stringProp name="Argument.name">password</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                  <stringProp name="HTTPSampler.domain"></stringProp>
+                  <stringProp name="HTTPSampler.port"></stringProp>
+                  <stringProp name="HTTPSampler.protocol"></stringProp>
+                  <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                  <stringProp name="HTTPSampler.path">/login/do</stringProp>
+                  <stringProp name="HTTPSampler.method">POST</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                  <stringProp name="TestPlan.comments">登陆页面的接口获取</stringProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-1488724973">&quot;success&quot; : true</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">2</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_JSESSIONID" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">true</stringProp>
+                    <stringProp name="RegexExtractor.refname">JSESSIONID</stringProp>
+                    <stringProp name="RegexExtractor.regex">Set-Cookie: JSESSIONID=(.+?);</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                    <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="parameters">${JSESSIONID}</stringProp>
+                    <boolProp name="resetInterpreter">false</boolProp>
+                    <stringProp name="script">${__setProperty(JSESSIONID,${JSESSIONID},)};      
+</stringProp>
+                  </BeanShellPostProcessor>
+                  <hashTree/>
+                </hashTree>
+              </hashTree>
               <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="员工课程分类" enabled="true"/>
               <hashTree>
                 <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="员工课程分类_删除" enabled="true"/>
@@ -44677,7 +44720,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
                 <stringProp name="662703527">后台管理</stringProp>
                 <stringProp name="-1722936239">后台管理_ 系统管理</stringProp>
                 <stringProp name="1529410311">广告位管理</stringProp>
-                <stringProp name="-887840706">删除广告位</stringProp>
+                <stringProp name="-980429960">新建广告位</stringProp>
               </collectionProp>
             </ModuleController>
             <hashTree/>
@@ -44841,7 +44884,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
             <hashTree>
               <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
                 <collectionProp name="Asserion.test_strings">
-                  <stringProp name="-1734269806">&quot;title&quot; : &quot;guanggaoweo&quot;</stringProp>
+                  <stringProp name="989695096">&quot;name&quot; : &quot;巴菲特&quot;</stringProp>
                 </collectionProp>
                 <stringProp name="Assertion.custom_message"></stringProp>
                 <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
