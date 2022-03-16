@@ -150,9 +150,13 @@ let latestIndex=${#my_array[*]}+15
 echo ${latestIndex}
 sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
 #######################################################################################################################
+echo 拉取Yapi中的接口列表
+wget -O ../out/tmp/yapi.json.tmp "https://yapi.91hiwork.com/api/interface/list?project_id=366&token=59a4540a18d128222d3da393b6b14a0500fc21d96e0bed172d02fd5b137ea68f&page=1&limit=100000"
+echo 格式化接口文档
+cat ../out/tmp/yapi.json.tmp | jq > ../out/tmp/yapi.json
 
 echo 开始处理yapi接口导出文件
-grep "        \"path\": \"" ../yapi/api20220310.json > ../out/tmp/yapi-interfacelist0
+grep "        \"path\": \"" ../out/tmp/yapi.json > ../out/tmp/yapi-interfacelist0
 echo 去头尾空格
 sed 's/[[:space:]]//g' ../out/tmp/yapi-interfacelist0 > ../out/tmp/yapi-interfacelist1
 echo 去重
