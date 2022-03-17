@@ -85,9 +85,6 @@ sed 's/\.action$//g' ../out/tmp/interfacelist14 > ../out/tmp/interfacelist15
 # 去掉${*}的部分,这种部分是Jmeter引用参数的形式，降低Jmeter与Yapi参数不一致带来匹配偏差
 # 这个必须放在处理/之后，因为这样处理过之后可能会出现尾部/、//、///的情况，这个特征与处理yapi一致，保障匹配的准确性
 sed 's/\${[^}]*}//g' ../out/tmp/interfacelist15 > ../out/tmp/interfacelist16
-##################
-sed 's/^\/enterprise\/manage\//\//g' ../out/tmp/interfacelist16 > ../out/tmp/interfacelist17
-##################
 
 ##################
 # 按项目处理jmeter接口中多余的部分
@@ -101,7 +98,6 @@ my_array=(
     appmanage
     base-manage
     analysisacceptance
-    appCode
     client
     clothWeChat
     control-settlement
@@ -122,8 +118,6 @@ my_array=(
     householdv2
     housekeeper
     invoke
-    mall
-    mallHome
     manage
     md
     message
@@ -165,16 +159,22 @@ my_array=(
 )
 
 for(( i=0;i<${#my_array[@]};i++)) do
-    let interfacelistsource=i+17
-    let interfacelistresult=i+18
+    let interfacelistsource=i+16
+    let interfacelistresult=i+17
     keystr=${my_array[$i]}
     sed 's/^\/'${keystr}'\//\//g' ../out/tmp/interfacelist${interfacelistsource} > ../out/tmp/interfacelist${interfacelistresult}
 done;
 
 
-let latestIndex=${#my_array[*]}+17
+let latestIndex=${#my_array[*]}+16
 echo ${latestIndex}
-sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
+let srcIndex=${latestIndex}
+let targetIndex=${latestIndex}+1
+##################
+sed 's/^\/enterprise\/manage\//\//g' ../out/tmp/interfacelist${srcIndex} > ../out/tmp/interfacelist${targetIndex}
+##################
+
+sort ../out/tmp/interfacelist${targetIndex} | uniq > ../out/jmeter-interfacelist
 
 
 #######################################################################################################################
