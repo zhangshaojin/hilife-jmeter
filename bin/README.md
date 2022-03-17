@@ -3,8 +3,12 @@
 # 目录说明
 > ./bin
 > 为脚本存放路径，也是脚本运行的根路径
-> ./
-# 使用说明
+> ./out
+> 存放输出结果，运行完成后目录树类似如下
+```
+
+```
+# 准备工作
 > #### 安装jq用于完成json文件格式化
 > ```
 > yum install jq
@@ -17,12 +21,18 @@
 > ```
 > yum install wget
 > ```
-使用方式
+# 使用方式
 > ```
 > # 从代码仓库中拉去代码之后进入代码路径，以下说明中相对路径均以代码根目录为基准
 > cd ./bin
 > ./jmeter-coverage-analyse.sh
 > ```
+# 结果
+> ./out目录下为分析后的结果
+> 目录    all     中放的是Jmeter全部接口和Yapi全部接口一起分析的结果
+> 目录    **.jmx  中放的是对应的jmx文件中抓取的接口和Yapi全部接口分析的结果
+> 文件    converage-result.csv    报表
+> 文件    yapi-interfacelist      Yapi全部接口清单
 
 使用说明：
 
