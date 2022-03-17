@@ -80,6 +80,12 @@ sort ../out/tmp/interfacelist12 | uniq > ../out/tmp/interfacelist13
 echo 去掉结尾的.json
 sed 's/\.json$//g' ../out/tmp/interfacelist13 > ../out/tmp/interfacelist14
 sed 's/\.action$//g' ../out/tmp/interfacelist14 > ../out/tmp/interfacelist15
+
+##################
+# 去掉${*}的部分,这种部分是Jmeter引用参数的形式，降低Jmeter与Yapi参数不一致带来匹配偏差
+# 这个必须放在处理/之后，因为这样处理过之后可能会出现尾部/、//、///的情况，这个特征与处理yapi一致，保障匹配的准确性
+sed 's/\${[^}]*}//g' ../out/tmp/interfacelist15 > ../out/tmp/interfacelist16
+##################
 # 按项目处理jmeter接口中多余的部分
 my_array=(
     accesscontrol
@@ -156,28 +162,21 @@ my_array=(
 )
 
 for(( i=0;i<${#my_array[@]};i++)) do
-    let interfacelistsource=i+15
-    let interfacelistresult=i+16
+    let interfacelistsource=i+16
+    let interfacelistresult=i+17
     keystr=${my_array[$i]}
     sed 's/^\/'${keystr}'\//\//g' ../out/tmp/interfacelist${interfacelistsource} > ../out/tmp/interfacelist${interfacelistresult}
 done;
 
 
-let latestIndex=${#my_array[*]}+15
+let latestIndex=${#my_array[*]}+16
 echo ${latestIndex}
-
-##################
-# 去掉花括号括起来的部分，降低Jmeter与Yapi参数不一致带来的偏差，不过这样会导致部分接口误判，不过误差比较小，暂时忽略
-# ${ID}
-# grep "\${.*?}" 这里要使用非贪婪模式
-##################
-
 sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
 
 
 #######################################################################################################################
 echo 拉取Yapi中的接口列表
-wget -O ../out/tmp/yapi.json.tmp "https://yapi.91hiwork.com/api/interface/list?project_id=366&token=59a4540a18d128222d3da393b6b14a0500fc21d96e0bed172d02fd5b137ea68f&page=1&limit=100000"
+wget -q -O ../out/tmp/yapi.json.tmp "https://yapi.91hiwork.com/api/interface/list?project_id=366&token=59a4540a18d128222d3da393b6b14a0500fc21d96e0bed172d02fd5b137ea68f&page=1&limit=100000"
 echo 格式化接口文档
 cat ../out/tmp/yapi.json.tmp | jq > ../out/tmp/yapi.json
 
@@ -185,15 +184,19 @@ echo 开始处理yapi接口导出文件
 grep "        \"path\": \"" ../out/tmp/yapi.json > ../out/tmp/yapi-interfacelist0
 echo 去头尾空格
 sed 's/[[:space:]]//g' ../out/tmp/yapi-interfacelist0 > ../out/tmp/yapi-interfacelist1
-echo 去重
-sort ../out/tmp/yapi-interfacelist1 | uniq > ../out/tmp/yapi-interfacelist2
 echo 双斜线替换成单斜线
-sed 's/\/\//\//g' ../out/tmp/yapi-interfacelist2 > ../out/tmp/yapi-interfacelist3
+sed 's/\/\//\//g' ../out/tmp/yapi-interfacelist1 > ../out/tmp/yapi-interfacelist2
 echo 去掉无用的头部
-sed 's/\"path\":\"//g' ../out/tmp/yapi-interfacelist3 > ../out/tmp/yapi-interfacelist4
+sed 's/\"path\":\"//g' ../out/tmp/yapi-interfacelist2 > ../out/tmp/yapi-interfacelist3
 echo 去掉无用的尾部
-sed 's/\"\,//g' ../out/tmp/yapi-interfacelist4 > ../out/yapi-interfacelist
-
+sed 's/\"\,//g' ../out/tmp/yapi-interfacelist3 > ../out/tmp/yapi-interfacelist4
+##################
+# 去掉{*}的部分,这种部分是Yapi定义参数的形式，降低Jmeter与Yapi参数不一致带来匹配偏差
+# 这个必须放在处理/之后，因为这样处理过之后可能会出现尾部/、//、///的情况，这个特征与处理jmeter一致，保障匹配的准确性
+sed 's/{[^}]*}//g' ../out/tmp/yapi-interfacelist4 > ../out/tmp/yapi-interfacelist5
+##################
+echo 去重
+sort ../out/tmp/yapi-interfacelist5 | uniq > ../out/yapi-interfacelist
 #######################################################################################################################
 # 开始计算覆盖率
 echo 合并文件
