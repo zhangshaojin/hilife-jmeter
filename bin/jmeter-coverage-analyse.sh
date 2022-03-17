@@ -4,13 +4,18 @@
 export LC_COLLATE='C'
 export LC_CTYPE='C'
 
+system_type=`uname  -a`
+system_mac="Darwin"
+
 # 处理路径中存在.jmx导致后续处理把文件夹也作为文件处理并报错的问题
 if [ -d "../src/test/jmeter/script/hilife-clothingsuppl.jmx" ]; then
+    echo 修改带有jmx后缀的目录名
     mv ../src/test/jmeter/script/hilife-clothingsuppl.jmx ../src/test/jmeter/script/hilife-clothingsuppl
 fi
 
 # 处理文件名中存在空格的文件，这种文件在命令行中导致xargs命令处理参数是会出错
 if [ -f "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_ template.jmx" ]; then
+    echo 修改带有空格的文件名
     mv "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_ template.jmx" "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_template.jmx"
 fi
 
@@ -28,12 +33,24 @@ fi
 echo 开始处理Jmeter文件
 find ../ | grep .jmx | xargs grep "HTTPSampler.path" > ../out/tmp/interfacelist
 echo 去掉xml标签头
-sed "s/\<stringProp\ name=\"HTTPSampler.path\"\>//g" ../out/tmp/interfacelist > ../out/tmp/interfacelist1
+if [[ $system_type =~ $system_mac ]];then 
+    sed "s/\<stringProp\ name=\"HTTPSampler.path\"\>//g" ../out/tmp/interfacelist > ../out/tmp/interfacelist1
+else
+    sed "s/<stringProp\ name=\"HTTPSampler.path\">//g" ../out/tmp/interfacelist > ../out/tmp/interfacelist1
+fi
 echo 去掉xml标签尾
-sed "s/\<\/stringProp\>/\ /g" ../out/tmp/interfacelist1 > ../out/tmp/interfacelist2
+if [[ $system_type =~ $system_mac ]];then 
+    sed "s/\<\/stringProp\>/\ /g" ../out/tmp/interfacelist1 > ../out/tmp/interfacelist2
+else
+    sed "s/<\/stringProp>/\ /g" ../out/tmp/interfacelist1 > ../out/tmp/interfacelist2
+fi
 echo 去掉前面文件路径部分
 # (.*)标识匹配出换行符之外的任意字符任意次
-sed "s/\.\.\/\/src\/test\/jmeter.*\.jmx\://g" ../out/tmp/interfacelist2 > ../out/tmp/interfacelist3
+if [[ $system_type =~ $system_mac ]];then 
+    sed "s/\.\.\/\/src\/test\/jmeter.*\.jmx\://g" ../out/tmp/interfacelist2 > ../out/tmp/interfacelist3
+else
+    sed "s/\.\.\/src\/test\/jmeter.*\.jmx\://g" ../out/tmp/interfacelist2 > ../out/tmp/interfacelist3
+fi
 echo 去头尾空格
 sed 's/[[:space:]]//g' ../out/tmp/interfacelist3 > ../out/tmp/interfacelist4
 echo 去掉带有？的？后面的部分
@@ -148,7 +165,16 @@ done;
 
 let latestIndex=${#my_array[*]}+15
 echo ${latestIndex}
+
+##################
+# 去掉花括号括起来的部分，降低Jmeter与Yapi参数不一致带来的偏差，不过这样会导致部分接口误判，不过误差比较小，暂时忽略
+# ${ID}
+# grep "\${.*?}" 这里要使用非贪婪模式
+##################
+
 sort ../out/tmp/interfacelist${latestIndex} | uniq > ../out/jmeter-interfacelist
+
+
 #######################################################################################################################
 echo 拉取Yapi中的接口列表
 wget -O ../out/tmp/yapi.json.tmp "https://yapi.91hiwork.com/api/interface/list?project_id=366&token=59a4540a18d128222d3da393b6b14a0500fc21d96e0bed172d02fd5b137ea68f&page=1&limit=100000"
@@ -208,3 +234,18 @@ echo "yapi中未与Jmeter汽配的接口数,${yapi_not_match_in_jmeter}" >> ../o
 export jmeter_match_in_yapi;
 export yapi_interfacelist
 awk  'BEGIN{printf "整体代码覆盖率，%0.2f",ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}' >> ../out/converage-result.csv
+
+
+
+# 还原脚本开始的处理逻辑
+# 处理路径中存在.jmx导致后续处理把文件夹也作为文件处理并报错的问题
+if [[ -d "../src/test/jmeter/script/hilife-clothingsuppl" ]]; then
+    echo 还原带有jmx后缀的目录名
+    mv ../src/test/jmeter/script/hilife-clothingsuppl ../src/test/jmeter/script/hilife-clothingsuppl.jmx 
+fi
+
+# 处理文件名中存在空格的文件，这种文件在命令行中导致xargs命令处理参数是会出错
+if [ -f "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_template.jmx" ]; then
+    echo 还原带有空格的文件名
+    mv "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_template.jmx" "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_ template.jmx" 
+fi
