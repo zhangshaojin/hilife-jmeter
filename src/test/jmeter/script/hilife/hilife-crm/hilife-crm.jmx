@@ -180,7 +180,7 @@
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -1447,6 +1447,43 @@ prev.setDataEncoding(&quot;UTF-8&quot;);
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_作战地图设置_关闭激活状态" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;id&quot;:&quot;${preId}&quot;,&quot;isActive&quot;:0}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/crm/backend/workArea/active</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="1855779452">&quot;code&quot;:&quot;200&quot;,&quot;result&quot;:&quot;请求成功&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
             </hashTree>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="客户管理" enabled="false"/>
@@ -4743,6 +4780,139 @@ if(resPonseCode.equals(&quot;200&quot;)){
               </hashTree>
             </hashTree>
           </hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="客户管理(自增客户)" enabled="true"/>
+          <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="客户管理（自增客户）--更改自然流量客户自动归属到蜂窝关联的业务员开启状态" enabled="true">
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/crm/backend/customer-info/getHlSyncDataFlag</stringProp>
+              <stringProp name="HTTPSampler.method">GET</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-262743939">&quot;code&quot;:&quot;200&quot;,&quot;result&quot;:&quot;1&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="客户管理（自增客户）_列表" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;pageNum&quot;:1,&quot;pageSize&quot;:10,&quot;storeName&quot;:&quot;&quot;,&quot;concat&quot;:&quot;&quot;,&quot;contactPhoneNum&quot;:&quot;&quot;,&quot;createTimeStart&quot;:&quot;&quot;,&quot;createTimeEnd&quot;:&quot;&quot;,&quot;registerMobile&quot;:&quot;&quot;,&quot;isRelateBusiness&quot;:null}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/crm/backend/customer-info/queryAutoIncreaseCustomerInfoPage</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="1855779452">&quot;code&quot;:&quot;200&quot;,&quot;result&quot;:&quot;请求成功&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="客户管理（自增客户）_数据导出" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;pageNum&quot;:1,&quot;pageSize&quot;:10,&quot;storeName&quot;:&quot;&quot;,&quot;businessManageName&quot;:&quot;&quot;,&quot;concat&quot;:&quot;&quot;,&quot;contactPhoneNum&quot;:&quot;&quot;,&quot;cooperateStatus&quot;:&quot;&quot;,&quot;registerType&quot;:&quot;&quot;,&quot;createTimeStart&quot;:&quot;&quot;,&quot;createTimeEnd&quot;:&quot;&quot;,&quot;workAreaId&quot;:&quot;&quot;,&quot;registerMobile&quot;:&quot;&quot;,&quot;isRelateBusiness&quot;:null}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/crm/backend/customer-info/exportIncreaseCustomerInfo2Excel</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="客户管理（自增客户）_查看操作记录" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&quot;pageNum&quot;:1,&quot;pageSize&quot;:10}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain"></stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">/crm/backend/customer-info/getHlSyncDataFlagRecordList</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="1855779452">&quot;code&quot;:&quot;200&quot;,&quot;result&quot;:&quot;请求成功&quot;</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.custom_message"></stringProp>
+                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">16</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP" enabled="true"/>
         <hashTree>
@@ -6560,8 +6730,37 @@ if(resPonseCode.equals(&quot;200&quot;)){
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="APP_离职申请" enabled="true"/>
           <hashTree/>
         </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="合链APP" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP请求" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;areaCode&quot;:&quot;110112&quot;,&quot;mobile&quot;:&quot;14758565696&quot;,&quot;platformId&quot;:&quot;0&quot;,&quot;sessionId&quot;:&quot;efcef45a-9ebc-47ae-a23f-5f3b3a7c0901&quot;,&quot;type&quot;:&quot;2&quot;,&quot;lang&quot;:&quot;zh_CN&quot;,&quot;platform&quot;:&quot;3&quot;}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/ouser-web/mobileRegister/sendCaptchas.do</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景1_后台_业务员管理" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景1_后台_业务员管理" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6585,7 +6784,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
         </ModuleController>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景2_APP新增客户_后台客户管理_客户申诉管理" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景2_APP新增客户_后台客户管理_客户申诉管理" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6618,16 +6817,6 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </collectionProp>
         </ModuleController>
         <hashTree/>
-        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="后台_客户管理" enabled="true">
-          <collectionProp name="ModuleController.node_path">
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="869052411">测试计划</stringProp>
-            <stringProp name="701486441">基础用例</stringProp>
-            <stringProp name="662703527">后台管理</stringProp>
-            <stringProp name="724010522">客户管理</stringProp>
-          </collectionProp>
-        </ModuleController>
-        <hashTree/>
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="后台_申诉管理" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="869052411">测试计划</stringProp>
@@ -6638,8 +6827,18 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </collectionProp>
         </ModuleController>
         <hashTree/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="后台_客户管理" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="869052411">测试计划</stringProp>
+            <stringProp name="869052411">测试计划</stringProp>
+            <stringProp name="701486441">基础用例</stringProp>
+            <stringProp name="662703527">后台管理</stringProp>
+            <stringProp name="724010522">客户管理</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景3_APP拜访客户_后台拜访信息管理" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景3_APP拜访客户_后台拜访信息管理" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6683,7 +6882,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
         </ModuleController>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景4_后台新增帮助问题_APP帮助中心查看" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景4_后台新增帮助问题_APP帮助中心查看" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6727,7 +6926,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
         </ModuleController>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景5_后台创建角色关联业务员_app查看业务员" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景5_后台创建角色关联业务员_app查看业务员" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -6893,7 +7092,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -6925,7 +7124,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
         <stringProp name="filename">./报错接口.csv</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="false">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -6961,7 +7160,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="聚合报告" enabled="false">
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="聚合报告" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
