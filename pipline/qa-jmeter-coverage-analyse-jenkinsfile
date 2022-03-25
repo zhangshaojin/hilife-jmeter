@@ -17,11 +17,10 @@ node {
                         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'qa']], userRemoteConfigs: [[credentialsId: 'af9fdc7a-1604-4e75-9246-9255113ab540', url: 'https://bit.91hiwork.com/scm/hilife-test/hilife-jmeter.git']]])
                     }
                     stage('第2步:分析覆盖率') {
-                        input message:"点击继续"
                         dir('qa') {
                         sh """
                             echo "安装依赖"
-                            apk install jq
+                            apk add jq
                             apk add rsync
                             echo "分析覆盖率"
                             cd ./bin
@@ -29,9 +28,11 @@ node {
                             
                         """
                         }
-                        input message:"点击继续"
                     }
-                    stage('第8步:构建结果通知') {
+                    stage('第3步:分析结果归档') {
+                        archiveArtifacts artifacts: 'analyse/*', followSymlinks: false
+                    }
+                    stage('第4步:发送结果通知') {
                         def info = "SUCCESS"
                         sh """
                             python /usr/local/bin/wechat.py ${info} ${JOB_NAME} ${BUILD_NUMBER} ${BUILD_URL}
