@@ -33,7 +33,8 @@ datetime=`date +%Y%m%d%H%m%s`
 if [[ ! -d "../analyse/$datetime" ]]; then
     mkdir ../analyse/$datetime
 fi
-cp -r ../out/**.csv ../analyse/$datetime/
+rsync -avt --exclude-from=./conf/archive-exclude.list ../out/ ../analyse/$datetime
+
 #############################################################
 
 # 还原脚本开始的处理逻辑
