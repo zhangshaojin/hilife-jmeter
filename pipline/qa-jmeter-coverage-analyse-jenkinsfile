@@ -29,9 +29,8 @@ node {
                         }
                     }
                     stage('第3步:分析结果归档') {
-                        dir('qa/analyse') {                        
-                            input(message: '点击继续')
-                            archiveArtifacts allowEmptyArchive: true, artifacts: '*', followSymlinks: false, onlyIfSuccessful: true
+                        dir('qa/analyse') {
+                            archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.csv', followSymlinks: false, onlyIfSuccessful: true
                         }
                     }
                     stage('第4步:发送结果通知') {
