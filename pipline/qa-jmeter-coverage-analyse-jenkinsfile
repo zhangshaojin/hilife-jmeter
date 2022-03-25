@@ -20,11 +20,15 @@ node {
                         input message:"点击继续"
                         dir('qa') {
                         sh """
+                            echo "安装依赖"
+                            apk install jq
                             echo "分析覆盖率"
                             cd ./bin
                             ./jmeter-coverage-analyse.sh
+                            
                         """
                         }
+                        input message:"点击继续"
                     }
                     stage('第8步:构建结果通知') {
                         def info = "SUCCESS"
