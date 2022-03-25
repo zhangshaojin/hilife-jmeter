@@ -18,7 +18,7 @@ if [ ! -d "../out/all/tmp" ]; then
 fi
 
 echo 开始处理Jmeter文件
-find .. | grep .jmx | xargs grep "HTTPSampler.path" > ../out/all/tmp/interfacelist
+find ../src | grep .jmx | xargs grep "HTTPSampler.path" > ../out/all/tmp/interfacelist
 echo 去掉xml标签头
 if [[ $system_type =~ $system_mac ]];then 
     sed "s/\<stringProp\ name=\"HTTPSampler.path\"\>//g" ../out/all/tmp/interfacelist > ../out/all/tmp/interfacelist1
