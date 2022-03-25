@@ -24,13 +24,12 @@ node {
                             apk add rsync
                             echo "分析覆盖率"
                             cd ./bin
-                            ./jmeter-coverage-analyse.sh
-                            
+                            ./jmeter-coverage-analyse.sh                            
                         """
                         }
                     }
                     stage('第3步:分析结果归档') {
-                        archiveArtifacts artifacts: 'analyse/*', followSymlinks: false
+                        archiveArtifacts artifacts: 'analyse/**/*', followSymlinks: false
                     }
                     stage('第4步:发送结果通知') {
                         def info = "SUCCESS"
