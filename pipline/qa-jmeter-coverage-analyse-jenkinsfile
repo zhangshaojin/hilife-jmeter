@@ -29,7 +29,7 @@ node {
                         }
                     }
                     stage('第3步:分析结果归档') {
-                        archiveArtifacts artifacts: 'analyse/**/*', followSymlinks: false
+                        archiveArtifacts allowEmptyArchive: true, artifacts: 'analyse', followSymlinks: false, onlyIfSuccessful: true
                     }
                     stage('第4步:发送结果通知') {
                         def info = "SUCCESS"
