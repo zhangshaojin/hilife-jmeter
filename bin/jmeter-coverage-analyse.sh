@@ -27,6 +27,13 @@ awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","jmeter_interfacelist","
 ./jmeter-coverage-analyse-all.sh
 # 计算项目覆盖率
 ./jmeter-coverage-analyse-project.sh
+
+# 结果存档
+datetime=`date +%Y%m%d%H%m%s`
+if [[ ! -d "../analyse/$datetime" ]]; then
+    mkdir ../analyse/$datetime
+fi
+cp -r ../out/**.csv ../analyse/$datetime/
 #############################################################
 
 # 还原脚本开始的处理逻辑
@@ -41,3 +48,4 @@ if [ -f "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_tem
     echo 还原带有空格的文件名
     mv "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_template.jmx" "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_ template.jmx" 
 fi
+
