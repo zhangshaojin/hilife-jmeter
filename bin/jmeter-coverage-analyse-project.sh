@@ -14,7 +14,7 @@ system_mac="Darwin"
 ./handle-yapi-interface.sh ../out/yapi-interfacelist
 
 echo 开始处理Jmeter文件
-find .. | grep "\.jmx" > ../out/jmx-file-list-tmp
+find ../src | grep "\.jmx" > ../out/jmx-file-list-tmp
 
 # 设置IFS,将分隔符设置为换行符
 OLDIFS=$IFS

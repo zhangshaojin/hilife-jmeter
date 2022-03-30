@@ -41,3 +41,12 @@ if [ -f "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_tem
     echo 还原带有空格的文件名
     mv "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_template.jmx" "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_ template.jmx" 
 fi
+
+#############################################################
+# 结果存档
+datetime=`date +%Y%m%d%H%m%s`
+if [[ ! -d "../analyse/$datetime" ]]; then
+    mkdir -p ../analyse/$datetime
+fi
+rsync -avt --exclude-from=./conf/archive-exclude.list ../out/ ../analyse/$datetime
+#############################################################
