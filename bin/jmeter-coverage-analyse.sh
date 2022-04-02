@@ -21,7 +21,7 @@ if [ ! -d "../out" ]; then
     mkdir ../out
 fi
 
-awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","jmeter_interfacelist","yapi_interfacelist","jmeter_match_in_yapi","jmeter_not_match_in_yapi","yapi_not_match_in_jmeter","jmeter_match_in_yapi/yapi_interfacelist*100"}' >> ../out/converage-result.csv
+awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","jmeter_interfacelist","yapi_interfacelist","jmeter_match_in_yapi","jmeter_not_match_in_yapi","yapi_not_match_in_jmeter","jmeter_match_in_yapi/yapi_interfacelist*100"}' >> ../out/jmeter-converage-result.csv
 #############################################################
 # 计算整体覆盖率
 ./jmeter-coverage-analyse-all.sh

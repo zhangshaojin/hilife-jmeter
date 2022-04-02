@@ -39,5 +39,5 @@ for(( i=0;i<${#array[@]};i++)) do
     grep "HTTPSampler.path" ${array[$i]} > ../out/$subpath/tmp/interfacelist-tmp
     ./handle-jmeter-interface.sh $subpath ../out/$subpath/tmp/interfacelist-tmp ../out/$subpath/jmeter-interfacelist-$subpath
 
-    ./handle-coverage.sh $subpath ../out/$subpath/jmeter-interfacelist-$subpath ../out/yapi-interfacelist ../out/converage-result.csv
+    ./handle-coverage.sh $subpath ../out/$subpath/jmeter-interfacelist-$subpath ../out/yapi-interfacelist ../out/jmeter-converage-result.csv
 done;

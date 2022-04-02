@@ -201,4 +201,4 @@ export yapi_interfacelist
 export jmeter_match_in_yapi
 export jmeter_not_match_in_yapi
 export yapi_not_match_in_jmeter
-awk  'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["subpath"],ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"],ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"],ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}' >> ../out/converage-result.csv
+awk  'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["subpath"],ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"],ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"],ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}' >> ../out/jmeter-converage-result.csv
