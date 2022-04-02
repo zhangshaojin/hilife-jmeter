@@ -31,7 +31,7 @@
 > ./out目录下为分析后的结果
 > 目录    all     中放的是Jmeter全部接口和Yapi全部接口一起分析的结果
 > 目录    **.jmx  中放的是对应的jmx文件中抓取的接口和Yapi全部接口分析的结果
-> 文件    converage-result.csv    报表
+> 文件    jmeter-converage-result.csv    报表
 > 文件    yapi-interfacelist      Yapi全部接口清单
 
 使用说明：

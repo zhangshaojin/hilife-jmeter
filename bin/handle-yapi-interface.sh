@@ -6,12 +6,22 @@
 target_file_path=$1
 if [ ! -d "../out/yapi-tmp" ]; then
     mkdir -p ../out/yapi-tmp
-fi    
+fi
 #######################################################################################################################
 echo 拉取Yapi中的接口列表
 wget -q -O ../out/yapi-tmp/yapi.json.tmp "https://yapi.91hiwork.com/api/interface/list?project_id=366&token=59a4540a18d128222d3da393b6b14a0500fc21d96e0bed172d02fd5b137ea68f&page=1&limit=100000"
 echo 格式化接口文档
 cat ../out/yapi-tmp/yapi.json.tmp | jq > ../out/yapi-tmp/yapi.json
+echo 拉取Yapi中的接口分类列表
+wget -q -O ../out/yapi-tmp/yapi_cat.json.tmp "https://yapi.91hiwork.com/api/interface/getCatMenu?project_id=366&token=59a4540a18d128222d3da393b6b14a0500fc21d96e0bed172d02fd5b137ea68f"
+echo 格式化接口分类文档
+cat ../out/yapi-tmp/yapi_cat.json.tmp | jq > ../out/yapi-tmp/yapi_cat.json
+
+# 打印分类清单
+# cat ../out/yapi-tmp/yapi_cat.json | jq '.data[].name'
+# cat ../out/yapi-tmp/yapi_cat.json | jq '.data[].name,.data[]._id'
+# cat ../out/yapi-tmp/yapi.json | jq '.data.list | map(select(.catid==8175)) | length'
+cat ../out/yapi-tmp/yapi_cat.json | jq -r '.data | map(.name,._id) | join(" ")' | xargs ./handle-yapi-cat.sh
 
 echo 开始处理yapi接口导出文件
 grep "        \"path\": \"" ../out/yapi-tmp/yapi.json > ../out/yapi-tmp/yapi-interfacelist0
