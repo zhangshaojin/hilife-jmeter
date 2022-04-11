@@ -347,13 +347,197 @@ ${__setProperty(admin_APPLET_SESSION_ID,${admin_APPLET_SESSION_ID},)};         /
             <stringProp name="JSONPostProcessor.defaultValues">not fund;not fund</stringProp>
           </JSONPostProcessor>
           <hashTree/>
-          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="false">
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters">${access_token}</stringProp>
             <boolProp name="resetInterpreter">false</boolProp>
             <stringProp name="script">${__setProperty(access_token,${access_token},)}; </stringProp>
           </BeanShellPostProcessor>
           <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="app获取个人信息" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取个人信息" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">//mobile/person/current?version=${version}&amp;access_token=${access_token}&amp;customID=${customID}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="TestPlan.comments">主要</stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-communityID(社区ID)" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">communityID;company</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.cID;$.cName</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1;1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">not;not</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_完整的个人信息" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">//mobile/person/complete?version=${version}&amp;personID=${personID}&amp;communityID=${communityID}&amp;access_token=${access_token}&amp;customID=${customID}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-cardID(卡片？)" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">cardID</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.card.cardID</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_获取社区信息" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">mtest.91hework.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">//mobile/community/get?version=${version}&amp;communityID=${communityID}&amp;access_token=${access_token}</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_logo 、logoUrl、desc(描述)" enabled="true">
+              <stringProp name="TestPlan.comments">1806926078139845226</stringProp>
+              <stringProp name="JSONPostProcessor.referenceNames">logo;logoUrl;desc</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.logo;$.logoUrl;$.desc</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">0;0;0</stringProp>
+              <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters">${access_token};${openID}};${communityID}};${cardID};${hID};${JSESSIONID};${admin_APPLET_SESSION_ID}</stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">${__setProperty(access_token,${access_token},)};       //合生活token 
+${__setProperty(openID,${openID},)};                   //合生活openID      
+${__setProperty(communityID,${communityID},)};         //社区ID
+${__setProperty(companyID,${communityID},)};         //社区ID${companyID};
+${__setProperty(cardID,${cardID},)};                   //
+${__setProperty(hID,${hID},)};               //后台hid
+${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
+${__setProperty(admin_APPLET_SESSION_ID,${admin_APPLET_SESSION_ID},)};         //后台admin_APPLET_SESSION_ID
+
+
+${__setProperty(company,${company},)};            //社区名称
+${__setProperty(companyInfoID,${companyInfoID},)};        //后台hid
+${__setProperty(personID,${personID},)};                  //合生活用户ID
+${__setProperty(personName,${personName},)};              //用户名称</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="App_蚂蚁首页_经纪人信息" enabled="false">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/agent/agentInfoAddApp/MyAgentInfo</stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/x-www-form-urlencoded;charset=UTF-8</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1094674944">&quot;code&quot;:&quot;200&quot;,&quot;message&quot;:&quot;操作成功&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器-agentID" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">agentID</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$..agentId</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters">${basemanage_web_APPLET_SESSION_ID};${review_APPLET_SESSION_ID};${promotion_APPLET_SESSION_ID};${accesscontrol_APPLET_SESSION_ID};${vshop_APPLET_SESSION_ID};${agent_APPLET_SESSION_ID};${coupon_APPLET_SESSION_ID};${polymerization_APPLET_SESSION_ID};${extecommerce_APPLET_SESSION_ID};${decoration_APPLET_SESSION_ID};${advert_APPLET_SESSION_ID};${appmanage_APPLET_SESSION_ID};${employeecenter_APPLET_SESSION_ID};${tickets_APPLET_SESSION_ID};${estatepayment_APPLET_SESSION_ID};${finance_APPLET_SESSION_ID};${erp_APPLET_SESSION_ID};${householdv2_APPLET_SESSION_ID};${housekeeper_APPLET_SESSION_ID};${popularize_APPLET_SESSION_ID};${portalmanage_APPLET_SESSION_ID};${stock_APPLET_SESSION_ID};${supplier_APPLET_SESSION_ID};${yhbill_APPLET_SESSION_ID}</stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">${__setProperty(basemanage_web_APPLET_SESSION_ID,${basemanage_web_APPLET_SESSION_ID},)};      
+${__setProperty(review_APPLET_SESSION_ID,${review_APPLET_SESSION_ID},)};                   
+${__setProperty(promotion_APPLET_SESSION_ID,${promotion_APPLET_SESSION_ID},)};              
+${__setProperty(accesscontrol_APPLET_SESSION_ID,${accesscontrol_APPLET_SESSION_ID},)};
+${__setProperty(vshop_APPLET_SESSION_ID,${vshop_APPLET_SESSION_ID},)};
+${__setProperty(agent_APPLET_SESSION_ID,${agent_APPLET_SESSION_ID},)};  
+${__setProperty(coupon_APPLET_SESSION_ID,${coupon_APPLET_SESSION_ID},)}; 
+${__setProperty(polymerization_APPLET_SESSION_ID,${polymerization_APPLET_SESSION_ID},)};
+${__setProperty(extecommerce_APPLET_SESSION_ID,${extecommerce_APPLET_SESSION_ID},)};
+${__setProperty(decoration_APPLET_SESSION_ID,${decoration_APPLET_SESSION_ID},)};
+${__setProperty(advert_APPLET_SESSION_ID,${advert_APPLET_SESSION_ID},)};
+${__setProperty(appmanage_APPLET_SESSION_ID,${appmanage_APPLET_SESSION_ID},)};
+${__setProperty(employeecenter_APPLET_SESSION_ID,${employeecenter_APPLET_SESSION_ID},)};
+${__setProperty(tickets_APPLET_SESSION_ID,${tickets_APPLET_SESSION_ID},)};
+${__setProperty(estatepayment_APPLET_SESSION_ID,${estatepayment_APPLET_SESSION_ID},)};
+${__setProperty(finance_APPLET_SESSION_ID,${finance_APPLET_SESSION_ID},)};
+${__setProperty(erp_APPLET_SESSION_ID,${erp_APPLET_SESSION_ID},)};
+${__setProperty(householdv2_APPLET_SESSION_ID,${householdv2_APPLET_SESSION_ID},)};
+${__setProperty(housekeeper_APPLET_SESSION_ID,${housekeeper_APPLET_SESSION_ID},)};
+${__setProperty(popularize_APPLET_SESSION_ID,${popularize_APPLET_SESSION_ID},)};
+${__setProperty(portalmanage_APPLET_SESSION_ID,${portalmanage_APPLET_SESSION_ID},)};
+${__setProperty(stock_APPLET_SESSION_ID,${stock_APPLET_SESSION_ID},)};
+${__setProperty(supplier_APPLET_SESSION_ID,${supplier_APPLET_SESSION_ID},)};
+${__setProperty(yhbill_APPLET_SESSION_ID,${yhbill_APPLET_SESSION_ID},)};
+</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
         </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础接口" enabled="true">
@@ -4015,7 +4199,7 @@ vars.put(&quot;app_content_post&quot;,&quot;接口测试-&quot;+content1);
             <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_groupChatId" enabled="true">
               <stringProp name="JSONPostProcessor.referenceNames">groupChatId</stringProp>
               <stringProp name="JSONPostProcessor.jsonPathExprs">$.data.dataList[*].groupChatId</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
               <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
             </JSONPostProcessor>
             <hashTree/>
