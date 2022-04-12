@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.20200625">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -13556,7 +13556,38 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String resPonseCode = prev.getResponseCode();
+prev.setResponseHeaders(&quot;OK&quot;); 
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_合伙人平台_合伙人管理_导入(导入模板)" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -13656,7 +13687,46 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String resPonseCode = prev.getResponseCode();
+prev.setResponseHeaders(&quot;OK&quot;); 
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings"/>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
         </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景17_后台_合伙人平台--提现单管理_导出记录" enabled="true">
@@ -14060,7 +14130,38 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String resPonseCode = prev.getResponseCode();
+prev.setResponseHeaders(&quot;OK&quot;); 
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_合伙人平台--提现单管理_导出记录(下载)" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -14091,7 +14192,38 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String resPonseCode = prev.getResponseCode();
+prev.setResponseHeaders(&quot;OK&quot;); 
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
         </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="场景18后台_合生活后台_ 蚂蚁雄兵后台管_合伙人管理_新增_编辑_搜索_翻页_导出_导入" enabled="true">
@@ -14402,7 +14534,38 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String resPonseCode = prev.getResponseCode();
+prev.setResponseHeaders(&quot;OK&quot;); 
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_合生活后台_蚂蚁雄兵后台管_合伙人管理_导入（导入模板）" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -14500,7 +14663,38 @@ ${__setProperty(companyInfoID,${companyInfoID},)};     //企业ID？</stringProp
             <stringProp name="HTTPSampler.connect_timeout"></stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
           </HTTPSamplerProxy>
-          <hashTree/>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell 后置处理程序" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String resPonseCode = prev.getResponseCode();
+prev.setResponseHeaders(&quot;OK&quot;); 
+if(resPonseCode.equals(&quot;200&quot;)){
+    ResponseData = prev.getResponseData();
+    String ResponseDataType = ResponseData.getClass().getName();
+    if(ResponseDataType.equals(&quot;[B&quot;)){
+        byte[] result = ResponseData;  //这个是获取到请求返回的数据，prev是获取上个请求的返回
+        log.warn(result.getClass()+&quot;&quot;);
+        String file_name = &quot;../excel_${__time(yyyy-MM-dd:sss,)}.xlsx&quot;; //代表存放文件的位置和文件名
+        File file = new File(file_name);
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(result);
+        out.close();
+        if(file.exists()){
+            //根据实际情况各业务自己判断是否需要补充对导出文件的内容验证,此处暂时只判断文件是否存在
+            prev.setResponseData(&quot;导出成功&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出成功&quot;);
+        }
+        else{
+            prev.setResponseData(&quot;导出失败&quot;,&quot;UTF-8&quot;);
+            log.warn(&quot;导出失败&quot;);
+        }
+    }
+}</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台_合生活后台_蚂蚁雄兵后台管_合伙人管理_条件搜索" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
