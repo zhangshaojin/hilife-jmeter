@@ -32,5 +32,5 @@ echo 开始处理yapi接口导出文件
 jq -r '.data.list[].path' ../out/yapi-tmp/yapi.json \
 | sed 's/\/\//\//g' \
 | sed 's/{[^}]*}//g' \
-| sort | uniq > ../out/yapi-interfacelist-by-jq $target_file_path
+| sort | uniq > $target_file_path
 #######################################################################################################################

@@ -11,7 +11,7 @@ system_mac="Darwin"
 
 
 # 先把yapi的接口列表整理一下，输出到../out/yapi-interfacelist文件中
-./handle-yapi-interface.sh ../out/yapi-interfacelist
+# ./handle-yapi-interface.sh ../out/yapi-interfacelist
 
 echo 开始处理Jmeter文件
 find ../src | grep "\.jmx" > ../out/jmx-file-list-tmp
@@ -34,7 +34,7 @@ for(( i=0;i<${#array[@]};i++)) do
     fi    
     if [ ! -d "../out/$subpath/tmp" ]; then
         mkdir ../out/$subpath/tmp
-    fi    
+    fi
 
     grep "HTTPSampler.path" ${array[$i]} > ../out/$subpath/tmp/interfacelist-tmp
     ./handle-jmeter-interface.sh $subpath ../out/$subpath/tmp/interfacelist-tmp ../out/$subpath/jmeter-interfacelist-$subpath
