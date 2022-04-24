@@ -202,79 +202,6 @@ DELETE FROM loan_product WHERE inner_name LIKE &apos;%接口测试_内部名称%
           <stringProp name="IncludeController.includepath">./../公共接口.jmx</stringProp>
         </IncludeController>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="后台管理_登陆_获取用户信息(admin_APPLET_SESSION_ID)" enabled="false">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-          <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port"></stringProp>
-          <stringProp name="HTTPSampler.protocol"></stringProp>
-          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/admin/lg/toLogIn?password=${back_password}&amp;username=${username}&amp;verifyCode=0198&amp;isFlag=true </stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout"></stringProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="257022250">&quot;result&quot;:&quot;success&quot;</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">2</intProp>
-          </ResponseAssertion>
-          <hashTree/>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_personID;personName;companyInfoID" enabled="true">
-            <stringProp name="JSONPostProcessor.referenceNames">personID;personName;companyInfoID</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$..personID;$..personName;$..companyInfoID</stringProp>
-            <stringProp name="JSONPostProcessor.match_numbers">1;1;1</stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">not;not;not</stringProp>
-          </JSONPostProcessor>
-          <hashTree/>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_hID" enabled="true">
-            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-            <stringProp name="RegexExtractor.refname">hID</stringProp>
-            <stringProp name="RegexExtractor.regex">hID=(.+?);</stringProp>
-            <stringProp name="RegexExtractor.template">$1$</stringProp>
-            <stringProp name="RegexExtractor.default"></stringProp>
-            <stringProp name="RegexExtractor.match_number">1</stringProp>
-          </RegexExtractor>
-          <hashTree/>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_JSESSIONID" enabled="true">
-            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-            <stringProp name="RegexExtractor.refname">JSESSIONID</stringProp>
-            <stringProp name="RegexExtractor.regex">JSESSIONID=(.+?);</stringProp>
-            <stringProp name="RegexExtractor.template">$1$</stringProp>
-            <stringProp name="RegexExtractor.default"></stringProp>
-            <stringProp name="RegexExtractor.match_number">1</stringProp>
-          </RegexExtractor>
-          <hashTree/>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正则表达式提取器_admin_APPLET_SESSION_ID" enabled="true">
-            <stringProp name="RegexExtractor.useHeaders">true</stringProp>
-            <stringProp name="RegexExtractor.refname">admin_APPLET_SESSION_ID</stringProp>
-            <stringProp name="RegexExtractor.regex">admin_APPLET_SESSION_ID=(.+?);</stringProp>
-            <stringProp name="RegexExtractor.template">$1$</stringProp>
-            <stringProp name="RegexExtractor.default"></stringProp>
-            <stringProp name="RegexExtractor.match_number">1</stringProp>
-          </RegexExtractor>
-          <hashTree/>
-          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="获取参数设置为全局变量" enabled="true">
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters">${access_token};${openID}};${communityID}};${cardID};${hID};${JSESSIONID};${admin_APPLET_SESSION_ID}</stringProp>
-            <boolProp name="resetInterpreter">false</boolProp>
-            <stringProp name="script">${__setProperty(hID,${hID},)};               //后台hid
-${__setProperty(JSESSIONID,${JSESSIONID},)};           //后台JSESSIONID
-${__setProperty(admin_APPLET_SESSION_ID,${admin_APPLET_SESSION_ID},)};         //后台admin_APPLET_SESSION_ID</stringProp>
-          </BeanShellPostProcessor>
-          <hashTree/>
-        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="基础用例" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -5197,7 +5124,7 @@ if(resPonseCode.equals(&quot;200&quot;)){
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="false">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="收集报错接口" enabled="true">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
