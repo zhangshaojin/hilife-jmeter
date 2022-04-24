@@ -192,7 +192,7 @@ jmeter_not_match_in_yapi=$(wc -l < ../out/all/jmeter-not-match-in-yapi)
 echo "all,Jmeter中未与Yapi匹配的接口数,${jmeter_not_match_in_yapi}"
 
 yapi_not_match_in_jmeter=$(wc -l < ../out/all/yapi-not-match-in-jmeter)
-echo "all,yapi中未与Jmeter汽配的接口数,${yapi_not_match_in_jmeter}"
+echo "all,yapi中未与Jmeter匹配的接口数,${yapi_not_match_in_jmeter}"
 
 subpath="all"
 export subpath
