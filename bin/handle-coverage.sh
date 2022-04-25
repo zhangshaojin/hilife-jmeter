@@ -9,6 +9,7 @@ project_name=$2
 jmeter_interfice_list_file_path=$3
 yapi_interfice_list_file_path=$4
 output_file_path=$5
+awk_cmd=`echo ${@:6}`
 echo jmeter_interfice_list_file_path:$jmeter_interfice_list_file_path
 echo yapi_interfice_list_file_path:$yapi_interfice_list_file_path
 
@@ -49,4 +50,4 @@ export yapi_interfacelist
 export jmeter_match_in_yapi
 export jmeter_not_match_in_yapi
 export yapi_not_match_in_jmeter
-awk  'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"],ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"],ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"],ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}' >> $output_file_path
+awk "$awk_cmd" >> $output_file_path

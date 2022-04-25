@@ -31,10 +31,13 @@ for(( i=0;i<${#array[@]};i++)) do
     project_name=`sed "s/.*\///g" ../out/tmp/jmx-file`
     if [ ! -d "../out/jmater-converage-tmp/$project_name/tmp" ]; then
         mkdir -p ../out/jmater-converage-tmp/$project_name/tmp
-    fi    
+    fi  
 
     grep "HTTPSampler.path" ${array[$i]} > ../out/jmater-converage-tmp/$project_name/tmp/interfacelist-tmp
     ./handle-jmeter-interface.sh jmater-converage-tmp/$project_name ../out/jmater-converage-tmp/$project_name/tmp/interfacelist-tmp ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name
 
-    ./handle-coverage.sh jmater-converage-tmp/$project_name $project_name ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name ../out/yapi-interfacelist ../out/jmeter-converage-result.csv
+    ./handle-coverage.sh jmater-converage-tmp/$project_name $project_name \
+        ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name \
+        ../out/yapi-interfacelist ../out/jmeter-converage-result.csv \
+        'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"], ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"], ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"], ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}'
 done;

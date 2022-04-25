@@ -10,7 +10,7 @@ system_mac="Darwin"
 
 echo 开始处理Yapi Cat接口清单文件
 
-awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","yapi_interfacelist","jmeter_interfacelist","yapi_match_in_jmeter","yapi_not_match_in_jmeter","jmeter_not_match_in_yapi","yapi_interfacelist/jmeter_match_in_yapi*100"}' >> ../out/yapi-converage-result.csv
+awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名", "yapi_interfacelist","jmeter_interfacelist","yapi_match_in_jmeter", "yapi_not_match_in_jmeter","jmeter_not_match_in_yapi", "yapi_match_in_jmeter/yapi_interfacelist*100"}' >> ../out/yapi-converage-result.csv
 
 # 设置IFS,将分隔符设置为换行符
 OLDIFS=$IFS
@@ -40,5 +40,8 @@ for(( i=1;i<${#array[@]};i++)) do
     if [ ! -d "../out/yapi-converage-tmp/${cat_name}/tmp/" ]; then
         mkdir -p ../out/yapi-converage-tmp/${cat_name}/tmp/
     fi
-    ./handle-coverage.sh yapi-converage-tmp/${cat_name} ${cat_name} ${yapi_interfacelist_filepath} ../out/all/jmeter-interfacelist ../out/yapi-converage-result.csv
+    ./handle-coverage.sh yapi-converage-tmp/${cat_name} \
+        ${cat_name} ${yapi_interfacelist_filepath} \
+        ../out/all/jmeter-interfacelist ../out/yapi-converage-result.csv \
+        'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"], ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"], ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"], ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["jmeter_interfacelist"]*100}'
 done;
