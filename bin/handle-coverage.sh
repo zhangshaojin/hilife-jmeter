@@ -5,9 +5,10 @@
 # 所以这里计算jmeter覆盖到yapi的接口数与Jmeter接口数的比例，这样计算出来的结果代表了jmeter中的接口是不是都已经命中到yapi
 
 subpath=$1
-jmeter_interfice_list_file_path=$2
-yapi_interfice_list_file_path=$3
-output_file_path=$4
+project_name=$2
+jmeter_interfice_list_file_path=$3
+yapi_interfice_list_file_path=$4
+output_file_path=$5
 echo jmeter_interfice_list_file_path:$jmeter_interfice_list_file_path
 echo yapi_interfice_list_file_path:$yapi_interfice_list_file_path
 
@@ -42,10 +43,10 @@ echo "$subpath,Jmeter中未与Yapi匹配的接口数,${jmeter_not_match_in_yapi}
 yapi_not_match_in_jmeter=$(wc -l < ../out/$subpath/yapi-not-match-in-jmeter)
 echo "$subpath,yapi中未与Jmeter汽配的接口数,${yapi_not_match_in_jmeter}"
 
-export subpath
+export project_name
 export jmeter_interfacelist
 export yapi_interfacelist
 export jmeter_match_in_yapi
 export jmeter_not_match_in_yapi
 export yapi_not_match_in_jmeter
-awk  'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["subpath"],ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"],ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"],ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}' >> $output_file_path
+awk  'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"],ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"],ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"],ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}' >> $output_file_path

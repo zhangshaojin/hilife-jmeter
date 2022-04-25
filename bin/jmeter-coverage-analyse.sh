@@ -17,8 +17,8 @@ if [ -e "../out" ]; then
     rm -rf ../out
 fi
 
-if [ ! -d "../out" ]; then
-    mkdir ../out
+if [ ! -d "../out/tmp" ]; then
+    mkdir -p ../out/tmp
 fi
 
 awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","jmeter_interfacelist","yapi_interfacelist","jmeter_match_in_yapi","jmeter_not_match_in_yapi","yapi_not_match_in_jmeter","jmeter_match_in_yapi/yapi_interfacelist*100"}' >> ../out/jmeter-converage-result.csv
@@ -30,7 +30,7 @@ awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","jmeter_interfacelist","
 # 计算项目覆盖率(以全部yapi接口为参照计算单个jmeter项目接口的覆盖率)
 ./jmeter-coverage-analyse-project.sh
 # 计算项目覆盖率(以全部jmeter接口为参照计算单个yapi项目接口的覆盖率)
-# ./yapi-coverage-analyse-project.sh
+./yapi-coverage-analyse-project.sh
 #############################################################
 
 # 还原脚本开始的处理逻辑

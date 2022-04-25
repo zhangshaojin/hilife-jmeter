@@ -1,6 +1,5 @@
 #!/bin/bash 
 # set -v on
-# copy from jmeter-coverage-analyse.sh
 # 分开计算覆盖率
 
 export LC_COLLATE='C'
@@ -9,35 +8,37 @@ export LC_CTYPE='C'
 system_type=`uname  -a`
 system_mac="Darwin"
 
+echo 开始处理Yapi Cat接口清单文件
 
-# # 先把yapi的接口列表整理一下，输出到../out/yapi-interfacelist文件中
-# ./handle-yapi-interface.sh ../out/yapi-interfacelist
-
-echo 开始处理Jmeter文件
-find ../src | grep "\.jmx" > ../out/jmx-file-list-tmp
+awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","yapi_interfacelist","jmeter_interfacelist","yapi_match_in_jmeter","yapi_not_match_in_jmeter","jmeter_not_match_in_yapi","yapi_interfacelist/jmeter_match_in_yapi*100"}' >> ../out/yapi-converage-result.csv
 
 # 设置IFS,将分隔符设置为换行符
 OLDIFS=$IFS
 IFS=$'\t\n'
 # 读取文件中的内容到数组中
-array=($(cat ../out/jmx-file-list-tmp))
+array=($(cat ../out/yapi-interfacelist-filepath-list))
 # 恢复之前的设置
 IFS=$OLDIFS
 
 echo ${#array[@]}
-for(( i=0;i<${#array[@]};i++)) do
-    echo $i ${array[$i]} >> ../out/jmx-file-list
-    echo ${array[$i]} > ../out/jmx-file
-    subpath=`sed "s/.*\///g" ../out/jmx-file`
-    if [ ! -d "../out/$subpath" ]; then
-        mkdir ../out/$subpath
-    fi    
-    if [ ! -d "../out/$subpath/tmp" ]; then
-        mkdir ../out/$subpath/tmp
+for(( i=1;i<${#array[@]};i++)) do
+    OLDIFS=$IFS
+    IFS=$','
+    # 读取文件中的内容到数组中
+    array_tmp=(${array[$i]})
+    # 恢复之前的设置
+    IFS=$OLDIFS
+    cat_id=${array_tmp[0]}
+    echo ${cat_id}
+    cat_name=${array_tmp[1]}
+    echo ${cat_name}
+    cat_apicount=${array_tmp[2]}
+    echo ${cat_apicount}
+    yapi_interfacelist_filepath="${array_tmp[3]}"
+    echo ${yapi_interfacelist_filepath}
+    # subpath=`sed "s/.*\///g" ../out/tmp/jmx-file`
+    if [ ! -d "../out/yapi-converage-tmp/${cat_name}/tmp/" ]; then
+        mkdir -p ../out/yapi-converage-tmp/${cat_name}/tmp/
     fi
-
-    grep "HTTPSampler.path" ${array[$i]} > ../out/$subpath/tmp/interfacelist-tmp
-    ./handle-jmeter-interface.sh $subpath ../out/$subpath/tmp/interfacelist-tmp ../out/$subpath/jmeter-interfacelist-$subpath
-
-    ./handle-coverage.sh $subpath ../out/$subpath/jmeter-interfacelist-$subpath ../out/yapi-interfacelist ../out/jmeter-converage-result.csv
+    ./handle-coverage.sh yapi-converage-tmp/${cat_name} ${cat_name} ${yapi_interfacelist_filepath} ../out/all/jmeter-interfacelist ../out/yapi-converage-result.csv
 done;
