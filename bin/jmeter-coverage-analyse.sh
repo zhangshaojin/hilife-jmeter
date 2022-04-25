@@ -53,4 +53,6 @@ if [[ ! -d "../analyse/$datetime" ]]; then
     mkdir -p ../analyse/$datetime
 fi
 rsync -avt --exclude-from=./conf/archive-exclude.list ../out/ ../analyse/$datetime
+
+zip  -r ../analyse/$datetime/out.zip ../out
 ############################################################
