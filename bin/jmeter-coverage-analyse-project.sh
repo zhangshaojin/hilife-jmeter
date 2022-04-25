@@ -11,33 +11,33 @@ system_mac="Darwin"
 
 
 # 先把yapi的接口列表整理一下，输出到../out/yapi-interfacelist文件中
-./handle-yapi-interface.sh ../out/yapi-interfacelist
+# ./handle-yapi-interface.sh ../out/yapi-interfacelist
 
 echo 开始处理Jmeter文件
-find ../src | grep "\.jmx" > ../out/jmx-file-list-tmp
+find ../src | grep "\.jmx" > ../out/tmp/jmx-file-list-tmp
 
 # 设置IFS,将分隔符设置为换行符
 OLDIFS=$IFS
 IFS=$'\t\n'
 # 读取文件中的内容到数组中
-array=($(cat ../out/jmx-file-list-tmp))
+array=($(cat ../out/tmp/jmx-file-list-tmp))
 # 恢复之前的设置
 IFS=$OLDIFS
 
 echo ${#array[@]}
 for(( i=0;i<${#array[@]};i++)) do
-    echo $i ${array[$i]} >> ../out/jmx-file-list
-    echo ${array[$i]} > ../out/jmx-file
-    subpath=`sed "s/.*\///g" ../out/jmx-file`
-    if [ ! -d "../out/$subpath" ]; then
-        mkdir ../out/$subpath
-    fi    
-    if [ ! -d "../out/$subpath/tmp" ]; then
-        mkdir ../out/$subpath/tmp
-    fi    
+    echo $i ${array[$i]} >> ../out/tmp/jmx-file-list
+    echo ${array[$i]} > ../out/tmp/jmx-file
+    project_name=`sed "s/.*\///g" ../out/tmp/jmx-file`
+    if [ ! -d "../out/jmater-converage-tmp/$project_name/tmp" ]; then
+        mkdir -p ../out/jmater-converage-tmp/$project_name/tmp
+    fi  
 
-    grep "HTTPSampler.path" ${array[$i]} > ../out/$subpath/tmp/interfacelist-tmp
-    ./handle-jmeter-interface.sh $subpath ../out/$subpath/tmp/interfacelist-tmp ../out/$subpath/jmeter-interfacelist-$subpath
+    grep "HTTPSampler.path" ${array[$i]} > ../out/jmater-converage-tmp/$project_name/tmp/interfacelist-tmp
+    ./handle-jmeter-interface.sh jmater-converage-tmp/$project_name ../out/jmater-converage-tmp/$project_name/tmp/interfacelist-tmp ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name
 
-    ./handle-coverage.sh $subpath ../out/$subpath/jmeter-interfacelist-$subpath ../out/yapi-interfacelist ../out/jmeter-converage-result.csv
+    ./handle-coverage.sh jmater-converage-tmp/$project_name $project_name \
+        ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name \
+        ../out/yapi-interfacelist ../out/jmeter-converage-result.csv \
+        'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"], ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"], ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"], ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}'
 done;
