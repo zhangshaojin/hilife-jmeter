@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="{{classname}} 1111 Test Plan" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="{{classname}} Hilife Auto Generator Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -30,17 +30,17 @@
           </elementProp>
           <elementProp name="testCases" elementType="Argument">
             <stringProp name="Argument.name">testCases</stringProp>
-            <stringProp name="Argument.value">${__P(testCases,10)}</stringProp>
+            <stringProp name="Argument.value">${__P(testCases,1)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">${__P(host,localhost)}</stringProp>
+            <stringProp name="Argument.value">${__P(host,test.91hiwork.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="port" elementType="Argument">
             <stringProp name="Argument.name">port</stringProp>
-            <stringProp name="Argument.value">${__P(port,8080)}</stringProp>
+            <stringProp name="Argument.value"></stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>{{#operations}}{{#operation}}
           <elementProp name="testData.{{operationId}}File" elementType="Argument">
@@ -64,6 +64,39 @@
         <stringProp name="HTTPSampler.path"></stringProp>
         <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
       </ConfigTestElement>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
       <hashTree/>
     {{#operations}}{{#operation}}<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group - {{operationId}}" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -114,7 +147,6 @@
         </HeaderManager>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="{{operationId}} - ${testCase}" enabled="true">
-          {{#hasBodyParam}}<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>{{/hasBodyParam}}
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">{{#queryParams}}
               <elementProp name="{{paramName}}" elementType="HTTPArgument">
@@ -182,39 +214,6 @@
           {{/operation}}
       {{/operations}}
       <!-- end of operations -->
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-        <boolProp name="ResultCollector.error_logging">false</boolProp>
-        <objProp>
-          <name>saveConfig</name>
-          <value class="SampleSaveConfiguration">
-            <time>true</time>
-            <latency>true</latency>
-            <timestamp>true</timestamp>
-            <success>true</success>
-            <label>true</label>
-            <code>true</code>
-            <message>true</message>
-            <threadName>true</threadName>
-            <dataType>true</dataType>
-            <encoding>false</encoding>
-            <assertions>true</assertions>
-            <subresults>true</subresults>
-            <responseData>false</responseData>
-            <samplerData>false</samplerData>
-            <xml>false</xml>
-            <fieldNames>false</fieldNames>
-            <responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders>
-            <responseDataOnError>false</responseDataOnError>
-            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
-            <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes>
-            <threadCounts>true</threadCounts>
-          </value>
-        </objProp>
-        <stringProp name="filename"></stringProp>
-      </ResultCollector>
-      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>

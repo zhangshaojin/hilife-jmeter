@@ -23,7 +23,7 @@ fi
 #     --skip-validate-spec
 
 java -jar ../lib/openapi-generator-cli.jar \
-    generate -i ../out/yapi-tmp/406-swaggerApi.json -o ../out/auto-gen-jmeter/406-swaggerApi -g jmeter \
+    generate -i ../out/yapi-tmp/yapidoc-analyes-366-vshop-swaggerApi.json -o ../out/auto-gen-jmeter/yapidoc-analyes-366-vshop -g jmeter \
     --skip-validate-spec -t ./template/jmeter-template
 
 
