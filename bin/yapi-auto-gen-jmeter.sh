@@ -22,8 +22,12 @@ fi
 #     generate -i ../out/yapi-tmp/hilife-yhbill-consumer-yapidoc.json -o ../out/auto-gen-jmeter/hilife-yhbill-consumer-yapidoc -g jmeter \
 #     --skip-validate-spec
 
+# java -jar ../lib/openapi-generator-cli.jar \
+#     generate -i ../out/yapi-tmp/yapidoc-analyes-366-vshop-swaggerApi.json -o ../out/auto-gen-jmeter/yapidoc-analyes-366-vshop -g jmeter \
+#     --skip-validate-spec -t ./template/jmeter-template
+
 java -jar ../lib/openapi-generator-cli.jar \
-    generate -i ../out/yapi-tmp/yapidoc-analyes-366-vshop-swaggerApi.json -o ../out/auto-gen-jmeter/yapidoc-analyes-366-vshop -g jmeter \
+    generate -i ../out/yapi-tmp/yapi-auto-jmeter-demo.json -o ../out/auto-gen-jmeter/yapi-auto-jmeter-demo -g jmeter \
     --skip-validate-spec -t ./template/jmeter-template
 
 
