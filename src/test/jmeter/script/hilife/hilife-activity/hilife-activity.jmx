@@ -533,7 +533,7 @@ DELETE FROM promotion_activity WHERE activity_name = &apos;接口测试_发布�
                   <hashTree/>
                   <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器_activityIDzd" enabled="true">
                     <stringProp name="JSONPostProcessor.referenceNames">activityIDzd</stringProp>
-                    <stringProp name="JSONPostProcessor.jsonPathExprs">$..[?(@.activityType == 11)].activityProductSubId</stringProp>
+                    <stringProp name="JSONPostProcessor.jsonPathExprs">$..[?(@.activityType == 2)].activityProductSubId</stringProp>
                     <stringProp name="JSONPostProcessor.match_numbers">0</stringProp>
                     <stringProp name="JSONPostProcessor.defaultValues">not</stringProp>
                   </JSONPostProcessor>
@@ -10141,6 +10141,30 @@ vars.put(&quot;end_time_t&quot;,&quot;&quot;+end_time_t);
             </collectionProp>
           </HeaderManager>
           <hashTree/>
+          <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie管理器" enabled="true">
+            <collectionProp name="CookieManager.cookies">
+              <elementProp name="JSESSIONID" elementType="Cookie" testname="JSESSIONID">
+                <stringProp name="Cookie.value">${__P(JSESSIONID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+              <elementProp name="hID" elementType="Cookie" testname="hID">
+                <stringProp name="Cookie.value">${__P(hID)}</stringProp>
+                <stringProp name="Cookie.domain">${domain}</stringProp>
+                <stringProp name="Cookie.path">/</stringProp>
+                <boolProp name="Cookie.secure">false</boolProp>
+                <longProp name="Cookie.expires">0</longProp>
+                <boolProp name="Cookie.path_specified">true</boolProp>
+                <boolProp name="Cookie.domain_specified">true</boolProp>
+              </elementProp>
+            </collectionProp>
+            <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          </CookieManager>
+          <hashTree/>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="小程序_授权登录" enabled="true"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="小程序_获取用户信息" enabled="true">
@@ -14850,7 +14874,7 @@ ${__setProperty(copartnerId,${copartnerId},)};
           </hashTree>
         </hashTree>
       </hashTree>
-      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="保存报错结果" enabled="false">
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="保存报错结果" enabled="true">
         <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -14884,6 +14908,42 @@ ${__setProperty(copartnerId,${copartnerId},)};
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+        <boolProp name="ResultCollector.error_logging">true</boolProp>
         <objProp>
           <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
