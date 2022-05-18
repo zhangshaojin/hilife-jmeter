@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -d "../out/auto-gen-jmeter" ]; then
+    rm -rf ../out/auto-gen-jmeter
+fi
+
 if [ ! -d "../out/auto-gen-jmeter" ]; then
     mkdir -p ../out/auto-gen-jmeter
 fi
@@ -11,8 +15,13 @@ fi
 #   该模板中根据合生活现有接口情况做了一些定制
 # 输出目录../out/auto-gen-jmeter/yapi-auto-jmeter-demo
 java -jar ../lib/openapi-generator-cli.jar \
-    generate -i ./template/test/hilife-crm-backapi-yapidoc-1.json \
+    generate -i ./template/test/demo-yapidoc-1.json \
         -t ./template/jmeter-template \
-        -o ../out/auto-gen-jmeter/hilife-crm-backapi-yapidoc-1 -g jmeter \
+        -o ../out/auto-gen-jmeter/demo-yapidoc-1 -g jmeter \
         --skip-validate-spec
         
+java -jar ../lib/openapi-generator-cli.jar \
+    generate -i ./template/test/demo-yapidoc-2.json \
+        -t ./template/jmeter-template \
+        -o ../out/auto-gen-jmeter/demo-yapidoc-2 -g jmeter \
+        --skip-validate-spec
