@@ -163,6 +163,7 @@
         </CookieManager>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="{{operationId}} - ${testCase}" enabled="true">
+          {{#hasBodyParam}}<boolProp name="HTTPSampler.postBodyRaw">true</boolProp>{{/hasBodyParam}}
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">{{#queryParams}}
               <elementProp name="{{paramName}}" elementType="HTTPArgument">
@@ -174,7 +175,8 @@
               </elementProp>{{/queryParams}}{{#bodyParam}}
               <elementProp name="{{paramName}}" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                {{=<% %>=}}<stringProp name="Argument.value">${__javaScript("${<% paramName %>}".replace(/'/g\, '"'),)}</stringProp><%={{ }}=%>
+                <stringProp name="Argument.value">{{=<% %>=}}{<%={{ }}=%>{{#vars}}
+                  "{{name}}":"{{=<% %>=}}${<%={{ }}=%>{{name}}{{=<% %>=}}}<%={{ }}=%>"{{^-last}},{{/-last}}{{/vars}}{{=<% %>=}}}<%={{ }}=%></stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>{{/bodyParam}}{{#authMethods}}{{#isApiKey}}{{#isKeyInQuery}}
               <elementProp name="{{keyParamName}}" elementType="HTTPArgument">
