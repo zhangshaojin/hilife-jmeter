@@ -6,9 +6,36 @@
 > ./out
 > 存放输出结果，运行完成后目录树类似如下
 ```
-
+.
+|____all
+| |____yapi-not-match-in-jmeter
+| |____jmeter-match-in-yapi
+| |____jmeter-not-match-in-yapi
+| |____jmeter-interfacelist
+|____yapi-converage
+| |____hilife-agent-provider
+| | |____yapi-not-match-in-jmeter
+| | |____yapi-match-in-jmeter
+| | |____jmeter-not-match-in-yapi
+|____jmeter-converage-result.csv
+|____yapi-cat-interface-statistics.csv
+|____yapi-converage-result.csv
+|____jmater-converage
+| |____hilife-agent.jmx
+| | |____yapi-not-match-in-jmeter
+| | |____jmeter-match-in-yapi
+| | |____jmeter-interfacelist-hilife-agent.jmx
+| | |____jmeter-not-match-in-yapi
 ```
-# 准备工作
+## 目录结构说明
+> all目录存放的是全量jmeter接口与全量yapi接口匹配的结果
+> jmater-converage目录存放的是单个jmeter脚本与全量yapi接口匹配的结果，其中的子目录是以jmeter脚本名命名的
+> yapi-converage目录存放的是单个yapi项目与全量jmeter接口匹配的结果，其中的子目录是以yapi接口分类名名命名的
+> jmeter-converage-result.csv 文件是将all目录与jmater-converage目录的结果汇总的结果
+> yapi-converage-result.csv 文件是yapi-converage目录中汇总的结果
+> 目录中其他文件如yapi-not-match-in-jmeter中存放的是yapi接口没有在jmeter脚本中匹配的接口列表，其他文件以此类推
+
+# 调试脚本准备工作
 > #### 安装jq用于完成json文件格式化
 > ```
 > yum install jq
@@ -25,19 +52,13 @@
 > ```
 > # 从代码仓库中拉去代码之后进入代码路径，以下说明中相对路径均以代码根目录为基准
 > cd ./bin
-> ./jmeter-coverage-analyse.sh
+> ./test-converage-analyse.sh
 > ```
-# 结果
-> ./out目录下为分析后的结果
-> 目录    all     中放的是Jmeter全部接口和Yapi全部接口一起分析的结果
-> 目录    **.jmx  中放的是对应的jmx文件中抓取的接口和Yapi全部接口分析的结果
-> 文件    jmeter-converage-result.csv    报表
-> 文件    yapi-interfacelist      Yapi全部接口清单
+
 
 使用说明：
-
-
-
+# 已经使用jenkins pipline来自动化执行分析脚本
+https://jenkins-test.91hiwork.com/view/qa-analyse/job/qa-jmeter-coverage-analyse/
 # Jmeter接口覆盖率统计过程中发现的问题
 ## Jmeter项目中存在的问题
 > 1.文件名以及路径名不规范，有些文件名中带空格导致shell脚本处理有问题，有些目录名中带有jmx后缀也导致shell脚本误判处理出错
