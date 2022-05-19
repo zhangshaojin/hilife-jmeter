@@ -20,7 +20,7 @@ fi
 
 echo 开始处理Jmeter文件
 find ../src | grep .jmx | xargs grep "HTTPSampler.path" > ../out/tmp/all/tmp/interfacelist-tmp
-./handle-jmeter-interface.sh all ../out/tmp/all/tmp/interfacelist-tmp ../out/all/jmeter-interfacelist
+./script-test-converage-analyse/handle-jmeter-interface.sh all ../out/tmp/all/tmp/interfacelist-tmp ../out/all/jmeter-interfacelist
 
 
 #######################################################################################################################

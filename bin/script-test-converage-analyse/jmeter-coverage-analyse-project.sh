@@ -36,9 +36,9 @@ for(( i=0;i<${#array[@]};i++)) do
         mkdir -p ../out/jmater-converage/$project_name
     fi
     grep "HTTPSampler.path" ${array[$i]} > ../out/tmp/jmater-converage/$project_name/tmp/interfacelist-tmp
-    ./handle-jmeter-interface.sh jmater-converage/$project_name ../out/tmp/jmater-converage/$project_name/tmp/interfacelist-tmp ../out/jmater-converage/$project_name/jmeter-interfacelist-$project_name
+    ./script-test-converage-analyse/handle-jmeter-interface.sh jmater-converage/$project_name ../out/tmp/jmater-converage/$project_name/tmp/interfacelist-tmp ../out/jmater-converage/$project_name/jmeter-interfacelist-$project_name
 
-    ./handle-coverage.sh jmeter yapi \
+    ./script-test-converage-analyse/handle-coverage.sh jmeter yapi \
         jmater-converage/$project_name $project_name \
         ../out/jmater-converage/$project_name/jmeter-interfacelist-$project_name \
         ../out/tmp/yapi-interfacelist ../out/jmeter-converage-result.csv \

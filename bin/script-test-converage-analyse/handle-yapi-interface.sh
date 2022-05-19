@@ -23,7 +23,7 @@ cat ../out/tmp/yapi-tmp/yapi_cat.json.tmp | jq > ../out/tmp/yapi-tmp/yapi_cat.js
 # cat ../out/tmp/yapi-tmp/yapi.json | jq '.data.list | map(select(.catid==8175)) | length'
 
 # 按照yapi接口分类统计接口数量并拆分接口定义到对应的json文件中
-cat ../out/tmp/yapi-tmp/yapi_cat.json | jq -r '.data | map(.name,._id) | join(" ")' | xargs ./handle-yapi-cat.sh
+cat ../out/tmp/yapi-tmp/yapi_cat.json | jq -r '.data | map(.name,._id) | join(" ")' | xargs ./script-test-converage-analyse/handle-yapi-cat.sh
 
 echo 开始处理yapi接口导出文件
 

@@ -43,7 +43,7 @@ for(( i=1;i<${#array[@]};i++)) do
     if [ ! -d "../out/yapi-converage/${cat_name}/" ]; then
         mkdir -p ../out/yapi-converage/${cat_name}/
     fi
-    ./handle-coverage.sh  yapi jmeter \
+    ./script-test-converage-analyse/handle-coverage.sh  yapi jmeter \
         yapi-converage/${cat_name} \
         ${cat_name} ${yapi_interfacelist_filepath} \
         ../out/all/jmeter-interfacelist ../out/yapi-converage-result.csv \
