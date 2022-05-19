@@ -24,7 +24,7 @@ fi
 awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名","jmeter_interfacelist","yapi_interfacelist","jmeter_match_in_yapi","jmeter_not_match_in_yapi","yapi_not_match_in_jmeter","jmeter_match_in_yapi/yapi_interfacelist*100"}' >> ../out/jmeter-converage-result.csv
 #############################################################
 # 预处理yapi接口
-./handle-yapi-interface.sh ../out/yapi-interfacelist
+./handle-yapi-interface.sh ../out/tmp/yapi-interfacelist
 # 计算整体覆盖率(以全部yapi接口为参照计算全部jmeter接口的覆盖率)
 ./jmeter-coverage-analyse-all.sh
 # 计算项目覆盖率(以全部yapi接口为参照计算单个jmeter项目接口的覆盖率)
@@ -46,13 +46,13 @@ if [ -f "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_tem
     mv "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_template.jmx" "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_ template.jmx" 
 fi
 
-#############################################################
-# 结果存档
-datetime=`date +%Y%m%d%H%m%s`
-if [[ ! -d "../analyse/$datetime" ]]; then
-    mkdir -p ../analyse/$datetime
-fi
-rsync -avt --exclude-from=./conf/archive-exclude.list ../out/ ../analyse/$datetime
+# #############################################################
+# # 结果存档
+# datetime=`date +%Y%m%d%H%m%s`
+# if [[ ! -d "../analyse/$datetime" ]]; then
+#     mkdir -p ../analyse/$datetime
+# fi
+# rsync -avt --exclude-from=./conf/test-converage-archive-exclude.list ../out/ ../analyse/$datetime
 
-zip  -r ../analyse/$datetime/out.zip ../out
-############################################################
+# zip  -r ../analyse/$datetime/out.zip ../out
+# ############################################################

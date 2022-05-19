@@ -16,7 +16,7 @@ awk  'BEGIN{printf "%s,%s,%s,%s,%s,%s,%s\n","项目名", "yapi_interfacelist","j
 OLDIFS=$IFS
 IFS=$'\t\n'
 # 读取文件中的内容到数组中
-array=($(cat ../out/yapi-interfacelist-filepath-list))
+array=($(cat ../out/tmp/yapi-interfacelist-filepath-list))
 # 恢复之前的设置
 IFS=$OLDIFS
 
@@ -37,10 +37,14 @@ for(( i=1;i<${#array[@]};i++)) do
     yapi_interfacelist_filepath="${array_tmp[3]}"
     echo ${yapi_interfacelist_filepath}
     # subpath=`sed "s/.*\///g" ../out/tmp/jmx-file`
-    if [ ! -d "../out/yapi-converage-tmp/${cat_name}/tmp/" ]; then
-        mkdir -p ../out/yapi-converage-tmp/${cat_name}/tmp/
+    if [ ! -d "../out/tmp/yapi-converage/${cat_name}/tmp/" ]; then
+        mkdir -p ../out/tmp/yapi-converage/${cat_name}/tmp/
     fi
-    ./handle-coverage.sh yapi-converage-tmp/${cat_name} \
+    if [ ! -d "../out/yapi-converage/${cat_name}/" ]; then
+        mkdir -p ../out/yapi-converage/${cat_name}/
+    fi
+    ./handle-coverage.sh  yapi jmeter \
+        yapi-converage/${cat_name} \
         ${cat_name} ${yapi_interfacelist_filepath} \
         ../out/all/jmeter-interfacelist ../out/yapi-converage-result.csv \
         'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"], ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"], ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"], ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["jmeter_interfacelist"]*100}'

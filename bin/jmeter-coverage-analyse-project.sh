@@ -10,8 +10,8 @@ system_type=`uname  -a`
 system_mac="Darwin"
 
 
-# 先把yapi的接口列表整理一下，输出到../out/yapi-interfacelist文件中
-# ./handle-yapi-interface.sh ../out/yapi-interfacelist
+# 先把yapi的接口列表整理一下，输出到../out/tmp/api-interfacelist文件中
+# ./handle-yapi-interface.sh ../out/tmp/yapi-interfacelist
 
 echo 开始处理Jmeter文件
 find ../src | grep "\.jmx" > ../out/tmp/jmx-file-list-tmp
@@ -29,15 +29,18 @@ for(( i=0;i<${#array[@]};i++)) do
     echo $i ${array[$i]} >> ../out/tmp/jmx-file-list
     echo ${array[$i]} > ../out/tmp/jmx-file
     project_name=`sed "s/.*\///g" ../out/tmp/jmx-file`
-    if [ ! -d "../out/jmater-converage-tmp/$project_name/tmp" ]; then
-        mkdir -p ../out/jmater-converage-tmp/$project_name/tmp
-    fi  
+    if [ ! -d "../out/tmp/jmater-converage/$project_name/tmp" ]; then
+        mkdir -p ../out/tmp/jmater-converage/$project_name/tmp
+    fi
+    if [ ! -d "../out/jmater-converage/$project_name" ]; then
+        mkdir -p ../out/jmater-converage/$project_name
+    fi
+    grep "HTTPSampler.path" ${array[$i]} > ../out/tmp/jmater-converage/$project_name/tmp/interfacelist-tmp
+    ./handle-jmeter-interface.sh jmater-converage/$project_name ../out/tmp/jmater-converage/$project_name/tmp/interfacelist-tmp ../out/jmater-converage/$project_name/jmeter-interfacelist-$project_name
 
-    grep "HTTPSampler.path" ${array[$i]} > ../out/jmater-converage-tmp/$project_name/tmp/interfacelist-tmp
-    ./handle-jmeter-interface.sh jmater-converage-tmp/$project_name ../out/jmater-converage-tmp/$project_name/tmp/interfacelist-tmp ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name
-
-    ./handle-coverage.sh jmater-converage-tmp/$project_name $project_name \
-        ../out/jmater-converage-tmp/$project_name/jmeter-interfacelist-$project_name \
-        ../out/yapi-interfacelist ../out/jmeter-converage-result.csv \
+    ./handle-coverage.sh jmeter yapi \
+        jmater-converage/$project_name $project_name \
+        ../out/jmater-converage/$project_name/jmeter-interfacelist-$project_name \
+        ../out/tmp/yapi-interfacelist ../out/jmeter-converage-result.csv \
         'BEGIN{printf "%s,%d,%d,%d,%d,%d,%0.2f\n",ENVIRON["project_name"], ENVIRON["jmeter_interfacelist"],ENVIRON["yapi_interfacelist"], ENVIRON["jmeter_match_in_yapi"],ENVIRON["jmeter_not_match_in_yapi"], ENVIRON["yapi_not_match_in_jmeter"],ENVIRON["jmeter_match_in_yapi"]/ENVIRON["yapi_interfacelist"]*100}'
 done;

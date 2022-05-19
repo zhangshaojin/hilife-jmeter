@@ -11,7 +11,7 @@ echo target_file_path:$target_file_path
 system_type=`uname  -a`
 system_mac="Darwin"
 
-cat $source_file_path > ../out/$subpath/tmp/interfacelist0
+cat $source_file_path > ../out/tmp/$subpath/tmp/interfacelist0
 if [[ $system_type =~ $system_mac ]];then 
     sed_param_array=(
         "s/\<stringProp\ name=\"HTTPSampler.path\"\>//g" #去掉xml标签头
@@ -48,20 +48,20 @@ for(( i=0;i<${#sed_param_array[@]};i++)) do
         echo ${sed_param_array[$i]}
         let srcIndex=$i
         let targetIndex=$i+1
-        sed "${sed_param_array[$i]}" ../out/$subpath/tmp/interfacelist$srcIndex > ../out/$subpath/tmp/interfacelist$targetIndex
+        sed "${sed_param_array[$i]}" ../out/tmp/$subpath/tmp/interfacelist$srcIndex > ../out/tmp/$subpath/tmp/interfacelist$targetIndex
 done
 
 echo 去重
-sort ../out/$subpath/tmp/interfacelist12 | uniq > ../out/$subpath/tmp/interfacelist13
+sort ../out/tmp/$subpath/tmp/interfacelist12 | uniq > ../out/tmp/$subpath/tmp/interfacelist13
 
 echo 去掉结尾的.json
-sed 's/\.json$//g' ../out/$subpath/tmp/interfacelist13 > ../out/$subpath/tmp/interfacelist14
-sed 's/\.action$//g' ../out/$subpath/tmp/interfacelist14 > ../out/$subpath/tmp/interfacelist15
+sed 's/\.json$//g' ../out/tmp/$subpath/tmp/interfacelist13 > ../out/tmp/$subpath/tmp/interfacelist14
+sed 's/\.action$//g' ../out/tmp/$subpath/tmp/interfacelist14 > ../out/tmp/$subpath/tmp/interfacelist15
 
 ##################
 # 去掉${*}的部分,这种部分是Jmeter引用参数的形式，降低Jmeter与Yapi参数不一致带来匹配偏差
 # 这个必须放在处理/之后，因为这样处理过之后可能会出现尾部/、//、///的情况，这个特征与处理yapi一致，保障匹配的准确性
-sed 's/\${[^}]*}//g' ../out/$subpath/tmp/interfacelist15 > ../out/$subpath/tmp/interfacelist16
+sed 's/\${[^}]*}//g' ../out/tmp/$subpath/tmp/interfacelist15 > ../out/tmp/$subpath/tmp/interfacelist16
 
 ##################
 # 按项目处理jmeter接口中多余的部分
@@ -139,7 +139,7 @@ for(( i=0;i<${#my_array[@]};i++)) do
     let interfacelistsource=i+16
     let interfacelistresult=i+17
     keystr=${my_array[$i]}
-    sed 's/^\/'${keystr}'\//\//g' ../out/$subpath/tmp/interfacelist${interfacelistsource} > ../out/$subpath/tmp/interfacelist${interfacelistresult}
+    sed 's/^\/'${keystr}'\//\//g' ../out/tmp/$subpath/tmp/interfacelist${interfacelistsource} > ../out/tmp/$subpath/tmp/interfacelist${interfacelistresult}
 done;
 
 
@@ -148,7 +148,7 @@ echo ${latestIndex}
 let srcIndex=${latestIndex}
 let targetIndex=${latestIndex}+1
 ##################
-sed 's/^\/enterprise\/manage\//\//g' ../out/$subpath/tmp/interfacelist${srcIndex} > ../out/$subpath/tmp/interfacelist${targetIndex}
+sed 's/^\/enterprise\/manage\//\//g' ../out/tmp/$subpath/tmp/interfacelist${srcIndex} > ../out/tmp/$subpath/tmp/interfacelist${targetIndex}
 ##################
 
-sort ../out/$subpath/tmp/interfacelist${targetIndex} | uniq > $target_file_path
+sort ../out/tmp/$subpath/tmp/interfacelist${targetIndex} | uniq > $target_file_path
