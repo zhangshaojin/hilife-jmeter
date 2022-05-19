@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# 该脚本用于从yapidoc生成jmeter测试脚本
+
 if [ -d "../out/auto-gen-jmeter" ]; then
     rm -rf ../out/auto-gen-jmeter
 fi
