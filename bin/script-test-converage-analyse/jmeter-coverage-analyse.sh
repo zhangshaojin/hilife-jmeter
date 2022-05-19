@@ -47,12 +47,12 @@ if [ -f "../src/test/jmeter/script/transactionmanage/hilife-Template/apiTest_tem
 fi
 
 # #############################################################
-# # 结果存档
-# datetime=`date +%Y%m%d%H%m%s`
-# if [[ ! -d "../analyse/$datetime" ]]; then
-#     mkdir -p ../analyse/$datetime
-# fi
-# rsync -avt --exclude-from=./conf/test-converage-archive-exclude.list ../out/ ../analyse/$datetime
+# 结果存档
+datetime=`date +%Y%m%d%H%m%s`
+if [[ ! -d "../analyse/$datetime" ]]; then
+    mkdir -p ../analyse/$datetime
+fi
+rsync -avt --exclude-from=./conf/test-converage-archive-exclude.list ../out/ ../analyse/$datetime
 
-# zip  -r ../analyse/$datetime/out.zip ../out
+zip  -r ../analyse/$datetime/out.zip ../out -x "../out/tmp/**"
 # ############################################################
