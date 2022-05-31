@@ -20,4 +20,6 @@ if [ ! -d "../out/apitest/analyse-result" ]; then
 fi
 
 find ../out/apitest | grep "\.html$" | xargs python ./script-apitest-auto-analyse/report-analyse.py > ../out/apitest/analyse-result/report.log
+
+cat ../out/apitest/analyse-result/report.log | sed "s/..\/out\/apitest\///g" | sed "s/\/builds\//,/g" | sed "s/\/archive\/target\/jmeter\/html_report\//,/g" > ../out/apitest/analyse-result/report-sed.log
 # 生成测试分析报告 finish
